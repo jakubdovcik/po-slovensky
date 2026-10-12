@@ -1,0 +1,336 @@
+{
+  "version": 1,
+  "stages": [
+    { "id": "sounds", "title": "Sounds", "subtitle": "Read any Slovak word out loud" },
+    { "id": "survival", "title": "Survival Slovak", "subtitle": "Phrases you'll use this week" }
+  ],
+  "units": [
+    {
+      "id": "s1", "stage": "sounds", "title": "Vowels & stress",
+      "intro": "Slovak is spelled the way it sounds. Learn the sounds once and you can read anything. Vowels are short and pure, with no English-style glide (Slovak <b>o</b> never turns into \"ow\"). And stress is <b>always on the first syllable</b>.",
+      "items": [
+        { "id": "s_a", "kind": "sound", "sk": "a", "en": "short 'a', like in 'father' but quicker",
+          "examples": [{ "sk": "mama", "en": "mom" }, { "sk": "mapa", "en": "map" }] },
+        { "id": "s_e", "kind": "sound", "sk": "e", "en": "like 'e' in 'bet'",
+          "examples": [{ "sk": "meno", "en": "name" }, { "sk": "pero", "en": "pen" }] },
+        { "id": "s_iy", "kind": "sound", "sk": "i / y", "en": "both are a short 'ee', exactly the same sound",
+          "explain": "<b>i</b> and <b>y</b> sound identical. The difference is only spelling (and it decides whether d, t, n, l before it are soft, which comes later).",
+          "examples": [{ "sk": "pivo", "en": "beer" }, { "sk": "byt", "en": "apartment" }, { "sk": "syn", "en": "son" }] },
+        { "id": "s_o", "kind": "sound", "sk": "o", "en": "like 'o' in 'more', short, never 'ow'",
+          "examples": [{ "sk": "voda", "en": "water" }, { "sk": "okno", "en": "window" }] },
+        { "id": "s_u", "kind": "sound", "sk": "u", "en": "like 'oo' in 'book'",
+          "examples": [{ "sk": "ruka", "en": "hand" }, { "sk": "ucho", "en": "ear" }] },
+        { "id": "s_stress", "kind": "sound", "sk": "STRESS", "en": "always the first syllable",
+          "explain": "No exceptions: <b>BRA</b>-ti-sla-va, <b>A</b>-me-ri-ka, <b>TE</b>-le-fón. English speakers tend to stress the middle (a-ME-ri-ka), so watch out for that.",
+          "examples": [{ "sk": "Bratislava", "en": "Bratislava" }, { "sk": "Amerika", "en": "America" }, { "sk": "Slovensko", "en": "Slovakia" }] }
+      ]
+    },
+    {
+      "id": "s2", "stage": "sounds", "title": "Long vowels",
+      "intro": "The accent mark <b>´</b> (called <i>dĺžeň</i>) means <b>hold the vowel about twice as long</b>. It does not mean stress, and the length can change a word's meaning completely.",
+      "items": [
+        { "id": "s_long", "kind": "sound", "sk": "á é í ý ó ú", "en": "same vowel, held twice as long",
+          "examples": [{ "sk": "pán", "en": "Mr. / sir" }, { "sk": "dobrý", "en": "good" }, { "sk": "dúha", "en": "rainbow" }, { "sk": "víno", "en": "wine" }] },
+        { "id": "s_lenstress", "kind": "sound", "sk": "length ≠ stress", "en": "a long vowel can sit in an unstressed syllable",
+          "explain": "In <b>te</b>-le-<i>fón</i> the stress is still on the first syllable, but the last vowel is held long. Get both right and you'll sound very natural.",
+          "examples": [{ "sk": "telefón", "en": "phone" }, { "sk": "banán", "en": "banana" }, { "sk": "ďakujem", "en": "thank you" }] }
+      ],
+      "pairs": [
+        { "a": "pas", "b": "pás", "ea": "passport", "eb": "belt / waist" },
+        { "a": "sud", "b": "súd", "ea": "barrel", "eb": "court" },
+        { "a": "rada", "b": "ráda", "ea": "advice", "eb": "glad (she is)" },
+        { "a": "mala", "b": "malá", "ea": "she had", "eb": "small (f)" },
+        { "a": "vina", "b": "vína", "ea": "guilt", "eb": "wines" }
+      ]
+    },
+    {
+      "id": "s3", "stage": "sounds", "title": "Special vowels",
+      "intro": "Slovak has a few vowels English doesn't: <b>ä</b>, <b>ô</b>, and the gliding pairs <b>ia, ie, iu</b>.",
+      "items": [
+        { "id": "s_ae", "kind": "sound", "sk": "ä", "en": "officially 'a' as in 'cat', but most people just say 'e'",
+          "examples": [{ "sk": "päť", "en": "five" }, { "sk": "mäso", "en": "meat" }, { "sk": "deväť", "en": "nine" }] },
+        { "id": "s_uo", "kind": "sound", "sk": "ô", "en": "a quick 'uo' glide, like 'wo' in 'woah'",
+          "examples": [{ "sk": "kôň", "en": "horse" }, { "sk": "stôl", "en": "table" }, { "sk": "môj", "en": "my (m)" }] },
+        { "id": "s_ie", "kind": "sound", "sk": "ia / ie / iu", "en": "start with a 'y' sound: 'ya', 'ye', 'yu'",
+          "examples": [{ "sk": "piatok", "en": "Friday" }, { "sk": "mlieko", "en": "milk" }, { "sk": "viem", "en": "I know" }] }
+      ]
+    },
+    {
+      "id": "s4", "stage": "sounds", "title": "Háček sounds",
+      "intro": "The little hook <b>ˇ</b> (called <i>mäkčeň</i>) turns hissy sounds into hushy ones. These four are easy for English speakers, because you already have them.",
+      "items": [
+        { "id": "s_ch2", "kind": "sound", "sk": "č", "en": "like 'ch' in 'church'",
+          "examples": [{ "sk": "čaj", "en": "tea" }, { "sk": "čo", "en": "what" }, { "sk": "človek", "en": "person" }] },
+        { "id": "s_sh", "kind": "sound", "sk": "š", "en": "like 'sh' in 'shoe'",
+          "examples": [{ "sk": "šesť", "en": "six" }, { "sk": "škola", "en": "school" }, { "sk": "šaty", "en": "dress" }] },
+        { "id": "s_zh", "kind": "sound", "sk": "ž", "en": "like 's' in 'measure'",
+          "examples": [{ "sk": "žena", "en": "woman" }, { "sk": "život", "en": "life" }, { "sk": "ruža", "en": "rose" }] },
+        { "id": "s_dzh", "kind": "sound", "sk": "dž", "en": "like 'j' in 'jam'",
+          "examples": [{ "sk": "džús", "en": "juice" }, { "sk": "džem", "en": "jam" }] }
+      ],
+      "pairs": [
+        { "a": "sál", "b": "šál", "ea": "hall", "eb": "scarf" },
+        { "a": "koza", "b": "koža", "ea": "goat", "eb": "skin / leather" }
+      ]
+    },
+    {
+      "id": "s5", "stage": "sounds", "title": "Soft consonants",
+      "intro": "<b>ď ť ň ľ</b> are made by pressing the <b>middle of your tongue</b> against the roof of your mouth. Say \"yes\" and notice where your tongue is. That's the spot. This is the most Slovak-sounding part of Slovak.",
+      "items": [
+        { "id": "s_dsoft", "kind": "sound", "sk": "ď", "en": "a 'd' with a 'y' squeezed in, like British 'during'",
+          "examples": [{ "sk": "ďakujem", "en": "thank you" }, { "sk": "ďaleko", "en": "far" }] },
+        { "id": "s_tsoft", "kind": "sound", "sk": "ť", "en": "a 't' with a 'y' squeezed in, like British 'tune'",
+          "examples": [{ "sk": "päť", "en": "five" }, { "sk": "byť", "en": "to be" }] },
+        { "id": "s_nsoft", "kind": "sound", "sk": "ň", "en": "like 'ny' in 'canyon'",
+          "examples": [{ "sk": "deň", "en": "day" }, { "sk": "kôň", "en": "horse" }, { "sk": "jeseň", "en": "autumn" }] },
+        { "id": "s_lsoft", "kind": "sound", "sk": "ľ", "en": "like 'lli' in 'million'",
+          "examples": [{ "sk": "ľúbim", "en": "I love" }, { "sk": "ľudia", "en": "people" }, { "sk": "veľký", "en": "big" }] },
+        { "id": "s_softrule", "kind": "sound", "sk": "de te ne le · di ti ni li", "en": "soft automatically before e and i",
+          "explain": "Before <b>e</b> and <b>i</b>, the letters d, t, n, l are usually pronounced soft, with no háček needed: <i>deti</i> sounds like \"ďeťi\". Before <b>y</b> they stay hard. Exceptions: <b>ten</b> (that), <b>jeden</b> (one), and most foreign words like <b>telefón</b>.",
+          "examples": [{ "sk": "deti", "en": "children" }, { "sk": "teta", "en": "aunt" }, { "sk": "nie", "en": "no" }, { "sk": "leto", "en": "summer" }] }
+      ],
+      "pairs": [
+        { "a": "byt", "b": "byť", "ea": "apartment", "eb": "to be" },
+        { "a": "lavica", "b": "ľavica", "ea": "bench", "eb": "left hand" },
+        { "a": "lak", "b": "ľak", "ea": "varnish", "eb": "fright" }
+      ]
+    },
+    {
+      "id": "s6", "stage": "sounds", "title": "c, ch, h, j, r, dz",
+      "intro": "A few letters look familiar but sound different from English. These are the classic beginner traps.",
+      "items": [
+        { "id": "s_c", "kind": "sound", "sk": "c", "en": "always 'ts', like in 'cats'",
+          "examples": [{ "sk": "cukor", "en": "sugar" }, { "sk": "ulica", "en": "street" }, { "sk": "noc", "en": "night" }] },
+        { "id": "s_chh", "kind": "sound", "sk": "ch", "en": "a raspy 'h', like Scottish 'loch'",
+          "examples": [{ "sk": "chlieb", "en": "bread" }, { "sk": "chata", "en": "cottage" }, { "sk": "ucho", "en": "ear" }] },
+        { "id": "s_h", "kind": "sound", "sk": "h", "en": "a soft, voiced 'h' from the throat",
+          "examples": [{ "sk": "hora", "en": "mountain" }, { "sk": "hlava", "en": "head" }, { "sk": "kniha", "en": "book" }] },
+        { "id": "s_j", "kind": "sound", "sk": "j", "en": "like 'y' in 'yes'",
+          "examples": [{ "sk": "jablko", "en": "apple" }, { "sk": "ja", "en": "I" }, { "sk": "moja", "en": "my (f)" }] },
+        { "id": "s_r", "kind": "sound", "sk": "r", "en": "a tapped or rolled 'r', like Spanish",
+          "examples": [{ "sk": "ryba", "en": "fish" }, { "sk": "raz", "en": "once" }, { "sk": "sestra", "en": "sister" }] },
+        { "id": "s_dz", "kind": "sound", "sk": "dz", "en": "like 'ds' in 'kids'",
+          "examples": [{ "sk": "medzi", "en": "between" }, { "sk": "cudzí", "en": "foreign" }] }
+      ],
+      "pairs": [
+        { "a": "hlad", "b": "chlad", "ea": "hunger", "eb": "coolness" }
+      ]
+    },
+    {
+      "id": "s7", "stage": "sounds", "title": "Clusters & endings",
+      "intro": "Two last things and you can read Slovak: <b>r</b> and <b>l</b> can act as vowels, and sounds at the end of a word lose their \"buzz\".",
+      "items": [
+        { "id": "s_syll", "kind": "sound", "sk": "r, l as vowels", "en": "words with no vowel at all",
+          "explain": "In <b>vlk</b> and <b>krk</b>, the r or l carries the syllable. Just glide straight through, and don't add an 'uh'.",
+          "examples": [{ "sk": "vlk", "en": "wolf" }, { "sk": "krk", "en": "neck" }, { "sk": "prst", "en": "finger" }, { "sk": "slza", "en": "tear (crying)" }] },
+        { "id": "s_devoice", "kind": "sound", "sk": "b→p  d→t  z→s  ž→š", "en": "word endings go voiceless",
+          "explain": "At the end of a word, buzzy sounds lose their buzz: <b>chlieb</b> sounds like \"chliep\", <b>hrad</b> like \"hrat\", <b>muž</b> like \"muš\". Spelling doesn't change, only sound.",
+          "examples": [{ "sk": "chlieb", "en": "bread" }, { "sk": "hrad", "en": "castle" }, { "sk": "muž", "en": "man" }] },
+        { "id": "s_vend", "kind": "sound", "sk": "-v", "en": "at the end of a syllable, v sounds like a short 'w'",
+          "examples": [{ "sk": "domov", "en": "home(wards)" }, { "sk": "lev", "en": "lion" }, { "sk": "pravda", "en": "truth" }] }
+      ]
+    },
+
+    {
+      "id": "u1", "stage": "survival", "title": "Ahoj! Greetings",
+      "intro": "Slovak has two words for \"you\": <b>ty</b> for friends, family and kids, and <b>vy</b> for strangers, elders and formal situations. With your boyfriend's parents, start with <b>vy</b> until they offer <b>ty</b>.",
+      "items": [
+        { "id": "p_ahoj", "sk": "Ahoj", "en": "Hi / Bye (informal)" },
+        { "id": "p_cau", "sk": "Čau", "en": "Hey / See ya (casual)" },
+        { "id": "p_dobryden", "sk": "Dobrý deň", "en": "Hello (formal)", "note": "Literally \"good day\". Use it in shops and with anyone older." },
+        { "id": "p_rano", "sk": "Dobré ráno", "en": "Good morning" },
+        { "id": "p_vecer", "sk": "Dobrý večer", "en": "Good evening" },
+        { "id": "p_noc", "sk": "Dobrú noc", "en": "Good night" },
+        { "id": "p_dovidenia", "sk": "Dovidenia", "en": "Goodbye (formal)" },
+        { "id": "p_akomas", "sk": "Ako sa máš?", "en": "How are you? (informal)" },
+        { "id": "p_akomate", "sk": "Ako sa máte?", "en": "How are you? (formal)" },
+        { "id": "p_mamsadobre", "sk": "Mám sa dobre.", "en": "I'm doing well." },
+        { "id": "p_aty", "sk": "A ty?", "en": "And you? (informal)" },
+        { "id": "p_dakujem", "sk": "Ďakujem", "en": "Thank you" },
+        { "id": "p_prosim", "sk": "Prosím", "en": "Please / You're welcome", "note": "Super versatile: please, you're welcome, here you go, and \"pardon?\"" },
+        { "id": "p_niejezaco", "sk": "Nie je za čo.", "en": "Don't mention it." },
+        { "id": "p_ano", "sk": "Áno", "en": "Yes", "note": "In casual speech you'll often hear just \"hej\"." },
+        { "id": "p_nie", "sk": "Nie", "en": "No" },
+        { "id": "p_prepac", "sk": "Prepáč", "en": "Sorry (informal)" },
+        { "id": "p_prepacte", "sk": "Prepáčte", "en": "Excuse me / Sorry (formal)" }
+      ]
+    },
+    {
+      "id": "u2", "stage": "survival", "title": "Meeting people",
+      "intro": "Some words change depending on who is speaking. A woman says <b>Som Američanka</b>, a man says <b>Som Američan</b>. Where it matters, these lessons use the version for a woman speaking.",
+      "items": [
+        { "id": "p_volas", "sk": "Ako sa voláš?", "en": "What's your name? (informal)" },
+        { "id": "p_volamsa", "sk": "Volám sa Anna.", "en": "My name is Anna.", "note": "Swap in your own name!" },
+        { "id": "p_tesima", "sk": "Teší ma.", "en": "Nice to meet you." },
+        { "id": "p_odkial", "sk": "Odkiaľ si?", "en": "Where are you from? (informal)" },
+        { "id": "p_zameriky", "sk": "Som z Ameriky.", "en": "I'm from America." },
+        { "id": "p_americanka", "sk": "Som Američanka.", "en": "I'm American. (woman speaking)" },
+        { "id": "p_poanglicky", "sk": "Hovoríte po anglicky?", "en": "Do you speak English? (formal)" },
+        { "id": "p_trochu", "sk": "Hovorím trochu po slovensky.", "en": "I speak a little Slovak." },
+        { "id": "p_nerozumiem", "sk": "Nerozumiem.", "en": "I don't understand." },
+        { "id": "p_zopakovat", "sk": "Môžete to zopakovať?", "en": "Can you repeat that? (formal)" },
+        { "id": "p_pomalsie", "sk": "Pomalšie, prosím.", "en": "Slower, please." },
+        { "id": "p_akosapovie", "sk": "Ako sa to povie po slovensky?", "en": "How do you say that in Slovak?" },
+        { "id": "p_znamena", "sk": "Čo to znamená?", "en": "What does that mean?" },
+        { "id": "p_neviem", "sk": "Neviem.", "en": "I don't know." }
+      ]
+    },
+    {
+      "id": "u3", "stage": "survival", "title": "Rodina · Family",
+      "intro": "Every Slovak noun is <span class=\"g g-m\">masculine</span>, <span class=\"g g-f\">feminine</span> or <span class=\"g g-n\">neuter</span>. The ending usually tells you which: consonant → masculine, <b>-a</b> → feminine, <b>-o / -e</b> → neuter. \"My\" changes to match: <b>môj</b> brat, <b>moja</b> mama, <b>moje</b> dieťa.",
+      "items": [
+        { "id": "w_rodina", "sk": "rodina", "en": "family", "g": "f" },
+        { "id": "w_mama", "sk": "mama", "en": "mom", "g": "f" },
+        { "id": "w_otec", "sk": "otec", "en": "father", "g": "m" },
+        { "id": "w_rodicia", "sk": "rodičia", "en": "parents", "g": "pl" },
+        { "id": "w_brat", "sk": "brat", "en": "brother", "g": "m" },
+        { "id": "w_sestra", "sk": "sestra", "en": "sister", "g": "f" },
+        { "id": "w_babka", "sk": "babka", "en": "grandma", "g": "f" },
+        { "id": "w_dedko", "sk": "dedko", "en": "grandpa", "g": "m", "note": "Ends in -o but masculine, because it's a man. Meaning beats ending." },
+        { "id": "w_priatel", "sk": "priateľ", "en": "boyfriend / friend (m)", "g": "m" },
+        { "id": "w_priatelka", "sk": "priateľka", "en": "girlfriend / friend (f)", "g": "f" },
+        { "id": "w_dieta", "sk": "dieťa", "en": "child", "g": "n" },
+        { "id": "w_deti", "sk": "deti", "en": "children", "g": "pl" },
+        { "id": "w_teta", "sk": "teta", "en": "aunt", "g": "f" },
+        { "id": "w_ujo", "sk": "ujo", "en": "uncle", "g": "m" },
+        { "id": "w_pes", "sk": "pes", "en": "dog", "g": "m" },
+        { "id": "p_mojamama", "sk": "Toto je moja mama.", "en": "This is my mom." },
+        { "id": "p_mojbrat", "sk": "Toto je môj brat.", "en": "This is my brother." }
+      ]
+    },
+    {
+      "id": "u4", "stage": "survival", "title": "Jedlo · Food & drink",
+      "intro": "When you order or want something, feminine words ending in <b>-a</b> switch to <b>-u</b>: <i>káva</i> → <b>Prosím si kávu</b>. That's your first taste of Slovak cases. No need to master it yet, just notice it.",
+      "items": [
+        { "id": "w_chlieb", "sk": "chlieb", "en": "bread", "g": "m" },
+        { "id": "w_voda", "sk": "voda", "en": "water", "g": "f" },
+        { "id": "w_kava", "sk": "káva", "en": "coffee", "g": "f" },
+        { "id": "w_caj", "sk": "čaj", "en": "tea", "g": "m" },
+        { "id": "w_pivo", "sk": "pivo", "en": "beer", "g": "n" },
+        { "id": "w_vino", "sk": "víno", "en": "wine", "g": "n" },
+        { "id": "w_mlieko", "sk": "mlieko", "en": "milk", "g": "n" },
+        { "id": "w_syr", "sk": "syr", "en": "cheese", "g": "m" },
+        { "id": "w_maso", "sk": "mäso", "en": "meat", "g": "n" },
+        { "id": "w_polievka", "sk": "polievka", "en": "soup", "g": "f" },
+        { "id": "w_jablko", "sk": "jablko", "en": "apple", "g": "n" },
+        { "id": "p_mamhlad", "sk": "Mám hlad.", "en": "I'm hungry.", "note": "Literally \"I have hunger.\"" },
+        { "id": "p_chuti", "sk": "Chutí mi to.", "en": "I like it. (the taste)" },
+        { "id": "p_vyborne", "sk": "Je to výborné!", "en": "It's delicious!" },
+        { "id": "p_dobruchut", "sk": "Dobrú chuť!", "en": "Enjoy your meal!" },
+        { "id": "p_nazdravie", "sk": "Na zdravie!", "en": "Cheers! / Bless you!" },
+        { "id": "p_kavu", "sk": "Prosím si kávu.", "en": "A coffee, please." },
+        { "id": "p_uznie", "sk": "Už nie, ďakujem.", "en": "No more, thank you.", "note": "Essential at a Slovak grandma's table. (It may not work.)" }
+      ]
+    },
+    {
+      "id": "u5", "stage": "survival", "title": "Doma · At home",
+      "intro": "Watch for the gender exceptions here: <b>posteľ</b> ends in a consonant but is feminine, and <b>dvere</b> (door) is always plural, even for one door.",
+      "items": [
+        { "id": "w_dom", "sk": "dom", "en": "house", "g": "m" },
+        { "id": "w_byt", "sk": "byt", "en": "apartment", "g": "m" },
+        { "id": "w_izba", "sk": "izba", "en": "room", "g": "f" },
+        { "id": "w_kuchyna", "sk": "kuchyňa", "en": "kitchen", "g": "f" },
+        { "id": "w_stol", "sk": "stôl", "en": "table", "g": "m" },
+        { "id": "w_stolicka", "sk": "stolička", "en": "chair", "g": "f" },
+        { "id": "w_postel", "sk": "posteľ", "en": "bed", "g": "f" },
+        { "id": "w_okno", "sk": "okno", "en": "window", "g": "n" },
+        { "id": "w_dvere", "sk": "dvere", "en": "door", "g": "pl" },
+        { "id": "w_kluc", "sk": "kľúč", "en": "key", "g": "m" },
+        { "id": "w_auto", "sk": "auto", "en": "car", "g": "n" },
+        { "id": "p_kdejekluc", "sk": "Kde je kľúč?", "en": "Where is the key?" },
+        { "id": "p_kdesi", "sk": "Kde si?", "en": "Where are you? (informal)" },
+        { "id": "p_somdoma", "sk": "Som doma.", "en": "I'm at home." },
+        { "id": "w_tu", "sk": "tu", "en": "here" },
+        { "id": "w_tam", "sk": "tam", "en": "there" }
+      ]
+    },
+    {
+      "id": "u6", "stage": "survival", "title": "Čísla · Numbers",
+      "intro": "\"One\" and \"two\" change with gender: <b>jeden</b> brat, <b>jedna</b> sestra, <b>jedno</b> pivo · <b>dva</b> (m) / <b>dve</b> (f, n). From three up, no changes.",
+      "items": [
+        { "id": "n_0", "sk": "nula", "en": "zero (0)" },
+        { "id": "n_1", "sk": "jeden", "en": "one (1)" },
+        { "id": "n_2", "sk": "dva", "en": "two (2)" },
+        { "id": "n_3", "sk": "tri", "en": "three (3)" },
+        { "id": "n_4", "sk": "štyri", "en": "four (4)" },
+        { "id": "n_5", "sk": "päť", "en": "five (5)" },
+        { "id": "n_6", "sk": "šesť", "en": "six (6)" },
+        { "id": "n_7", "sk": "sedem", "en": "seven (7)" },
+        { "id": "n_8", "sk": "osem", "en": "eight (8)" },
+        { "id": "n_9", "sk": "deväť", "en": "nine (9)" },
+        { "id": "n_10", "sk": "desať", "en": "ten (10)" },
+        { "id": "n_20", "sk": "dvadsať", "en": "twenty (20)" },
+        { "id": "n_100", "sk": "sto", "en": "one hundred (100)" },
+        { "id": "p_kolkostoji", "sk": "Koľko to stojí?", "en": "How much does it cost?" },
+        { "id": "p_kolkorokov", "sk": "Koľko máš rokov?", "en": "How old are you? (informal)", "note": "Literally \"How many years do you have?\"" },
+        { "id": "p_tridsat", "sk": "Mám tridsať rokov.", "en": "I'm thirty years old." }
+      ]
+    },
+    {
+      "id": "u7", "stage": "survival", "title": "Láska · Feelings & love",
+      "intro": "Feelings change form with the speaker: a woman says <b>Som šťastná</b> and <b>Mám ťa rada</b>, a man says <b>Som šťastný</b> and <b>Mám ťa rád</b>. These lessons use the version for a woman speaking.",
+      "items": [
+        { "id": "p_lubimta", "sk": "Ľúbim ťa.", "en": "I love you." },
+        { "id": "p_mamtarada", "sk": "Mám ťa rada.", "en": "I really like you / love you. (woman speaking)", "note": "Warm and a little softer than Ľúbim ťa. Used with family too." },
+        { "id": "p_chybasmi", "sk": "Chýbaš mi.", "en": "I miss you.", "note": "Literally \"You are missing to me.\"" },
+        { "id": "p_stastna", "sk": "Som šťastná.", "en": "I'm happy. (woman speaking)" },
+        { "id": "p_unavena", "sk": "Som unavená.", "en": "I'm tired. (woman speaking)" },
+        { "id": "p_zima", "sk": "Je mi zima.", "en": "I'm cold.", "note": "Literally \"It is winter to me.\"" },
+        { "id": "p_teplo", "sk": "Je mi teplo.", "en": "I'm warm / hot." },
+        { "id": "p_smutno", "sk": "Je mi smutno.", "en": "I feel sad." },
+        { "id": "w_zlatko", "sk": "zlatko", "en": "sweetie", "note": "Literally \"little gold\"." },
+        { "id": "w_milacik", "sk": "miláčik", "en": "darling" },
+        { "id": "p_pusu", "sk": "Daj mi pusu.", "en": "Give me a kiss." },
+        { "id": "p_zlaty", "sk": "Si zlatý.", "en": "You're a sweetheart. (to a man)" },
+        { "id": "p_tesimsa", "sk": "Teším sa na teba.", "en": "I'm looking forward to seeing you." },
+        { "id": "p_poriadku", "sk": "Všetko v poriadku?", "en": "Is everything OK?" },
+        { "id": "p_pohode", "sk": "V pohode.", "en": "It's fine / No worries." }
+      ]
+    },
+    {
+      "id": "u8", "stage": "survival", "title": "Čas · Time & days",
+      "intro": "Days of the week aren't capitalised in Slovak. Most are simply named by number: <b>utorok</b> (2nd), <b>štvrtok</b> (4th), <b>piatok</b> (5th). <b>Streda</b> means \"middle\".",
+      "items": [
+        { "id": "w_dnes", "sk": "dnes", "en": "today" },
+        { "id": "w_zajtra", "sk": "zajtra", "en": "tomorrow" },
+        { "id": "w_vcera", "sk": "včera", "en": "yesterday" },
+        { "id": "w_teraz", "sk": "teraz", "en": "now" },
+        { "id": "w_neskor", "sk": "neskôr", "en": "later" },
+        { "id": "w_rano", "sk": "ráno", "en": "morning", "g": "n" },
+        { "id": "w_vecer", "sk": "večer", "en": "evening", "g": "m" },
+        { "id": "w_tyzden", "sk": "týždeň", "en": "week", "g": "m" },
+        { "id": "d_po", "sk": "pondelok", "en": "Monday", "g": "m" },
+        { "id": "d_ut", "sk": "utorok", "en": "Tuesday", "g": "m" },
+        { "id": "d_st", "sk": "streda", "en": "Wednesday", "g": "f" },
+        { "id": "d_stv", "sk": "štvrtok", "en": "Thursday", "g": "m" },
+        { "id": "d_pi", "sk": "piatok", "en": "Friday", "g": "m" },
+        { "id": "d_so", "sk": "sobota", "en": "Saturday", "g": "f" },
+        { "id": "d_ne", "sk": "nedeľa", "en": "Sunday", "g": "f" },
+        { "id": "p_kolkojehodin", "sk": "Koľko je hodín?", "en": "What time is it?" },
+        { "id": "p_vidimesa", "sk": "Vidíme sa zajtra.", "en": "See you tomorrow." },
+        { "id": "p_mascas", "sk": "Máš čas?", "en": "Do you have time? (informal)" }
+      ]
+    },
+    {
+      "id": "u9", "stage": "survival", "title": "Vonku · Out and about",
+      "intro": "Enough to get around a Slovak town, order in a café and pay. In shops, always greet with <b>Dobrý deň</b> when you walk in.",
+      "items": [
+        { "id": "p_zachod", "sk": "Kde je záchod?", "en": "Where is the toilet?", "alt": ["Kde je toaleta?"] },
+        { "id": "p_kdestanica", "sk": "Kde je stanica?", "en": "Where is the station?" },
+        { "id": "w_obchod", "sk": "obchod", "en": "shop", "g": "m" },
+        { "id": "w_lekaren", "sk": "lekáreň", "en": "pharmacy", "g": "f" },
+        { "id": "w_stanica", "sk": "stanica", "en": "station", "g": "f" },
+        { "id": "w_vlak", "sk": "vlak", "en": "train", "g": "m" },
+        { "id": "w_autobus", "sk": "autobus", "en": "bus", "g": "m" },
+        { "id": "w_letisko", "sk": "letisko", "en": "airport", "g": "n" },
+        { "id": "w_ulica", "sk": "ulica", "en": "street", "g": "f" },
+        { "id": "w_vlavo", "sk": "vľavo", "en": "(on the) left" },
+        { "id": "w_vpravo", "sk": "vpravo", "en": "(on the) right" },
+        { "id": "w_rovno", "sk": "rovno", "en": "straight ahead" },
+        { "id": "p_ucet", "sk": "Účet, prosím.", "en": "The bill, please." },
+        { "id": "p_kartou", "sk": "Môžem platiť kartou?", "en": "Can I pay by card?" },
+        { "id": "p_pomoc", "sk": "Pomoc!", "en": "Help!" }
+      ]
+    }
+  ]
+}
