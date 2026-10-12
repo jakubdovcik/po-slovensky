@@ -9,7 +9,7 @@ const DEFAULT_STATE = {
   introduced: {},     // itemId -> day number first seen
   days: {},           // day number -> { done: count of answers }
   pairs: {},          // "a|b" -> { seen, wrong }
-  settings: { newPerDay: 8, voice: 'mix', autoplay: true },
+  settings: { newPerDay: 8, voice: 'mix', autoplay: true, clinicMix: true },
 };
 
 export let state = load();

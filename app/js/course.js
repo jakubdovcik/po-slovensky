@@ -117,6 +117,13 @@ export function makeExercise(id, { easy = false, isNew = false } = {}) {
 
   const words = tokens(item.sk).length;
   let type;
+  if (item.blank) {
+    // Grammar items: fill-the-gap trains the pattern; later, produce the whole sentence.
+    if (isNew || easy) type = 'cloze';
+    else if (s < 6) type = pick(['cloze', 'cloze', words >= 3 ? 'build' : 'read_choose']);
+    else type = pick(['cloze', 'type']);
+    if (type === 'cloze') return { type, item, options: shuffle(item.choices) };
+  }
   if (isNew) type = 'listen_choose';
   else if (easy) type = 'read_choose';
   else if (s < 2) type = pick(['listen_choose', 'read_choose']);
@@ -159,7 +166,19 @@ export function dueIds(t = today()) {
 }
 
 export function newIds(unitId = null) {
-  return course.order.filter((id) => !state.cards[id] && (!unitId || course.items[id].unit === unitId));
+  const unseen = course.order.filter((id) => !state.cards[id] && (!unitId || course.items[id].unit === unitId));
+  if (unitId || !state.settings.clinicMix) return unseen;
+  // Clinic track mixed in: after the sounds stage, every third new item is a clinic one.
+  const stageOf = (id) => course.items[id].stage;
+  if (unseen.some((id) => stageOf(id) === 'sounds')) return unseen;
+  const main = unseen.filter((id) => stageOf(id) !== 'clinic');
+  const clinic = unseen.filter((id) => stageOf(id) === 'clinic');
+  const out = [];
+  while (main.length || clinic.length) {
+    out.push(...main.splice(0, 2));
+    out.push(...clinic.splice(0, 1));
+  }
+  return out;
 }
 
 export function todaySummary() {
@@ -211,8 +230,14 @@ export function buildSession({ unitId = null, extra = false } = {}) {
 
   const rq = reviews.map((id) => ({ kind: 'review', id }));
   queue.push(...rq.splice(0, 3));
+  const lessoned = new Set(started.map((u) => u.id));
   for (let i = 0; i < fresh.length; i += 2) {
     const group = fresh.slice(i, i + 2);
+    // The first time she reaches a unit, show its explanation before the first new item.
+    for (const id of group) {
+      const unit = course.items[id].unit;
+      if (!lessoned.has(unit)) { lessoned.add(unit); queue.push({ kind: 'lesson', unit }); }
+    }
     queue.push(...group.map((id) => ({ kind: 'intro', id })));
     queue.push(...rq.splice(0, 2));
     queue.push(...group.map((id) => ({ kind: 'review', id, isNew: true })));

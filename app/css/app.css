@@ -249,3 +249,16 @@ textarea { width: 100%; margin-top: 12px; border-radius: 12px; border: 1px solid
 .toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom) + 90px); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 15px; z-index: 10; max-width: calc(100% - 32px); text-align: center; animation: rise .18s ease-out; }
 
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* Grammar: lesson tables, gap-fill, highlighted pattern */
+.intro-note table { border-collapse: collapse; margin: 12px 0; font-size: 15px; width: 100%; }
+.intro-note td, .intro-note th { padding: 6px 8px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.intro-note th { font-size: 13px; color: var(--muted); font-weight: 600; }
+.intro-note tr:last-child td { border-bottom: 0; }
+.lesson-title { margin: 0 0 14px; font-size: 26px; }
+.lesson { font-size: 17px; }
+.cloze-sentence { font-size: 28px; font-weight: 650; line-height: 1.5; margin: 18px 0 26px; }
+.gap { display: inline-block; min-width: 72px; border-bottom: 3px solid var(--accent); margin: 0 2px; }
+.gap.filled { color: var(--good); border-color: var(--good); }
+.gap.filled.bad { color: var(--bad); border-color: var(--bad); }
+mark.hl { background: var(--accent-soft); color: var(--accent); border-radius: 6px; padding: 0 4px; }

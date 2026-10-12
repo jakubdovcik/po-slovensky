@@ -8,6 +8,11 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
 - **Sounds first** (7 units): Slovak is spelled the way it sounds, so she learns to read any word aloud.
 - **Ear training**: quick "which did you hear?" drills on contrasts like *pas / pás*, *byt / byť*, *koza / koža*, using multiple voices.
 - **Survival phrases** (9 units, ~140 items): greetings, family, food, love, numbers, time, getting around.
+- **Grammar basics** (8 units): byť, gender agreement, present tense, accusative, past tense, v/na + locative,
+  negation and questions, modal verbs. Each unit opens with a short lesson, then fill-the-gap practice in real sentences.
+- **In the clinic** (6 units, psychiatry): hospital vocabulary, opening an interview, mood and emotions, sleep and
+  appetite, risk assessment, treatment and medication instructions. Mixed into daily lessons by default
+  (every third new item, after the Sounds stage). This can be turned off in Settings.
 - **Spaced repetition** (FSRS-5): every item comes back just before she'd forget it.
 - **Recall over recognition**: exercises move from multiple choice → sentence building → typing as each memory gets stronger.
 - **Not annoying**: no hearts, no streak guilt, a capped daily session, typing that tolerates missing accents, and a "can't type right now" escape hatch.
@@ -20,7 +25,8 @@ Everything is in [`app/data/course.json`](app/data/course.json). Each item:
 { "id": "w_mama", "sk": "mama", "en": "mom", "g": "f", "note": "optional tip" }
 ```
 
-`g` is the gender (`m`, `f`, `n`, `pl`). `alt` lists other accepted answers. After editing, re-run the
+`g` is the gender (`m`, `f`, `n`, `pl`). `alt` lists other accepted answers. Grammar items add
+`"blank"` (the part of the sentence to fill in) and `"choices"` (including the right one). After editing, re-run the
 audio script; it only generates files for new strings.
 
 ## Audio (Azure, free tier)

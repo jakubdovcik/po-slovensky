@@ -229,6 +229,8 @@ function settings() {
         <label>Voice</label>${voices.length ? seg('voice', voiceOptions)
           : '<p class="muted small">Using your device\'s built-in Slovak voice. Higher-quality voices appear here once the audio pack is generated.</p>'}
         <label class="toggle"><span>Play audio automatically</span><input type="checkbox" data-action="toggle" data-key="autoplay" ${s.autoplay ? 'checked' : ''}></label>
+        <label class="toggle"><span>Mix clinic phrases into daily lessons</span><input type="checkbox" data-action="toggle" data-key="clinicMix" ${s.clinicMix ? 'checked' : ''}></label>
+        <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic". Turn off to do it after the grammar instead.</p>
       </section>
       <section class="card form">
         <label>Backup</label>
@@ -260,6 +262,8 @@ function nextExercise() {
   if (q.kind === 'pair') {
     const target = Math.random() < 0.5 ? 'a' : 'b';
     sess.ex = { type: 'pair', pair: q.pair, target };
+  } else if (q.kind === 'lesson') {
+    sess.ex = { type: 'lesson', unit: unitById(q.unit) };
   } else if (q.kind === 'intro') {
     sess.ex = { type: 'intro', item: course.items[q.id] };
   } else {
@@ -355,12 +359,23 @@ function exerciseBody() {
   const ex = sess.ex;
   const it = ex.item;
   switch (ex.type) {
+    case 'lesson':
+      return `<div class="label">New lesson</div><h2 class="lesson-title">${esc(ex.unit.title)}</h2>
+        <div class="card intro-note lesson">${ex.unit.intro}</div>`;
+    case 'cloze': {
+      const gap = sess.fb
+        ? `<span class="gap filled ${sess.fb.result === 'wrong' ? 'bad' : ''}">${esc(it.blank)}</span>`
+        : '<span class="gap">&nbsp;</span>';
+      return `<div class="label">Fill the gap</div><div class="muted">${esc(it.en)}</div>
+        <div class="cloze-sentence" lang="sk">${withBlank(it, gap)}</div>
+        ${optionButtons(ex.options, (o) => o, (o) => o, 'sk')}`;
+    }
     case 'intro':
       if (it.kind === 'sound') {
         return `<div class="label">New sound</div>${soundItemBlock(it)}${micBlock(it.examples[0].sk)}`;
       }
       return `<div class="label">New ${it.kind === 'word' ? 'word' : 'phrase'}</div>
-        <div class="big-sk" lang="sk">${esc(it.sk)} ${genderChip(it.g)}</div>
+        <div class="big-sk" lang="sk">${it.blank ? withBlank(it, `<mark class="hl">${esc(it.blank)}</mark>`) : esc(it.sk)} ${genderChip(it.g)}</div>
         <div class="listen small-listen">${playBtn(it.sk, 'round')}<button class="icon-btn slow" data-action="play-slow" data-text="${attr(it.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
         <div class="big-en">${esc(it.en)}</div>
         ${it.note ? `<p class="note-box">${esc(it.note)}</p>` : ''}
@@ -392,6 +407,12 @@ function exerciseBody() {
       return `<div class="label">Type what you hear</div>${listenBlock()}${sess.fb ? '' : typeBlock('What did you hear?')}`;
   }
   return '';
+}
+
+// The sentence with its grammar slot replaced by `html` (already escaped).
+function withBlank(item, html) {
+  const i = item.sk.indexOf(item.blank);
+  return esc(item.sk.slice(0, i)) + html + esc(item.sk.slice(i + item.blank.length));
 }
 
 function diffAccents(typed, target) {
@@ -431,7 +452,7 @@ function sessionScreen() {
   const pct = Math.round(100 * sess.idx / sess.queue.length);
   let footer = '';
   if (sess.phase === 'feedback') footer = feedbackBar();
-  else if (ex.type === 'intro') footer = '<footer class="actions"><button class="btn primary big" data-action="continue">Got it</button></footer>';
+  else if (ex.type === 'intro' || ex.type === 'lesson') footer = '<footer class="actions"><button class="btn primary big" data-action="continue">Got it</button></footer>';
   else if (ex.type === 'type' || ex.type === 'dictation') footer = '<footer class="actions"><button class="btn primary big" data-action="check-typed">Check</button></footer>';
   else if (ex.type === 'build') footer = `<footer class="actions"><button class="btn primary big" data-action="check-build" ${ex.chosen.length ? '' : 'disabled'}>Check</button></footer>`;
   return `<div class="session">
@@ -504,6 +525,7 @@ const actions = {
     let correctKey;
     if (ex.type === 'pair') correctKey = ex.target;
     else if (ex.type === 'sound_pick') correctKey = ex.target;
+    else if (ex.type === 'cloze') correctKey = ex.item.blank;
     else correctKey = ex.item.id;
     answer(key === correctKey ? 'exact' : 'wrong', { chosen: key, correctKey });
   },

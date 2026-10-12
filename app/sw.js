@@ -1,7 +1,7 @@
 // Offline support. App files: serve from cache, refresh in the background
 // (so updates arrive on the next launch). Audio: cache forever once played.
 
-const SHELL = 'shell-v1';
+const SHELL = 'shell-v2';
 const AUDIO = 'audio-v1';
 const FILES = [
   './', 'index.html', 'manifest.webmanifest', 'css/app.css',
