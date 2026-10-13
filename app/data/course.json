@@ -4,7 +4,8 @@
     {"id":"sounds","title":"Sounds","subtitle":"Read any Slovak word out loud"},
     {"id":"survival","title":"Survival Slovak","subtitle":"Phrases you'll use this week"},
     {"id":"grammar","title":"Grammar basics","subtitle":"The patterns behind the phrases"},
-    {"id":"clinic","title":"In the clinic","subtitle":"Psychiatry in Slovak"}
+    {"id":"clinic","title":"In the clinic","subtitle":"Psychiatry in Slovak"},
+    {"id":"social","title":"Klebety · Party talk","subtitle":"Who's who, and who's with whom"}
   ],
   "units": [
     {
@@ -611,6 +612,123 @@
         {"id":"m6_kontrola","sk":"Uvidíme sa o dva týždne.","en":"I'll see you in two weeks."},
         {"id":"m6_horsie","sk":"Ak sa budete cítiť horšie, zavolajte.","en":"If you feel worse, call."},
         {"id":"m6_otazky","sk":"Máte nejaké otázky?","en":"Do you have any questions?"}
+      ]
+    },
+    {
+      "id": "k1",
+      "stage": "social",
+      "title": "Kto je to? · Who's that?",
+      "intro": "Spotting people across the room. <b>ho</b> = him, <b>ju</b> = her: <i>Poznáš ho?</i> / <i>Poznáš ju?</i>. And the golden rule of Slovak parties: <b>Neotáčaj sa!</b> (Don't turn around!)",
+      "items": [
+        {"id":"k1_chlap","sk":"Kto je ten chlap?","en":"Who's that guy?"},
+        {"id":"k1_saty","sk":"Kto je tá žena v červených šatách?","en":"Who's the woman in the red dress?"},
+        {"id":"k1_poznasho","sk":"Poznáš ho?","en":"Do you know him?","blank":"ho","choices":["ho","ju","ich"]},
+        {"id":"k1_poznasju","sk":"Poznáš ju?","en":"Do you know her?","blank":"ju","choices":["ho","ju","ich"]},
+        {"id":"k1_manzel","sk":"To je jej manžel.","en":"That's her husband."},
+        {"id":"k1_skym","sk":"S kým prišla?","en":"Who did she come with?"},
+        {"id":"k1_sam","sk":"Prišiel sám.","en":"He came alone."},
+        {"id":"k1_odkial","sk":"Odkiaľ ho poznáš?","en":"How do you know him?"},
+        {"id":"k1_vysoky","sk":"Ten vysoký pri bare.","en":"The tall one by the bar."},
+        {"id":"k1_nenapadne","sk":"Pozri sa nenápadne.","en":"Look, but discreetly."},
+        {"id":"k1_neotacaj","sk":"Neotáčaj sa!","en":"Don't turn around!"}
+      ]
+    },
+    {
+      "id": "k2",
+      "stage": "social",
+      "title": "Ako vyzerá · Looks",
+      "intro": "Classic party commentary uses the past tense, so the ending tells you who you're talking about: <b>Schudla</b> (she lost weight) vs <b>Schudol</b> (he lost weight).",
+      "items": [
+        {"id":"k2_vyzera","sk":"Dobre vyzerá.","en":"He / she looks good."},
+        {"id":"k2_schudla","sk":"Schudla.","en":"She's lost weight.","blank":"Schudla","choices":["Schudol","Schudla","Schudli"]},
+        {"id":"k2_pribral","sk":"Pribral.","en":"He's put on weight.","blank":"Pribral","choices":["Pribral","Pribrala","Pribrali"]},
+        {"id":"k2_ostrihala","sk":"Ostrihala sa.","en":"She got a haircut."},
+        {"id":"k2_ucesy","sk":"Má nový účes.","en":"She has a new hairdo."},
+        {"id":"k2_zostarol","sk":"Zostarol.","en":"He's aged."},
+        {"id":"k2_pekna","sk":"Je pekná.","en":"She's pretty."},
+        {"id":"k2_fesak","sk":"Je to fešák.","en":"He's a looker."},
+        {"id":"k2_tehotna","sk":"Je tehotná?","en":"Is she pregnant?"},
+        {"id":"k2_jejsaty","sk":"Videla si jej šaty?","en":"Did you see her dress? (to a woman)"},
+        {"id":"k2_nepristanu","sk":"Tie šaty jej nepristanú.","en":"That dress doesn't suit her."}
+      ]
+    },
+    {
+      "id": "k3",
+      "stage": "social",
+      "title": "Povaha · Personality",
+      "intro": "Adjectives are given in the masculine form (<b>-ý</b>). For a woman, switch to <b>-á</b>: <i>vtipný</i> → <i>vtipná</i>, <i>žiarlivý</i> → <i>žiarlivá</i>.",
+      "items": [
+        {"id":"k3_vtipny","sk":"vtipný","en":"funny"},
+        {"id":"k3_nudny","sk":"nudný","en":"boring"},
+        {"id":"k3_lakomy","sk":"lakomý","en":"stingy"},
+        {"id":"k3_ziarlivy","sk":"žiarlivý","en":"jealous"},
+        {"id":"k3_neprijemny","sk":"nepríjemný","en":"unpleasant"},
+        {"id":"k3_zvlastny","sk":"Je trochu zvláštny.","en":"He's a bit odd."},
+        {"id":"k3_namyslena","sk":"Je strašne namyslená.","en":"She's terribly stuck-up."},
+        {"id":"k3_chvali","sk":"Stále sa chváli.","en":"He's always bragging."},
+        {"id":"k3_tajomstvo","sk":"Nevie udržať tajomstvo.","en":"She can't keep a secret."},
+        {"id":"k3_dusa","sk":"Je to dobrá duša.","en":"He's a good soul."},
+        {"id":"k3_vtipna","sk":"Je veľmi vtipná.","en":"She's really funny.","blank":"vtipná","choices":["vtipný","vtipná","vtipné"]}
+      ]
+    },
+    {
+      "id": "k4",
+      "stage": "social",
+      "title": "Vzťahy · Who's with whom",
+      "intro": "Slovak has two words for \"married\": a man is <b>ženatý</b> (he has a <i>žena</i>), a woman is <b>vydatá</b>. Couples do things with <b>sa</b>: <i>rozišli sa</i> (they broke up), <i>berú sa</i> (they're getting married).",
+      "items": [
+        {"id":"k4_chodia","sk":"Chodia spolu.","en":"They're dating."},
+        {"id":"k4_rozisli","sk":"Rozišli sa.","en":"They broke up."},
+        {"id":"k4_rozviedli","sk":"Rozviedli sa.","en":"They got divorced."},
+        {"id":"k4_zasnubili","sk":"Zasnúbili sa.","en":"They got engaged."},
+        {"id":"k4_beru","sk":"Berú sa.","en":"They're getting married."},
+        {"id":"k4_slobodny","sk":"Je slobodný.","en":"He's single."},
+        {"id":"k4_zenaty","sk":"Je ženatý.","en":"He's married.","blank":"ženatý","choices":["ženatý","vydatý","vydatá"]},
+        {"id":"k4_vydata","sk":"Je vydatá.","en":"She's married.","blank":"vydatá","choices":["ženatá","vydatá","vydatý"]},
+        {"id":"k4_podvadza","sk":"Podvádza ju.","en":"He's cheating on her."},
+        {"id":"k4_novu","sk":"Má novú priateľku.","en":"He has a new girlfriend."},
+        {"id":"k4_mladsia","sk":"Je o dvadsať rokov mladšia.","en":"She's twenty years younger."},
+        {"id":"k4_paci","sk":"Ona sa mu páči.","en":"He's into her.","note":"Literally \"She is pleasing to him.\""},
+        {"id":"k4_flirtuje","sk":"Flirtuje s každým.","en":"She flirts with everyone."}
+      ]
+    },
+    {
+      "id": "k5",
+      "stage": "social",
+      "title": "Počula si? · Did you hear?",
+      "intro": "The essential gossip word is <b>vraj</b>: \"apparently / supposedly / they say\". <i>Vraj dostal výpoveď</i> = Apparently he got fired. It lets you pass on news without vouching for it.",
+      "items": [
+        {"id":"k5_klebety","sk":"klebety","en":"gossip","g":"pl"},
+        {"id":"k5_klebetnica","sk":"klebetnica","en":"a gossip (woman)","g":"f"},
+        {"id":"k5_pocula","sk":"Počula si?","en":"Did you hear? (to a woman)"},
+        {"id":"k5_vraj","sk":"Vraj dostal výpoveď.","en":"Apparently he got fired."},
+        {"id":"k5_hovorisa","sk":"Hovorí sa, že sa rozvádzajú.","en":"People say they're getting divorced."},
+        {"id":"k5_nehovor","sk":"Nehovor!","en":"No way! / You don't say!"},
+        {"id":"k5_fakt","sk":"Fakt?","en":"Really?"},
+        {"id":"k5_snad","sk":"To snáď nie!","en":"Surely not!"},
+        {"id":"k5_ktopovedal","sk":"Kto ti to povedal?","en":"Who told you that?"},
+        {"id":"k5_nikomu","sk":"Ale nikomu to nehovor.","en":"But don't tell anyone."},
+        {"id":"k5_medzinami","sk":"Ostane to medzi nami.","en":"It stays between us."},
+        {"id":"k5_nicnepovedala","sk":"Ja som ti nič nepovedala.","en":"I didn't tell you anything. (woman speaking)"},
+        {"id":"k5_klebeta","sk":"To je len klebeta.","en":"That's just a rumor."}
+      ]
+    },
+    {
+      "id": "k6",
+      "stage": "social",
+      "title": "Pst, ide sem! · Cover story",
+      "intro": "When the subject of the gossip walks over, switch smoothly to small talk. A woman says <b>Rada ťa vidím</b>, a man says <b>Rád ťa vidím</b>.",
+      "items": [
+        {"id":"k6_pst","sk":"Pst, ide sem!","en":"Shh, they're coming over!"},
+        {"id":"k6_temu","sk":"Zmeňme tému.","en":"Let's change the subject."},
+        {"id":"k6_rada","sk":"Rada ťa vidím!","en":"Great to see you! (woman speaking)"},
+        {"id":"k6_dlho","sk":"Dlho sme sa nevideli!","en":"Long time no see!"},
+        {"id":"k6_vyzeras","sk":"Dobre vyzeráš!","en":"You look great!"},
+        {"id":"k6_prekvapenie","sk":"To je ale prekvapenie!","en":"What a surprise!"},
+        {"id":"k6_trapne","sk":"Bolo to trápne.","en":"That was awkward."},
+        {"id":"k6_neuveritelne","sk":"Neuveriteľné!","en":"Unbelievable!"},
+        {"id":"k6_napit","sk":"Musím sa napiť.","en":"I need a drink."},
+        {"id":"k6_podme","sk":"Poďme domov.","en":"Let's go home."}
       ]
     }
   ]
