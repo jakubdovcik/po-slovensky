@@ -5,7 +5,8 @@
     {"id":"survival","title":"Survival Slovak","subtitle":"Phrases you'll use this week"},
     {"id":"grammar","title":"Grammar basics","subtitle":"The patterns behind the phrases"},
     {"id":"clinic","title":"In the clinic","subtitle":"Psychiatry in Slovak"},
-    {"id":"social","title":"Klebety · Party talk","subtitle":"Who's who, and who's with whom"}
+    {"id":"social","title":"Klebety · Party talk","subtitle":"Who's who, and who's with whom"},
+    {"id":"celebrate","title":"Oslavy · Celebrations","subtitle":"Holidays, weddings and toasts"}
   ],
   "units": [
     {
@@ -729,6 +730,69 @@
         {"id":"k6_neuveritelne","sk":"Neuveriteľné!","en":"Unbelievable!"},
         {"id":"k6_napit","sk":"Musím sa napiť.","en":"I need a drink."},
         {"id":"k6_podme","sk":"Poďme domov.","en":"Let's go home."}
+      ]
+    },
+    {
+      "id": "o1",
+      "stage": "celebrate",
+      "title": "Sviatky · Holidays & wishes",
+      "intro": "Slovaks celebrate <b>meniny</b> (name days) almost as much as birthdays. Every day of the calendar has a name, and if it's yours, expect flowers and a toast. The big Christmas celebration is on the evening of the 24th, <b>Štedrý večer</b>.",
+      "items": [
+        {"id":"o1_vsetko","sk":"Všetko najlepšie!","en":"All the best!","note":"The all-purpose wish: birthdays, name days, New Year."},
+        {"id":"o1_narodeniny","sk":"Všetko najlepšie k narodeninám!","en":"Happy birthday!"},
+        {"id":"o1_meniny","sk":"meniny","en":"name day","g":"pl"},
+        {"id":"o1_kedymeniny","sk":"Kedy máš meniny?","en":"When is your name day? (informal)"},
+        {"id":"o1_gratulujem","sk":"Gratulujem!","en":"Congratulations!"},
+        {"id":"o1_darcek","sk":"darček","en":"gift","g":"m"},
+        {"id":"o1_zadarcek","sk":"Ďakujem za darček.","en":"Thank you for the gift."},
+        {"id":"o1_torta","sk":"torta","en":"cake","g":"f"},
+        {"id":"o1_vianoce","sk":"Veselé Vianoce!","en":"Merry Christmas!"},
+        {"id":"o1_stedry","sk":"Štedrý večer","en":"Christmas Eve","g":"m","note":"Literally \"the generous evening\". Carp, potato salad and kapustnica (sauerkraut soup)."},
+        {"id":"o1_novyrok","sk":"Šťastný nový rok!","en":"Happy New Year!"},
+        {"id":"o1_velkanoc","sk":"Veľká noc","en":"Easter","g":"f","note":"Literally \"the great night\"."},
+        {"id":"o1_oblievacka","sk":"oblievačka","en":"Easter Monday water-splashing","g":"f","note":"Boys splash girls with water (sometimes a whole bucket). Girls give them painted eggs or a shot. Yes, really."}
+      ]
+    },
+    {
+      "id": "o2",
+      "stage": "celebrate",
+      "title": "Svadba · The wedding",
+      "intro": "Slovak weddings go all night. Around midnight comes the <b>čepčenie</b>: the bride's veil is replaced with a married woman's cap, while the women sing.",
+      "items": [
+        {"id":"o2_svadba","sk":"svadba","en":"wedding","g":"f"},
+        {"id":"o2_nevesta","sk":"nevesta","en":"bride","g":"f"},
+        {"id":"o2_zenich","sk":"ženích","en":"groom","g":"m"},
+        {"id":"o2_mladomanzelia","sk":"mladomanželia","en":"newlyweds","g":"pl"},
+        {"id":"o2_sobas","sk":"sobáš","en":"wedding ceremony","g":"m"},
+        {"id":"o2_svedok","sk":"svedok","en":"best man","g":"m","note":"Literally \"witness\". The maid of honor is svedkyňa."},
+        {"id":"o2_prsten","sk":"prsteň","en":"ring","g":"m"},
+        {"id":"o2_kytica","sk":"kytica","en":"bouquet","g":"f"},
+        {"id":"o2_cepcenie","sk":"čepčenie","en":"the midnight cap ceremony","g":"n"},
+        {"id":"o2_nadherna","sk":"Nevesta je nádherná.","en":"The bride is gorgeous."},
+        {"id":"o2_stastia","sk":"Veľa šťastia!","en":"Lots of happiness! / Good luck!"},
+        {"id":"o2_zatancujeme","sk":"Zatancujeme si?","en":"Shall we dance?"},
+        {"id":"o2_kytica2","sk":"Kto chytil kyticu?","en":"Who caught the bouquet?"}
+      ]
+    },
+    {
+      "id": "o3",
+      "stage": "celebrate",
+      "title": "Na zdravie! · Toasts",
+      "intro": "When you clink glasses in Slovakia, <b>look the other person in the eyes</b>. Legend says otherwise it's seven years of bad luck (in bed). The hosts will keep refilling, so learn the polite ways to slow down.",
+      "items": [
+        {"id":"o3_pripitok","sk":"prípitok","en":"a toast","g":"m"},
+        {"id":"o3_poharik","sk":"pohárik","en":"a little glass / a shot","g":"m"},
+        {"id":"o3_slivovica","sk":"slivovica","en":"plum brandy","g":"f"},
+        {"id":"o3_borovicka","sk":"borovička","en":"juniper brandy","g":"f"},
+        {"id":"o3_kofola","sk":"kofola","en":"Kofola (Slovak cola)","g":"f"},
+        {"id":"o3_nanas","sk":"Na nás!","en":"To us!"},
+        {"id":"o3_namladomanzelov","sk":"Na mladomanželov!","en":"To the newlyweds!"},
+        {"id":"o3_oci","sk":"Pozri sa mi do očí.","en":"Look me in the eyes. (informal)"},
+        {"id":"o3_estejeden","sk":"Ešte jeden?","en":"One more?"},
+        {"id":"o3_trosku","sk":"Len trošku, prosím.","en":"Just a little, please."},
+        {"id":"o3_nemozem","sk":"Ja už nemôžem.","en":"I can't anymore."},
+        {"id":"o3_dost","sk":"Mám dosť.","en":"I've had enough."},
+        {"id":"o3_soferka","sk":"Som šoférka.","en":"I'm driving. (woman)","note":"The one excuse every Slovak host accepts."}
       ]
     }
   ]

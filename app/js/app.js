@@ -1,13 +1,22 @@
-import { state, save, today, dayToDate, exportState, importState, resetState } from './store.js';
 import {
-  course, loadCourse, unitById, makeExercise, buildSession, gradeItem, recordPair,
+  state, save, today, dayToDate, exportState, importState, resetState, logActivity,
+  profiles, switchProfile, addProfile, deleteProfile,
+} from './store.js';
+import {
+  course, loadCourse, unitById, unitProgress, makeExercise, buildSession, gradeItem, recordPair,
   checkTyped, todaySummary, normalize, stripAccents, tokens,
 } from './course.js';
+import {
+  story, loadStory, fill, partnerName, chapterStatus, nextChapter, completeChapter, doneCount,
+  startScene, advance, choose,
+} from './story.js';
+import { weekStats, totals, stageProgress, hardest, reportUrl } from './progress.js';
 import * as audio from './audio.js';
 
 const app = document.getElementById('app');
 let view = { name: 'home' };
 let sess = null;
+let scene = null;
 let recordedUrl = null;
 let recording = false;
 
@@ -15,56 +24,113 @@ let recording = false;
 
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const attr = esc;
+const escFill = (s) => esc(fill(s));
 
+const svg = (body, extra = '') => `<svg viewBox="0 0 24 24" aria-hidden="true" ${extra}>${body}</svg>`;
 const ICON = {
-  speaker: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  slow: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15c0-4 3-7 7.5-7S18 11 18 15H3z" fill="currentColor"/><path d="M18 13h1.5a1.5 1.5 0 0 0 0-3H18M5 15l-1 3M15.5 15l1 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  mic: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  stop: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/></svg>',
-  close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
-  back: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  home: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-  book: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z M5 17a3 3 0 0 1 3-3h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
-  chart: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V11M12 20V5M19 20v-6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>',
-  gear: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
-  check: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  speaker: svg('<path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+  slow: svg('<path d="M3 15c0-4 3-7 7.5-7S18 11 18 15H3z" fill="currentColor"/><path d="M18 13h1.5a1.5 1.5 0 0 0 0-3H18M5 15l-1 3M15.5 15l1 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+  mic: svg('<rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+  stop: svg('<rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor"/>'),
+  close: svg('<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>'),
+  back: svg('<path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'),
+  learn: svg('<path d="M3 9l9-5 9 5-9 5-9-5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11.5V16c0 1.5 2.5 3 5 3s5-1.5 5-3v-4.5M21 9v5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+  story: svg('<path d="M4 6l5-2 6 2 5-2v14l-5 2-6-2-5 2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="2"/>'),
+  book: svg('<path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3V4z M5 17a3 3 0 0 1 3-3h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'),
+  chart: svg('<path d="M5 20V11M12 20V5M19 20v-6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>'),
+  gear: svg('<circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'),
+  check: svg('<path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>'),
+  lock: svg('<rect x="5" y="11" width="14" height="9" rx="2" fill="currentColor"/><path d="M8 11V8a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="2"/>'),
+  arrow: svg('<path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'),
+  send: svg('<path d="M4 12l16-8-6 16-3-7-7-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>'),
 };
+
+// The double cross from the Slovak coat of arms, used as the brand mark and on stamps.
+const CROSS = '<svg class="cross" viewBox="0 0 20 28" aria-hidden="true"><path d="M8 0h4v28H8zM4 6h12v3.5H4zM1 13h18v3.5H1z" fill="currentColor"/></svg>';
 
 const ACCENTS = ['á', 'ä', 'č', 'ď', 'é', 'í', 'ľ', 'ň', 'ó', 'ô', 'š', 'ť', 'ú', 'ý', 'ž'];
 const PRAISE = ['Správne!', 'Výborne!', 'Super!', 'Presne tak!', 'Skvelé!'];
 const GENDER = { m: 'masculine', f: 'feminine', n: 'neuter', pl: 'plural' };
 
-const genderChip = (g) => g ? `<span class="g g-${g}" title="${GENDER[g]}">${g === 'pl' ? 'pl.' : g}</span>` : '';
-const playBtn = (text, cls = '') => `<button class="icon-btn ${cls}" data-action="play" data-text="${attr(text)}" aria-label="Play">${ICON.speaker}</button>`;
+const genderChip = (g) => g ? `<span class="g g-${g}" title="${GENDER[g]}">${g === 'pl' ? 'pl' : g}</span>` : '';
 const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 const isIOS = () => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-function unitProgress(unit) {
-  const learned = unit.items.filter((i) => state.cards[i.id]).length;
-  return { learned, total: unit.items.length };
+/** A progress ring, a nod to Wellesley's hoop rolling. */
+function hoop(pct, { size = 44, label = '', cls = '' } = {}) {
+  const r = 18;
+  const c = 2 * Math.PI * r;
+  const done = pct >= 1;
+  return `<span class="hoop ${done ? 'full' : ''} ${cls}" style="width:${size}px;height:${size}px">
+    <svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" class="hoop-track"/>
+    <circle cx="22" cy="22" r="${r}" class="hoop-arc" stroke-dasharray="${(c * Math.min(1, pct)).toFixed(1)} ${c.toFixed(1)}"/></svg>
+    <span class="hoop-label">${done ? ICON.check : esc(label)}</span></span>`;
 }
+
+const fmtMinutes = (secs) => (secs < 60 ? `${Math.round(secs)}s` : `${Math.round(secs / 60)}`);
 
 // --- rendering --------------------------------------------------------------------
 
 function render() {
-  if (view.name !== 'session') audio.stop();
-  const screens = { home, unit: unitScreen, phrasebook, progress, settings, session: sessionScreen, summary };
+  if (view.name !== 'session' && view.name !== 'scene') audio.stop();
+  if (!state.name && view.name !== 'welcome') view = { name: 'welcome' };
+  const screens = { welcome, home, unit: unitScreen, story: storyScreen, scene: sceneScreen, postcard: postcardScreen,
+    phrasebook, progress, settings, session: sessionScreen, summary };
   app.innerHTML = screens[view.name]();
   app.dataset.view = view.name;
   afterRender();
 }
 
 function tabbar() {
+  const active = { unit: 'home', postcard: 'story' }[view.name] || view.name;
   const tab = (name, icon, label) =>
-    `<button class="tab ${view.name === name || (name === 'home' && view.name === 'unit') ? 'on' : ''}" data-action="nav" data-to="${name}">${ICON[icon]}<span>${label}</span></button>`;
-  return `<nav class="tabbar">${tab('home', 'home', 'Learn')}${tab('phrasebook', 'book', 'Phrases')}${tab('progress', 'chart', 'Progress')}${tab('settings', 'gear', 'Settings')}</nav>`;
+    `<button class="tab ${active === name ? 'on' : ''}" data-action="nav" data-to="${name}">${ICON[icon]}<span>${label}</span></button>`;
+  return `<nav class="tabbar">${tab('home', 'learn', 'Learn')}${tab('story', 'story', 'Story')}${tab('phrasebook', 'book', 'Phrases')}${tab('progress', 'chart', 'Progress')}${tab('settings', 'gear', 'Settings')}</nav>`;
 }
+
+const masthead = (kicker) => `<div class="kicker">${CROSS}<span>${esc(kicker)}</span></div>`;
 
 function greeting() {
   const h = new Date().getHours();
   if (h < 10) return ['Dobré ráno', 'Good morning'];
-  if (h < 18) return ['Dobrý deň', 'Good day'];
+  if (h < 18) return ['Dobrý deň', 'Good afternoon'];
   return ['Dobrý večer', 'Good evening'];
+}
+
+function welcome() {
+  return `<main class="screen welcome">
+      <div class="welcome-mark">${CROSS}</div>
+      <div class="kicker center-k"><span>Po slovensky</span></div>
+      <h1 class="display">Vitaj!</h1>
+      <p class="lede">A gentle Slovak course, with a story waiting at the end of every few lessons.</p>
+      <label class="field-label" for="nm">What's your first name?</label>
+      <input id="nm" class="text-input" data-input="name" autocomplete="given-name" placeholder="Your name" enterkeyhint="go">
+      <button class="btn primary big" data-action="set-name">Začnime · Let's begin</button>
+    </main>`;
+}
+
+function storyTeaser() {
+  const next = nextChapter();
+  if (!story.chapters.length) return '';
+  if (!next) {
+    return `<button class="card teaser done-all c-gold" data-action="nav" data-to="story">
+      <div class="teaser-body"><div class="teaser-kicker">Cesta domov · Complete</div>
+      <div class="teaser-title">All ${story.chapters.length} postcards collected</div><div class="teaser-line">Replay any chapter from the Story tab.</div></div>
+      ${hoop(1, { size: 52, cls: 'on-color' })}</button>`;
+  }
+  const { ch, index, status } = next;
+  let line;
+  if (status.unlocked) line = `<span class="go">Ready to play ${ICON.arrow}</span>`;
+  else if (!status.prevDone) line = `Finish chapter ${index} first`;
+  else line = `Unlocks after ${status.remaining.length} more ${status.remaining.length === 1 ? 'unit' : 'units'}`;
+  return `<button class="card teaser c-${ch.color} ${status.unlocked ? 'ready' : ''}" data-action="${status.unlocked ? 'play-chapter' : 'nav'}" data-to="story" data-index="${index}">
+      <div class="teaser-body">
+        <div class="teaser-kicker">Kapitola ${index + 1} · ${escFill(ch.place)}</div>
+        <div class="teaser-title">${esc(ch.title)}</div>
+        <div class="teaser-line">${line}</div>
+      </div>
+      ${hoop(status.unlocked ? 1 : status.pct, { size: 52, label: String(index + 1), cls: 'on-color' })}
+    </button>`;
 }
 
 function home() {
@@ -75,38 +141,43 @@ function home() {
   const showInstall = isIOS() && !isStandalone() && !sessionStorage.getItem('hideInstall');
 
   const todayCard = nothing
-    ? `<section class="card today done">
-        <div class="today-title">Hotovo, all done for today</div>
-        <p class="muted">Nothing is due. Come back tomorrow, or practice a little more if you feel like it.</p>
-        ${anyCards ? '<button class="btn secondary" data-action="start" data-extra="1">Practice a bit more</button>' : ''}
+    ? `<section class="block today done">
+        <div class="block-kicker">Dnes · Today</div>
+        <div class="today-title">Hotovo. All done.</div>
+        <p>Nothing is due. Come back tomorrow, or keep going if you're in the mood.</p>
+        ${anyCards ? '<button class="btn light" data-action="start" data-extra="1">Practice a bit more</button>' : ''}
       </section>`
-    : `<section class="card today">
-        <div class="today-title">Today</div>
+    : `<section class="block today">
+        <div class="block-kicker">Dnes · Today</div>
         <div class="today-stats">
           ${due ? `<div><b>${due}</b><span>to review</span></div>` : ''}
           ${fresh ? `<div><b>${fresh}</b><span>new</span></div>` : ''}
-          <div><b>~${minutes}</b><span>min</span></div>
+          <div><b>${minutes}</b><span>minutes</span></div>
         </div>
-        <button class="btn primary big" data-action="start">${anyCards ? 'Start' : 'Start your first lesson'}</button>
+        <button class="btn light big" data-action="start">${anyCards ? 'Start' : 'Start your first lesson'} ${ICON.arrow}</button>
       </section>`;
 
-  const stages = course.stages.map((stage) => {
+  const stages = course.stages.map((stage, si) => {
     const units = course.units.filter((u) => u.stage === stage.id).map((u) => {
       const { learned, total } = unitProgress(u);
-      const pct = Math.round(100 * learned / total);
       return `<button class="unit-row" data-action="unit" data-id="${u.id}">
-          <div class="unit-text"><div class="unit-title">${esc(u.title)}</div>
-          <div class="bar"><i style="width:${pct}%"></i></div></div>
-          <div class="unit-count ${learned === total ? 'complete' : ''}">${learned === total ? ICON.check : `${learned}/${total}`}</div>
+          ${hoop(learned / total, { size: 40, label: total - learned ? String(total - learned) : '' })}
+          <span class="unit-text"><span class="unit-title">${esc(u.title)}</span>
+          <span class="unit-sub">${learned}/${total} learned</span></span>
         </button>`;
     }).join('');
-    return `<section class="stage"><h2>${esc(stage.title)}</h2><p class="muted small">${esc(stage.subtitle)}</p><div class="card list">${units}</div></section>`;
+    return `<section class="stage">
+        <div class="stage-head"><span class="stage-num">${String(si + 1).padStart(2, '0')}</span>
+        <div><h2>${esc(stage.title)}</h2><p>${esc(stage.subtitle)}</p></div></div>
+        <div class="card list">${units}</div></section>`;
   }).join('');
 
   return `<main class="screen">
-      <header class="hello"><h1 lang="sk">${sk}!</h1><p class="muted">${en}</p></header>
-      ${showInstall ? `<section class="card hint"><b>Tip:</b> tap <b>Share</b> → <b>Add to Home Screen</b> to install this like an app (it works offline too).<button class="link" data-action="hide-install">Hide</button></section>` : ''}
+      <header class="hello">${masthead('Po slovensky')}
+        <h1 class="display" lang="sk">${sk}, <em>${esc(state.name)}</em>.</h1><p class="muted">${en}</p></header>
+      ${showInstall ? `<section class="card hint"><b>Tip:</b> tap <b>Share</b> → <b>Add to Home Screen</b> to install this like an app. It works offline too.<button class="link" data-action="hide-install">Hide</button></section>` : ''}
       ${todayCard}
+      ${storyTeaser()}
       ${stages}
     </main>${tabbar()}`;
 }
@@ -121,26 +192,32 @@ function soundItemBlock(item) {
     </div>`;
 }
 
+function itemRow(it) {
+  return `<button class="row" data-action="play" data-text="${attr(it.sk)}">
+      <span class="row-main"><span class="sk" lang="sk">${esc(it.sk)}</span> ${genderChip(it.g)}<span class="en">${esc(it.en)}</span>
+      ${it.note ? `<span class="note">${esc(it.note)}</span>` : ''}</span>
+      ${state.cards[it.id] ? `<span class="learned">${ICON.check}</span>` : ''}
+    </button>`;
+}
+
 function unitScreen() {
   const unit = unitById(view.id);
+  const stage = course.stages.find((s) => s.id === unit.stage);
   const { learned, total } = unitProgress(unit);
   const items = unit.items.map((i) => course.items[i.id]);
-  const rows = items.map((it) => it.kind === 'sound'
-    ? `<div class="card">${soundItemBlock(it)}</div>`
-    : `<button class="row" data-action="play" data-text="${attr(it.sk)}">
-        <span class="row-main"><span class="sk" lang="sk">${esc(it.sk)}</span> ${genderChip(it.g)}<span class="en">${esc(it.en)}</span></span>
-        ${state.cards[it.id] ? `<span class="learned">${ICON.check}</span>` : ''}
-      </button>`).join('');
+  const rows = items.map((it) => it.kind === 'sound' ? `<div class="card">${soundItemBlock(it)}</div>` : itemRow(it)).join('');
   const pairs = unit.pairs ? `<h3>Listen for the difference</h3><div class="card list">${unit.pairs.map((p) =>
       `<div class="pair-row"><button class="chip" data-action="play" data-text="${attr(p.a)}" lang="sk">${esc(p.a)} <small>${esc(p.ea)}</small></button>
        <span class="muted">vs</span>
        <button class="chip" data-action="play" data-text="${attr(p.b)}" lang="sk">${esc(p.b)} <small>${esc(p.eb)}</small></button></div>`).join('')}</div>` : '';
   const label = learned === total ? 'Review this unit' : learned ? 'Continue this unit' : 'Learn this unit';
   return `<main class="screen">
-      <header class="topbar"><button class="icon-btn" data-action="nav" data-to="home" aria-label="Back">${ICON.back}</button><h1>${esc(unit.title)}</h1></header>
+      <header class="topbar"><button class="icon-btn" data-action="nav" data-to="home" aria-label="Back">${ICON.back}</button>
+        <div class="kicker-inline">${esc(stage.title)}</div></header>
+      <div class="unit-hero">${hoop(learned / total, { size: 64, label: `${learned}/${total}` })}<h1 class="display sm">${esc(unit.title)}</h1></div>
       <section class="card intro-note"><p>${unit.intro}</p></section>
-      <button class="btn primary" data-action="start" data-unit="${unit.id}">${label}</button>
-      <h3>${unit.stage === 'sounds' ? 'Sounds' : 'Words & phrases'} <span class="muted small">${learned}/${total} learned · tap to hear</span></h3>
+      <button class="btn primary big" data-action="start" data-unit="${unit.id}">${label} ${ICON.arrow}</button>
+      <h3>${unit.stage === 'sounds' ? 'Sounds' : 'Words & phrases'} <span class="muted small">tap to hear</span></h3>
       <div class="${items[0].kind === 'sound' ? 'stack' : 'card list'}">${rows}</div>
       ${pairs}
     </main>${tabbar()}`;
@@ -152,19 +229,124 @@ function phrasebook() {
     const items = u.items.map((i) => course.items[i.id]).filter((it) =>
       !q || stripAccents(normalize(it.sk)).includes(q) || normalize(it.en).includes(q));
     if (!items.length) return '';
-    return `<h3>${esc(u.title)}</h3><div class="card list">${items.map((it) =>
-      `<button class="row" data-action="play" data-text="${attr(it.sk)}">
-        <span class="row-main"><span class="sk" lang="sk">${esc(it.sk)}</span> ${genderChip(it.g)}<span class="en">${esc(it.en)}</span>
-        ${it.note ? `<span class="note">${esc(it.note)}</span>` : ''}</span>
-        ${state.cards[it.id] ? `<span class="learned">${ICON.check}</span>` : ''}
-      </button>`).join('')}</div>`;
+    return `<h3>${esc(u.title)}</h3><div class="card list">${items.map(itemRow).join('')}</div>`;
   }).join('');
   return `<main class="screen">
-      <header class="topbar"><h1>Phrasebook</h1></header>
+      <header class="page-head">${masthead('Slovník')}<h1 class="display sm">Phrasebook</h1></header>
       <input class="search" type="search" placeholder="Search Slovak or English…" value="${attr(view.q || '')}" data-input="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       ${groups || '<p class="muted center">Nothing found.</p>'}
     </main>${tabbar()}`;
 }
+
+// --- story -------------------------------------------------------------------------
+
+function storyScreen() {
+  const stops = story.chapters.map((ch, i) => {
+    const st = chapterStatus(ch, i);
+    let body;
+    if (st.done) {
+      body = `<div class="stop-status ok">${ICON.check} Postcard collected</div>
+        <div class="stop-actions"><button class="btn small ghost" data-action="view-postcard" data-index="${i}">See postcard</button>
+        <button class="btn small ghost" data-action="play-chapter" data-index="${i}">Replay</button></div>`;
+    } else if (st.unlocked) {
+      body = `<button class="btn primary" data-action="play-chapter" data-index="${i}">Play chapter ${ICON.arrow}</button>`;
+    } else if (!st.prevDone) {
+      body = `<div class="stop-status">${ICON.lock} Finish chapter ${i} first</div>`;
+    } else {
+      const names = st.remaining.map((u) => u.title.split(' · ')[0]);
+      body = `<div class="stop-status">${ICON.lock} Learn: ${esc(names.slice(0, 3).join(', '))}${names.length > 3 ? ` +${names.length - 3}` : ''}</div>
+        <div class="bar"><i style="width:${Math.round(st.pct * 100)}%"></i></div>`;
+    }
+    return `<li class="stop ${st.done ? 'is-done' : st.unlocked ? 'is-open' : 'is-locked'} c-${ch.color}">
+        <span class="stop-node">${i + 1}</span>
+        <div class="stop-card card">
+          <div class="stop-place">${escFill(ch.place)}</div>
+          <div class="stop-title" lang="sk">${esc(ch.title)}</div>
+          <div class="stop-en">${esc(ch.en)}</div>
+          ${body}
+        </div></li>`;
+  }).join('');
+  const stamps = story.chapters.map((ch, i) => state.story.done[ch.id]
+    ? `<button class="stamp c-${ch.color}" data-action="view-postcard" data-index="${i}">${CROSS}<span class="stamp-place">${escFill(ch.place)}</span><span class="stamp-num">${i + 1}</span></button>`
+    : `<span class="stamp empty"><span class="stamp-num">${i + 1}</span></span>`).join('');
+  return `<main class="screen">
+      <header class="page-head">${masthead('Príbeh · Story')}<h1 class="display">${esc(story.title)}</h1>
+        <p class="lede">${escFill(story.subtitle)}. A journey through Slovakia with ${esc(partnerName())}. Each chapter unlocks as you learn.</p></header>
+      <section class="stamps-wrap"><div class="section-label">Postcards · ${doneCount()}/${story.chapters.length}</div><div class="stamps">${stamps}</div></section>
+      <ol class="journey">${stops}</ol>
+    </main>${tabbar()}`;
+}
+
+function bubble(b) {
+  if (b.t === 'narr') return `<p class="narr">${escFill(b.text)}</p>`;
+  if (b.t === 'me') return `<div class="line me"><div class="bubble" lang="sk">${escFill(b.sk)}</div></div>`;
+  const ch = story.characters[b.who] || { name: b.who, color: 'navy' };
+  const name = fill(ch.name);
+  return `<div class="line">
+      <span class="avatar c-${ch.color}">${esc(name[0])}</span>
+      <div class="bubble"><div class="who">${esc(name)}</div>
+        <button class="say" data-action="play-as" data-text="${attr(b.sk)}" data-voice="${ch.voice || ''}" lang="sk">${esc(b.sk)} ${ICON.speaker}</button>
+        ${state.settings.showTranslations ? `<div class="tr">${esc(b.en)}</div>` : ''}</div>
+    </div>`;
+}
+
+function sceneScreen() {
+  const ch = scene.ch;
+  const transcript = scene.log.map(bubble).join('');
+  let footer;
+  if (scene.pending) {
+    const p = scene.pending;
+    footer = `<footer class="scene-foot">
+        <div class="choice-prompt">${escFill(p.prompt)}</div>
+        ${p.audio ? `<button class="btn ghost small listen-again" data-action="play-as" data-text="${attr(p.audio)}" data-voice="lukas">${ICON.speaker} Listen again</button>` : ''}
+        ${scene.hint ? `<div class="hint-bubble">${escFill(scene.hint)}</div>` : ''}
+        <div class="choices">${p.options.map((o, n) => `<button class="choice" data-action="scene-choose" data-n="${n}" lang="sk">${escFill(o.sk)}</button>`).join('')}</div>
+      </footer>`;
+  } else if (scene.finished) {
+    footer = `<footer class="scene-foot"><button class="btn primary big" data-action="scene-postcard">${ICON.check} Collect your postcard</button></footer>`;
+  } else {
+    footer = `<footer class="scene-foot"><button class="btn primary big" data-action="scene-next">Ďalej · Next ${ICON.arrow}</button></footer>`;
+  }
+  return `<div class="scene c-${ch.color}">
+      <header class="scene-top"><button class="icon-btn" data-action="scene-quit" aria-label="Close">${ICON.close}</button>
+        <div class="scene-title"><span>Kapitola ${scene.index + 1} · ${escFill(ch.place)}</span><b lang="sk">${esc(ch.title)}</b></div>
+        <button class="icon-btn tr-toggle ${state.settings.showTranslations ? 'on' : ''}" data-action="toggle-tr" aria-label="Toggle translations">EN</button></header>
+      <main class="transcript">${transcript}</main>
+      ${footer}
+    </div>`;
+}
+
+function postcardScreen() {
+  const ch = story.chapters[view.index];
+  const note = escFill(ch.postcard).replace(/\n/g, '<br>');
+  return `<main class="screen postcard-screen">
+      <div class="postcard c-${ch.color}">
+        <div class="pc-front"><div class="pc-stamp">${CROSS}<span>${view.index + 1}</span></div>
+          <div class="pc-greet">Pozdrav z</div><div class="pc-place">${escFill(ch.place)}</div></div>
+        <div class="pc-back"><p class="pc-note">${note}</p><div class="pc-to">To: ${esc(state.name)}</div></div>
+      </div>
+      ${view.fresh
+        ? `<p class="center muted">Chapter ${view.index + 1} complete: ${esc(ch.en)}.</p><button class="btn primary big" data-action="nav" data-to="story">Back to the story ${ICON.arrow}</button>`
+        : `<button class="btn primary big" data-action="nav" data-to="story">Back to the story</button>`}
+    </main>`;
+}
+
+function openChapter(index) {
+  scene = startScene(index);
+  scene.lastAt = Date.now();
+  view = { name: 'scene' };
+  const a = advance(scene);
+  render();
+  if (a) audio.play(a.sk, { voice: a.voice });
+}
+
+function sceneTick() {
+  const now = Date.now();
+  logActivity({ secs: Math.min((now - scene.lastAt) / 1000, 60) });
+  scene.lastAt = now;
+}
+
+// --- progress ------------------------------------------------------------------------
 
 function recentPhrases() {
   const t = today();
@@ -173,12 +355,12 @@ function recentPhrases() {
     .sort((a, b) => b[1] - a[1]).slice(0, 6).map(([id]) => course.items[id]);
 }
 
-function progress() {
+function calendar() {
   const t = today();
   const now = dayToDate(t);
   const first = new Date(now.getFullYear(), now.getMonth(), 1);
   const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  const offset = (first.getDay() + 6) % 7; // Monday first
+  const offset = (first.getDay() + 6) % 7;
   const firstDayNum = t - (now.getDate() - 1);
   let practiced = 0;
   let cells = '<span></span>'.repeat(offset);
@@ -188,31 +370,48 @@ function progress() {
     if (did) practiced++;
     cells += `<span class="day ${did ? 'did' : ''} ${num === t ? 'is-today' : ''} ${num > t ? 'future' : ''}">${d + 1}</span>`;
   }
-  const cards = Object.entries(state.cards).filter(([id]) => course.items[id]).map(([, c]) => c);
-  const learned = cards.length;
-  const solid = cards.filter((c) => c.s >= 21).length;
-  const tomorrow = cards.filter((c) => c.due <= t + 1).length;
-  const recent = recentPhrases();
   const monthName = now.toLocaleString('en-US', { month: 'long' });
+  return `<section class="card">
+      <div class="cal-head"><b>${monthName}</b><span class="muted">${practiced} ${practiced === 1 ? 'day' : 'days'} practised</span></div>
+      <div class="cal">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map((d) => `<span class="dow">${d}</span>`).join('')}${cells}</div>
+    </section>`;
+}
 
+function progress() {
+  const tot = totals();
+  const wk = weekStats();
+  const stages = stageProgress();
+  const hard = hardest();
+  const recent = recentPhrases();
   return `<main class="screen">
-      <header class="topbar"><h1>Progress</h1></header>
-      <section class="card">
-        <div class="cal-head"><b>${monthName}</b><span class="muted">${practiced} ${practiced === 1 ? 'day' : 'days'} practiced</span></div>
-        <div class="cal"><span class="dow">M</span><span class="dow">T</span><span class="dow">W</span><span class="dow">T</span><span class="dow">F</span><span class="dow">S</span><span class="dow">S</span>${cells}</div>
+      <header class="page-head">${masthead('Pokrok · Progress')}<h1 class="display sm"><em>${esc(state.name)}</em>'s progress</h1></header>
+      <section class="block progress-hero">
+        ${hoop(tot.learned / tot.total, { size: 92, label: `${Math.round(100 * tot.learned / tot.total)}%`, cls: 'on-color big' })}
+        <div><div class="block-kicker">Course</div><div class="hero-num">${tot.learned}<span>/${tot.total}</span></div>
+        <div>words &amp; phrases learned · ${tot.solid} in long-term memory</div></div>
       </section>
       <section class="stats">
-        <div class="card stat"><b>${learned}</b><span>learned</span></div>
-        <div class="card stat"><b>${solid}</b><span>in long-term memory</span></div>
-        <div class="card stat"><b>${tomorrow}</b><span>due by tomorrow</span></div>
+        <div class="card stat"><b>${fmtMinutes(wk.secs)}</b><span>${wk.secs < 60 ? '' : 'min '}this week</span></div>
+        <div class="card stat"><b>${wk.accuracy == null ? '–' : Math.round(wk.accuracy * 100) + '%'}</b><span>accuracy, 7 days</span></div>
+        <div class="card stat"><b>${doneCount()}/${story.chapters.length}</b><span>story chapters</span></div>
       </section>
+      ${calendar()}
+      <section class="card">
+        <div class="section-label">By stage</div>
+        ${stages.map((s) => `<div class="stage-bar"><div class="sb-head"><span>${esc(s.title)}</span><span class="muted">${s.learned}/${s.total}</span></div>
+          <div class="bar"><i style="width:${Math.round(100 * s.learned / s.total)}%"></i></div></div>`).join('')}
+      </section>
+      ${hard.length ? `<section class="card list"><div class="section-label pad">Trickiest so far</div>${hard.map((h) =>
+        `<button class="row" data-action="play" data-text="${attr(h.sk)}"><span class="row-main"><span class="sk" lang="sk">${esc(h.sk)}</span><span class="en">${esc(h.en)}</span></span><span class="lapses">${h.lapses}×</span></button>`).join('')}</section>` : ''}
       <section class="card together">
-        <h3>Practice together</h3>
-        ${recent.length ? `<p class="muted small">New this week. Try these out loud at home.</p>
-          <ul class="plain">${recent.map((it) => `<li><button class="row" data-action="play" data-text="${attr(it.sk)}"><span class="row-main"><span class="sk" lang="sk">${esc(it.sk)}</span><span class="en">${esc(it.en)}</span></span></button></li>`).join('')}</ul>
+        <div class="section-label">Practice together</div>
+        ${recent.length ? `<p class="muted small">New this week. Try them out loud with ${esc(partnerName())}.</p>
+          <ul class="plain">${recent.map((it) => `<li>${itemRow(it)}</li>`).join('')}</ul>
           <button class="btn secondary" data-action="share">Share this list</button>`
-        : '<p class="muted small">Phrases you learn this week will show up here, so you can use them in real life.</p>'}
+        : '<p class="muted small">Phrases you learn this week will show up here.</p>'}
       </section>
+      <button class="btn primary big" data-action="send-report">${ICON.send} Send my progress to ${esc(partnerName())}</button>
+      <p class="muted small center">Sends a private link with a summary of your progress. No account, no server: the data travels inside the link itself.</p>
     </main>${tabbar()}`;
 }
 
@@ -221,28 +420,40 @@ function settings() {
   const voices = audio.availableVoices();
   const seg = (key, options) => `<div class="seg">${options.map(([v, label]) =>
     `<button class="${String(s[key]) === String(v) ? 'on' : ''}" data-action="set" data-key="${key}" data-value="${v}">${label}</button>`).join('')}</div>`;
+  const toggle = (key, label) => `<label class="toggle"><span>${label}</span><input type="checkbox" data-action="toggle" data-key="${key}" ${s[key] ? 'checked' : ''}></label>`;
   const voiceOptions = [['mix', 'Mix'], ...voices.map((v) => [v, audio.VOICE_LABELS[v] || v]), ['device', 'iPhone']];
+  const people = profiles();
   return `<main class="screen">
-      <header class="topbar"><h1>Settings</h1></header>
+      <header class="page-head">${masthead('Nastavenia')}<h1 class="display sm">Settings</h1></header>
+      <section class="card form">
+        <label>Learner</label>
+        <div class="learners">${people.map((p) => `<div class="learner ${p.current ? 'on' : ''}">
+            <span class="avatar c-blue">${esc((p.name || '?')[0])}</span><span class="ln">${esc(p.name || 'Unnamed')}</span>
+            ${p.current ? '<span class="muted small">current</span>' : `<button class="btn small ghost" data-action="switch-profile" data-id="${p.id}">Switch</button>`}
+            ${!p.current && p.id !== 'main' ? `<button class="link small danger-link" data-action="delete-profile" data-id="${p.id}">Remove</button>` : ''}
+          </div>`).join('')}</div>
+        <div class="inline-form"><input class="text-input sm" data-input="rename" value="${attr(state.name)}" placeholder="Name"><button class="btn small secondary" data-action="rename">Rename</button></div>
+        <div class="inline-form"><input class="text-input sm" data-input="new-learner" placeholder="Add another learner"><button class="btn small secondary" data-action="add-profile">Add</button></div>
+        <p class="muted small">Each learner on this phone has their own progress, story and stats.</p>
+      </section>
       <section class="card form">
         <label>New items per day</label>${seg('newPerDay', [[5, '5 · relaxed'], [8, '8 · steady'], [12, '12 · keen']])}
         <label>Voice</label>${voices.length ? seg('voice', voiceOptions)
-          : '<p class="muted small">Using your device\'s built-in Slovak voice. Higher-quality voices appear here once the audio pack is generated.</p>'}
-        <label class="toggle"><span>Play audio automatically</span><input type="checkbox" data-action="toggle" data-key="autoplay" ${s.autoplay ? 'checked' : ''}></label>
-        <label class="toggle"><span>Mix clinic phrases into daily lessons</span><input type="checkbox" data-action="toggle" data-key="clinicMix" ${s.clinicMix ? 'checked' : ''}></label>
-        <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic". Turn off to do it after the grammar instead.</p>
+          : '<p class="muted small">Using your device\'s built-in Slovak voice.</p>'}
+        ${toggle('autoplay', 'Play audio automatically')}
+        ${toggle('showTranslations', 'Show English in story scenes')}
+        ${toggle('clinicMix', 'Mix clinic phrases into daily lessons')}
+        <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic".</p>
       </section>
       <section class="card form">
         <label>Backup</label>
-        <p class="muted small">Progress is stored on this device. Copy a backup now and then, e.g. into Notes.</p>
+        <p class="muted small">Progress is stored on this phone. Copy a backup now and then, e.g. into Notes.</p>
         <button class="btn secondary" data-action="export">Copy backup</button>
         <textarea data-input="import" placeholder="Paste a backup here to restore it" rows="3"></textarea>
         <button class="btn secondary" data-action="import">Restore backup</button>
       </section>
-      <section class="card form">
-        <button class="btn danger" data-action="reset">Reset all progress</button>
-      </section>
-      <p class="muted small center">Po slovensky · made with love ❤️<br>Reviews are scheduled with FSRS, so things come back right before you'd forget them.</p>
+      <section class="card form"><button class="btn danger" data-action="reset">Reset ${esc(state.name)}'s progress</button></section>
+      <p class="muted small center colophon">${CROSS}<br>Po slovensky · made with love by ${esc(partnerName())}</p>
     </main>${tabbar()}`;
 }
 
@@ -251,8 +462,16 @@ function settings() {
 function startSession(opts) {
   const queue = buildSession(opts);
   if (!queue.length) { toast('Nothing to practice here right now.'); return; }
-  sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0 }, ex: null, phase: 'question', fb: null };
+  sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0 }, ex: null, phase: 'question', fb: null,
+    lastAt: Date.now(), storyBefore: nextChapter()?.status.unlocked };
   nextExercise();
+}
+
+/** Logs active time since the last tap (idle gaps capped at a minute) plus any answer. */
+function tick(answered = 0, correct = 0) {
+  const now = Date.now();
+  logActivity({ answered, correct, secs: Math.min((now - sess.lastAt) / 1000, 60) });
+  sess.lastAt = now;
 }
 
 function nextExercise() {
@@ -260,8 +479,7 @@ function nextExercise() {
   if (sess.idx >= sess.queue.length) { view = { name: 'summary' }; render(); return; }
   const q = sess.queue[sess.idx];
   if (q.kind === 'pair') {
-    const target = Math.random() < 0.5 ? 'a' : 'b';
-    sess.ex = { type: 'pair', pair: q.pair, target };
+    sess.ex = { type: 'pair', pair: q.pair, target: Math.random() < 0.5 ? 'a' : 'b' };
   } else if (q.kind === 'lesson') {
     sess.ex = { type: 'lesson', unit: unitById(q.unit) };
   } else if (q.kind === 'intro') {
@@ -276,10 +494,11 @@ function nextExercise() {
   autoplayQuestion();
 }
 
+const AUDIO_FIRST = { pair: 1, sound_pick: 1, listen_choose: 1, dictation: 1 };
+
 function autoplayQuestion() {
   const ex = sess.ex;
-  const audioFirst = { pair: 1, sound_pick: 1, listen_choose: 1, dictation: 1 };
-  if (audioFirst[ex.type]) return playTarget();
+  if (AUDIO_FIRST[ex.type]) return playTarget();
   if (ex.type === 'intro' && state.settings.autoplay) {
     audio.play(ex.item.kind === 'sound' ? ex.item.examples[0].sk : ex.item.sk);
   }
@@ -300,6 +519,7 @@ function answer(result, extra = {}) {
   const correct = result !== 'wrong';
   sess.stats.total++;
   if (correct) sess.stats.right++;
+  tick(1, correct ? 1 : 0);
 
   if (ex.type === 'pair') {
     recordPair(ex.pair, correct);
@@ -316,8 +536,7 @@ function answer(result, extra = {}) {
   sess.phase = 'feedback';
   sess.fb = { result, ...extra };
   render();
-  const listenedAlready = { pair: 1, sound_pick: 1, listen_choose: 1, dictation: 1 }[ex.type];
-  if (!listenedAlready || !correct) audio.play(targetText(ex));
+  if (!AUDIO_FIRST[ex.type] || !correct) audio.play(targetText(ex));
 }
 
 function listenBlock() {
@@ -330,8 +549,8 @@ function listenBlock() {
 function micBlock(text) {
   if (!audio.canRecord()) return '';
   return `<div class="mic">
-      <button class="btn ghost ${recording ? 'rec' : ''}" data-action="${recording ? 'rec-stop' : 'rec-start'}">${recording ? ICON.stop + ' Stop' : ICON.mic + ' Say it yourself'}</button>
-      ${recordedUrl ? `<button class="btn ghost" data-action="rec-play">▶ You</button><button class="btn ghost" data-action="play" data-text="${attr(text)}">▶ Native</button>` : ''}
+      <button class="btn ghost small ${recording ? 'rec' : ''}" data-action="${recording ? 'rec-stop' : 'rec-start'}">${recording ? ICON.stop + ' Stop' : ICON.mic + ' Say it yourself'}</button>
+      ${recordedUrl ? `<button class="btn ghost small" data-action="rec-play">▶ You</button><button class="btn ghost small" data-action="play" data-text="${attr(text)}">▶ Native</button>` : ''}
     </div>`;
 }
 
@@ -346,13 +565,15 @@ function optionButtons(options, getLabel, getKey, lang) {
   return `<div class="options">${options.map((o) => {
     const key = getKey(o);
     let cls = '';
-    if (fb) {
-      if (key === fb.correctKey) cls = 'right';
-      else if (key === fb.chosen) cls = 'wrong';
-      else cls = 'dim';
-    }
+    if (fb) cls = key === fb.correctKey ? 'right' : key === fb.chosen ? 'wrong' : 'dim';
     return `<button class="option ${cls}" data-action="choose" data-key="${attr(key)}" ${fb ? 'disabled' : ''} ${lang ? `lang="${lang}"` : ''}>${esc(getLabel(o))}</button>`;
   }).join('')}</div>`;
+}
+
+// The sentence with its grammar slot replaced by `html` (already escaped).
+function withBlank(item, html) {
+  const i = item.sk.indexOf(item.blank);
+  return esc(item.sk.slice(0, i)) + html + esc(item.sk.slice(i + item.blank.length));
 }
 
 function exerciseBody() {
@@ -376,7 +597,7 @@ function exerciseBody() {
       }
       return `<div class="label">New ${it.kind === 'word' ? 'word' : 'phrase'}</div>
         <div class="big-sk" lang="sk">${it.blank ? withBlank(it, `<mark class="hl">${esc(it.blank)}</mark>`) : esc(it.sk)} ${genderChip(it.g)}</div>
-        <div class="listen small-listen">${playBtn(it.sk, 'round')}<button class="icon-btn slow" data-action="play-slow" data-text="${attr(it.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
+        <div class="listen small-listen"><button class="icon-btn round" data-action="play" data-text="${attr(it.sk)}" aria-label="Play">${ICON.speaker}</button><button class="icon-btn slow" data-action="play-slow" data-text="${attr(it.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
         <div class="big-en">${esc(it.en)}</div>
         ${it.note ? `<p class="note-box">${esc(it.note)}</p>` : ''}
         ${micBlock(it.sk)}`;
@@ -409,12 +630,6 @@ function exerciseBody() {
   return '';
 }
 
-// The sentence with its grammar slot replaced by `html` (already escaped).
-function withBlank(item, html) {
-  const i = item.sk.indexOf(item.blank);
-  return esc(item.sk.slice(0, i)) + html + esc(item.sk.slice(i + item.blank.length));
-}
-
 function diffAccents(typed, target) {
   // Highlight letters where only the accent was missing.
   const t = [...target];
@@ -432,7 +647,7 @@ function feedbackBar() {
   let body = '';
   if (fb.result === 'exact') title = PRAISE[Math.floor(Math.random() * PRAISE.length)];
   else if (fb.result === 'accents') { title = 'Almost: watch the accents'; body = `<div class="fb-sk" lang="sk">${diffAccents(fb.typed, fb.target)}</div>`; }
-  else if (fb.result === 'typo') { title = 'Close, just a small typo'; }
+  else if (fb.result === 'typo') title = 'Close, just a small typo';
   else title = 'Not quite';
   if (!body) body = `<div class="fb-sk" lang="sk">${esc(fb.target || sk)}</div>`;
   const compare = ex.type === 'pair'
@@ -443,7 +658,7 @@ function feedbackBar() {
       <div class="fb-answer">${body}${ex.type === 'pair' ? '' : compare}</div>
       <div class="fb-en">${esc(en)}</div>
       ${ex.type === 'pair' ? compare : ''}
-      <button class="btn primary big" data-action="continue">Continue</button>
+      <button class="btn primary big" data-action="continue">Continue ${ICON.arrow}</button>
     </footer>`;
 }
 
@@ -452,11 +667,11 @@ function sessionScreen() {
   const pct = Math.round(100 * sess.idx / sess.queue.length);
   let footer = '';
   if (sess.phase === 'feedback') footer = feedbackBar();
-  else if (ex.type === 'intro' || ex.type === 'lesson') footer = '<footer class="actions"><button class="btn primary big" data-action="continue">Got it</button></footer>';
+  else if (ex.type === 'intro' || ex.type === 'lesson') footer = `<footer class="actions"><button class="btn primary big" data-action="continue">Got it ${ICON.arrow}</button></footer>`;
   else if (ex.type === 'type' || ex.type === 'dictation') footer = '<footer class="actions"><button class="btn primary big" data-action="check-typed">Check</button></footer>';
   else if (ex.type === 'build') footer = `<footer class="actions"><button class="btn primary big" data-action="check-build" ${ex.chosen.length ? '' : 'disabled'}>Check</button></footer>`;
   return `<div class="session">
-      <header class="session-top"><button class="icon-btn" data-action="quit" aria-label="Close">${ICON.close}</button><div class="bar"><i style="width:${pct}%"></i></div></header>
+      <header class="session-top"><button class="icon-btn" data-action="quit" aria-label="Close">${ICON.close}</button><div class="bar thick"><i style="width:${pct}%"></i></div></header>
       <main class="exercise ex-${ex.type}">${exerciseBody()}</main>
       ${footer}
     </div>`;
@@ -465,15 +680,21 @@ function sessionScreen() {
 function summary() {
   const s = sess.stats;
   const acc = s.total ? Math.round(100 * s.right / s.total) : 100;
+  const next = nextChapter();
+  const newlyUnlocked = next && next.status.unlocked && !sess.storyBefore;
   return `<main class="screen summary">
-      <div class="summary-mark">${ICON.check}</div>
-      <h1 lang="sk">Výborne!</h1>
+      <div class="summary-mark">${CROSS}</div>
+      <h1 class="display" lang="sk">Výborne!</h1>
       <p class="muted">Session complete.</p>
       <section class="stats">
         ${s.learned ? `<div class="card stat"><b>${s.learned}</b><span>new</span></div>` : ''}
         <div class="card stat"><b>${s.reviewed}</b><span>reviewed</span></div>
-        <div class="card stat"><b>${acc}%</b><span>first-try accuracy</span></div>
+        <div class="card stat"><b>${acc}%</b><span>first try</span></div>
       </section>
+      ${newlyUnlocked ? `<button class="card teaser ready c-${next.ch.color}" data-action="play-chapter" data-index="${next.index}">
+          <div class="teaser-body"><div class="teaser-kicker">New chapter unlocked</div>
+          <div class="teaser-title">${esc(next.ch.title)}</div><div class="teaser-line"><span class="go">Play now ${ICON.arrow}</span></div></div>
+          ${hoop(1, { size: 52, cls: 'on-color' })}</button>` : ''}
       <button class="btn primary big" data-action="nav" data-to="home">Done</button>
     </main>`;
 }
@@ -485,7 +706,7 @@ function toast(msg) {
   el.className = 'toast';
   el.textContent = msg;
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 2400);
+  setTimeout(() => el.remove(), 2600);
 }
 
 function afterRender() {
@@ -495,6 +716,8 @@ function afterRender() {
     // Focusing right after a tap keeps the iOS keyboard up between questions.
     setTimeout(() => input.focus(), 50);
   }
+  const nameInput = app.querySelector('[data-input="name"]');
+  nameInput?.addEventListener('keydown', (e) => { if (e.key === 'Enter') actions['set-name'](); });
   const search = app.querySelector('[data-input="search"]');
   if (search) {
     search.addEventListener('input', () => {
@@ -506,6 +729,18 @@ function afterRender() {
       s2.setSelectionRange(pos, pos);
     });
   }
+  if (view.name === 'scene') {
+    const tr = app.querySelector('.transcript');
+    tr.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+}
+
+async function shareOrCopy(text, url) {
+  try {
+    if (navigator.share) { await navigator.share(url ? { text, url } : { text }); return; }
+    await navigator.clipboard.writeText(url ? `${text}\n${url}` : text);
+    toast('Copied!');
+  } catch { /* cancelled */ }
 }
 
 const actions = {
@@ -513,18 +748,18 @@ const actions = {
   unit: (el) => { view = { name: 'unit', id: el.dataset.id }; render(); window.scrollTo(0, 0); },
   start: (el) => startSession({ unitId: el.dataset.unit || null, extra: !!el.dataset.extra }),
   play: (el) => audio.play(el.dataset.text),
+  'play-as': (el) => audio.play(el.dataset.text, { voice: el.dataset.voice || null }),
   'play-slow': (el) => audio.play(el.dataset.text, { slow: true }),
   replay: () => playTarget(false),
   'replay-slow': () => playTarget(true),
   quit: () => { audio.stop(); sess = null; view = { name: 'home' }; render(); },
-  continue: () => { sess.idx++; nextExercise(); },
+  continue: () => { if (sess.phase !== 'feedback') tick(); sess.idx++; nextExercise(); },
   choose: (el) => {
     if (sess.phase !== 'question') return;
     const ex = sess.ex;
     const key = el.dataset.key;
     let correctKey;
-    if (ex.type === 'pair') correctKey = ex.target;
-    else if (ex.type === 'sound_pick') correctKey = ex.target;
+    if (ex.type === 'pair' || ex.type === 'sound_pick') correctKey = ex.target;
     else if (ex.type === 'cloze') correctKey = ex.item.blank;
     else correctKey = ex.item.id;
     answer(key === correctKey ? 'exact' : 'wrong', { chosen: key, correctKey });
@@ -536,14 +771,12 @@ const actions = {
     render();
   },
   untile: (el) => {
-    const ex = sess.ex;
-    ex.chosen = ex.chosen.filter((c) => c.i !== Number(el.dataset.i));
+    sess.ex.chosen = sess.ex.chosen.filter((c) => c.i !== Number(el.dataset.i));
     render();
   },
   'check-build': () => {
     const ex = sess.ex;
-    const built = ex.chosen.map((c) => c.t).join(' ');
-    const ok = normalize(built) === normalize(tokens(ex.item.sk).join(' '));
+    const ok = normalize(ex.chosen.map((c) => c.t).join(' ')) === normalize(tokens(ex.item.sk).join(' '));
     answer(ok ? 'exact' : 'wrong', { target: ex.item.sk });
   },
   'check-typed': () => {
@@ -574,11 +807,8 @@ const actions = {
     render();
   },
   'rec-start': async () => {
-    try {
-      await audio.startRecording();
-      recording = true;
-      render();
-    } catch { toast('Microphone not available. Check Settings → Safari → Microphone.'); }
+    try { await audio.startRecording(); recording = true; render(); }
+    catch { toast('Microphone not available. Check Settings → Safari → Microphone.'); }
   },
   'rec-stop': async () => {
     recordedUrl = await audio.stopRecording();
@@ -587,6 +817,61 @@ const actions = {
     if (recordedUrl) audio.playUrl(recordedUrl);
   },
   'rec-play': () => recordedUrl && audio.playUrl(recordedUrl),
+
+  // story
+  'play-chapter': (el) => openChapter(Number(el.dataset.index)),
+  'scene-next': () => {
+    sceneTick();
+    const a = advance(scene);
+    render();
+    if (a) audio.play(a.sk, { voice: a.voice });
+  },
+  'scene-choose': (el) => {
+    sceneTick();
+    const a = choose(scene, Number(el.dataset.n));
+    if (!scene.hint) {
+      // Right answer: keep the story moving if the next beat is narration or dialogue.
+      render();
+      if (a) audio.play(a.sk, { voice: a.voice });
+    } else render();
+  },
+  'scene-postcard': () => {
+    const fresh = !state.story.done[scene.ch.id];
+    completeChapter(scene.ch.id);
+    view = { name: 'postcard', index: scene.index, fresh };
+    scene = null;
+    render();
+    window.scrollTo(0, 0);
+  },
+  'scene-quit': () => { audio.stop(); scene = null; view = { name: 'story' }; render(); },
+  'view-postcard': (el) => { view = { name: 'postcard', index: Number(el.dataset.index) }; render(); window.scrollTo(0, 0); },
+  'toggle-tr': () => { state.settings.showTranslations = !state.settings.showTranslations; save(); render(); },
+
+  // settings & learners
+  'set-name': () => {
+    const v = app.querySelector('[data-input="name"]')?.value.trim();
+    if (!v) return app.querySelector('[data-input="name"]')?.focus();
+    state.name = v;
+    save();
+    view = { name: 'home' };
+    render();
+  },
+  rename: () => {
+    const v = app.querySelector('[data-input="rename"]')?.value.trim();
+    if (v) { state.name = v; save(); toast('Saved.'); render(); }
+  },
+  'add-profile': () => {
+    const v = app.querySelector('[data-input="new-learner"]')?.value.trim();
+    if (!v) return;
+    addProfile(v);
+    toast(`Switched to ${v}.`);
+    view = { name: 'home' };
+    render();
+  },
+  'switch-profile': (el) => { switchProfile(el.dataset.id); view = { name: 'home' }; render(); toast(`Ahoj, ${state.name}!`); },
+  'delete-profile': (el) => {
+    if (confirm('Remove this learner and all their progress from this phone?')) { deleteProfile(el.dataset.id); render(); }
+  },
   set: (el) => {
     const v = el.dataset.value;
     state.settings[el.dataset.key] = /^\d+$/.test(v) ? Number(v) : v;
@@ -595,13 +880,8 @@ const actions = {
   },
   toggle: (el) => { state.settings[el.dataset.key] = el.checked; save(); },
   'hide-install': () => { try { sessionStorage.setItem('hideInstall', '1'); } catch { /* ignore */ } render(); },
-  share: async () => {
-    const text = 'Slovak I learned this week:\n' + recentPhrases().map((it) => `• ${it.sk} — ${it.en}`).join('\n');
-    try {
-      if (navigator.share) await navigator.share({ text });
-      else { await navigator.clipboard.writeText(text); toast('Copied!'); }
-    } catch { /* cancelled */ }
-  },
+  share: () => shareOrCopy('Slovak I learned this week:\n' + recentPhrases().map((it) => `• ${it.sk} — ${it.en}`).join('\n')),
+  'send-report': () => shareOrCopy(`${state.name}'s Slovak progress 🇸🇰`, reportUrl()),
   export: async () => {
     try { await navigator.clipboard.writeText(exportState()); toast('Backup copied. Paste it somewhere safe.'); }
     catch { toast('Could not copy on this device.'); }
@@ -612,7 +892,7 @@ const actions = {
     catch { toast('That doesn\'t look like a valid backup.'); }
   },
   reset: () => {
-    if (confirm('Erase all progress on this device? This cannot be undone.')) { resetState(); toast('Progress reset.'); render(); }
+    if (confirm(`Erase all of ${state.name}'s progress on this phone? This cannot be undone.`)) { resetState(); toast('Progress reset.'); render(); }
   },
 };
 
@@ -633,7 +913,7 @@ app.addEventListener('pointerdown', (e) => { if (e.target.closest('.accents butt
 // --- boot ----------------------------------------------------------------------------------
 
 (async function boot() {
-  await Promise.all([loadCourse(), audio.loadAudioManifest()]);
+  await Promise.all([loadCourse(), loadStory(), audio.loadAudioManifest()]);
   render();
   const dev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   if ('serviceWorker' in navigator && !dev) navigator.serviceWorker.register('sw.js').catch(() => {});

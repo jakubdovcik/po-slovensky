@@ -246,18 +246,12 @@ export function buildSession({ unitId = null, extra = false } = {}) {
   return queue;
 }
 
-// --- recording results -----------------------------------------------------------
-
-function bumpDay() {
-  const t = today();
-  state.days[t] = { done: (state.days[t]?.done || 0) + 1 };
-}
+// --- recording results (activity/time is logged by the session in app.js) ---------
 
 export function gradeItem(id, grade) {
   const t = today();
   state.cards[id] = review(state.cards[id] || null, grade, t);
   if (state.introduced[id] == null) state.introduced[id] = t;
-  bumpDay();
   save();
 }
 
@@ -265,6 +259,10 @@ export function recordPair(pair, correct) {
   const key = pair.a + '|' + pair.b;
   const st = state.pairs[key] || { seen: 0, wrong: 0 };
   state.pairs[key] = { seen: st.seen + 1, wrong: st.wrong + (correct ? 0 : 1) };
-  bumpDay();
   save();
+}
+
+export function unitProgress(unit) {
+  const learned = unit.items.filter((i) => state.cards[i.id]).length;
+  return { learned, total: unit.items.length };
 }

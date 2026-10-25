@@ -1,0 +1,387 @@
+{
+  "title": "Cesta domov",
+  "subtitle": "The way home: a story in ten postcards",
+  "config": {
+    "partner": "Jakub",
+    "hometown": ""
+  },
+  "characters": {
+    "jakub": { "name": "{partner}", "voice": "lukas", "color": "blue" },
+    "mama": { "name": "Mama", "voice": "viktoria", "color": "magenta" },
+    "otec": { "name": "Otec", "voice": "lukas", "color": "navy" },
+    "babka": { "name": "Babka", "voice": "viktoria", "color": "orange" },
+    "taxikar": { "name": "Taxikár", "voice": "lukas", "color": "sky" },
+    "casnik": { "name": "Čašník", "voice": "lukas", "color": "sky" },
+    "primar": { "name": "Primár Horváth", "voice": "lukas", "color": "navy" },
+    "pacientka": { "name": "Pani Nováková", "voice": "viktoria", "color": "sky" },
+    "pacient": { "name": "Pán Kováč", "voice": "lukas", "color": "sky" },
+    "teta": { "name": "Teta Zuzka", "voice": "viktoria", "color": "magenta" }
+  },
+  "chapters": [
+    {
+      "id": "c1", "title": "Prílet", "en": "Arrival", "place": "Letisko Bratislava", "color": "blue",
+      "requires": ["s1", "s2", "s3", "s4", "s5", "s6", "s7"],
+      "beats": [
+        { "t": "narr", "text": "Your plane touches down in Bratislava. Through the glass doors you spot {partner}, grinning, holding a sign with your name on it." },
+        { "t": "say", "who": "jakub", "sk": "Vitaj na Slovensku!", "en": "Welcome to Slovakia!" },
+        { "t": "narr", "text": "He grabs your suitcase. \"Test time,\" he says. \"Read me the signs.\"" },
+        { "t": "choice", "prompt": "He reads the big sign over the doors out loud. Which spelling did he say?", "audio": "Východ",
+          "options": [
+            { "sk": "Vychod", "hint": "Listen to the first vowel again. He held it long." },
+            { "sk": "Východ", "ok": true, "reply": { "who": "jakub", "sk": "Výborne! Východ znamená exit.", "en": "Excellent! Východ means exit." } },
+            { "sk": "Výchôd", "hint": "Close, but ô is a glide (\"uo\"). He said a plain o." }
+          ] },
+        { "t": "narr", "text": "In the taxi, the driver asks where to. {partner} hands you the address and leaves the talking to you." },
+        { "t": "choice", "prompt": "The driver repeats the street name. Which sign is it?", "audio": "Štúrova",
+          "options": [
+            { "sk": "Sturova", "hint": "Hissing or hushing? That first sound was \"sh\": š." },
+            { "sk": "Šturová", "hint": "Right sound, wrong vowel: the long one is the u." },
+            { "sk": "Štúrova", "ok": true, "reply": { "who": "taxikar", "sk": "Dobre, ideme.", "en": "Alright, let's go." } }
+          ] },
+        { "t": "narr", "text": "At the hotel you pay. Time to thank the driver." },
+        { "t": "choice", "prompt": "Pick the correctly spelled thank-you.",
+          "options": [
+            { "sk": "Ďakujem!", "ok": true, "reply": { "who": "taxikar", "sk": "Nie je za čo. Dovidenia!", "en": "Don't mention it. Goodbye!" } },
+            { "sk": "Dakujem!", "hint": "So close. The first letter is the soft one: ď." }
+          ] },
+        { "t": "narr", "text": "{partner} squeezes your hand. \"You read like a local already. Tomorrow: my parents.\"" }
+      ],
+      "postcard": "You made it. I'd imagined you walking through those doors so many times. Every Slovak sign you can read is one less thing between you and my world.\n— J."
+    },
+    {
+      "id": "c2", "title": "Zoznámenie", "en": "Meeting the parents", "place": "{hometown}", "color": "magenta",
+      "requires": ["u1", "u2", "u3"],
+      "beats": [
+        { "t": "narr", "text": "The train pulls into {hometown}. {partner}'s parents are waiting at the door: Mama in her apron, Otec pretending he isn't nervous." },
+        { "t": "choice", "prompt": "Mama opens the door. How do you greet her?",
+          "options": [
+            { "sk": "Čau!", "hint": "Sweet, but too casual for his mom. Use the formal greeting." },
+            { "sk": "Dobrý deň!", "ok": true, "reply": { "who": "mama", "sk": "Dobrý deň! Poďte ďalej.", "en": "Hello! Come on in." } },
+            { "sk": "Dobrú noc!", "hint": "That's \"good night\", and it's three in the afternoon!" }
+          ] },
+        { "t": "say", "who": "mama", "sk": "Ako sa voláte?", "en": "What's your name?" },
+        { "t": "choice", "prompt": "Answer her.",
+          "options": [
+            { "sk": "Ako sa voláš?", "hint": "That's asking her name back (and informally). Answer first!" },
+            { "sk": "Mám sa dobre.", "hint": "That's \"I'm doing well\". She asked your name." },
+            { "sk": "Volám sa {name}.", "ok": true, "reply": { "who": "mama", "sk": "Teší ma!", "en": "Nice to meet you!" } }
+          ] },
+        { "t": "say", "who": "otec", "sk": "Hovoríte po slovensky?", "en": "Do you speak Slovak?" },
+        { "t": "choice", "prompt": "Otec is testing you.",
+          "options": [
+            { "sk": "Hovorím trochu po slovensky.", "ok": true, "reply": { "who": "otec", "sk": "Výborne! Lepšie ako ja po anglicky.", "en": "Excellent! Better than my English." } },
+            { "sk": "Nerozumiem.", "hint": "Honest, but you understood him perfectly! Tell him you speak a little." }
+          ] },
+        { "t": "say", "who": "jakub", "sk": "A toto je naša babka.", "en": "And this is our grandma." },
+        { "t": "narr", "text": "A tiny woman with enormous energy bursts out of the kitchen and pinches your cheek." },
+        { "t": "say", "who": "babka", "sk": "Ty si tá Američanka! Aká pekná!", "en": "You're the American! How pretty!" },
+        { "t": "choice", "prompt": "Thank her.",
+          "options": [
+            { "sk": "Prosím.", "hint": "That's \"please / you're welcome\". Thank her first." },
+            { "sk": "Ďakujem!", "ok": true, "reply": { "who": "babka", "sk": "Nie je za čo, zlatko.", "en": "You're welcome, sweetie." } }
+          ] }
+      ],
+      "postcard": "When you left the room, my mom leaned over and whispered: \"Tá je zlatá.\" She's a gem. I told her I know.\n— J."
+    },
+    {
+      "id": "c3", "title": "Nedeľný obed", "en": "Sunday lunch", "place": "U babky", "color": "orange",
+      "requires": ["u4", "u5", "u6"],
+      "beats": [
+        { "t": "narr", "text": "Sunday. Babka has been cooking since six in the morning. The table could feed a small village." },
+        { "t": "say", "who": "babka", "sk": "Dobrú chuť!", "en": "Enjoy your meal!" },
+        { "t": "choice", "prompt": "Everyone says it back. You?",
+          "options": [
+            { "sk": "Na zdravie!", "hint": "That's for drinks (and sneezes). For food: Dobrú chuť!" },
+            { "sk": "Dobrú chuť!", "ok": true, "reply": { "who": "jakub", "sk": "Presne tak.", "en": "Exactly." } },
+            { "sk": "Dobrú noc!", "hint": "Wrong time of day. That's good night!" }
+          ] },
+        { "t": "say", "who": "babka", "sk": "Chutí ti polievka?", "en": "Do you like the soup?" },
+        { "t": "choice", "prompt": "Tell her it's delicious.",
+          "options": [
+            { "sk": "Je to výborné!", "ok": true, "reply": { "who": "babka", "sk": "Tak si daj ešte!", "en": "Then have some more!" } },
+            { "sk": "Mám hlad.", "hint": "Probably true, but she asked if you like it!" }
+          ] },
+        { "t": "narr", "text": "Your bowl is refilled before you can blink. Then comes the meat. Then the dumplings. Then more meat." },
+        { "t": "say", "who": "babka", "sk": "Ešte mäso?", "en": "More meat?" },
+        { "t": "choice", "prompt": "You are very full.",
+          "options": [
+            { "sk": "Áno, prosím.", "hint": "Brave. You will regret it. Try declining politely." },
+            { "sk": "Už nie, ďakujem.", "ok": true, "reply": { "who": "babka", "sk": "Ale veď nič nejete!", "en": "But you're not eating anything!" } }
+          ] },
+        { "t": "narr", "text": "She puts more meat on your plate anyway. {partner} leans over: \"Nobody has ever won against Babka.\"" },
+        { "t": "say", "who": "otec", "sk": "Kávu alebo čaj?", "en": "Coffee or tea?" },
+        { "t": "choice", "prompt": "Order a coffee, properly.",
+          "options": [
+            { "sk": "Káva.", "hint": "Understandable, but add \"Prosím si\", and remember káva → kávu." },
+            { "sk": "Prosím si kávu.", "ok": true, "reply": { "who": "otec", "sk": "Hneď to bude.", "en": "Coming right up." } }
+          ] },
+        { "t": "say", "who": "babka", "sk": "Koľko máš rokov, zlatko?", "en": "How old are you, sweetie?" },
+        { "t": "narr", "text": "The whole table goes quiet. Any number will do; she'll tell the whole village either way." },
+        { "t": "choice", "prompt": "Answer Babka.",
+          "options": [
+            { "sk": "Mám dvadsať rokov.", "ok": true, "reply": { "who": "babka", "sk": "Ešte mladá! A kedy bude svadba?", "en": "Still young! So when's the wedding?" } },
+            { "sk": "Mám tridsať rokov.", "ok": true, "reply": { "who": "babka", "sk": "Ešte mladá! A kedy bude svadba?", "en": "Still young! So when's the wedding?" } }
+          ] },
+        { "t": "narr", "text": "{partner} chokes on his Kofola." }
+      ],
+      "postcard": "Babka asked about you three times on the phone this week. Not about me. About you.\n— J."
+    },
+    {
+      "id": "c4", "title": "Večer v meste", "en": "A night in the city", "place": "Bratislavský hrad", "color": "sky",
+      "requires": ["u7", "u8", "u9"],
+      "beats": [
+        { "t": "narr", "text": "One evening in Bratislava, just the two of you. The castle glows white above the Danube." },
+        { "t": "say", "who": "jakub", "sk": "Máš čas dnes večer?", "en": "Are you free tonight?" },
+        { "t": "choice", "prompt": "Say yes.",
+          "options": [
+            { "sk": "Áno!", "ok": true, "reply": { "who": "jakub", "sk": "Tak poďme.", "en": "Then let's go." } },
+            { "sk": "Nie.", "hint": "Harsh! Try again." }
+          ] },
+        { "t": "narr", "text": "A tiny café in the old town. The waiter appears." },
+        { "t": "say", "who": "casnik", "sk": "Dobrý večer, čo si dáte?", "en": "Good evening, what will you have?" },
+        { "t": "choice", "prompt": "Order a glass of wine.",
+          "options": [
+            { "sk": "Prosím si vínu.", "hint": "Víno is neuter, so it doesn't change. Just víno." },
+            { "sk": "Prosím si víno.", "ok": true, "reply": { "who": "casnik", "sk": "Samozrejme.", "en": "Of course." } }
+          ] },
+        { "t": "narr", "text": "Later you need the restroom and can't see a sign anywhere." },
+        { "t": "choice", "prompt": "Ask the waiter politely.",
+          "options": [
+            { "sk": "Prepáčte, kde je záchod?", "ok": true, "reply": { "who": "casnik", "sk": "Vzadu vľavo.", "en": "At the back, on the left." } },
+            { "sk": "Prepáč, kde je záchod?", "hint": "Prepáč is informal. With a stranger, use Prepáčte." }
+          ] },
+        { "t": "choice", "prompt": "Time to pay.",
+          "options": [
+            { "sk": "Koľko je hodín?", "hint": "That asks the time!" },
+            { "sk": "Účet, prosím.", "ok": true, "reply": { "who": "casnik", "sk": "Kartou alebo hotovosťou?", "en": "Card or cash?" } }
+          ] },
+        { "t": "choice", "prompt": "You'd like to pay by card.",
+          "options": [
+            { "sk": "Môžem platiť kartou?", "ok": true, "reply": { "who": "casnik", "sk": "Áno, nech sa páči.", "en": "Yes, here you go." } },
+            { "sk": "Koľko to stojí?", "hint": "He already knows what it costs. Ask about the card." }
+          ] },
+        { "t": "narr", "text": "Walking up to the castle, the whole city sparkling below, {partner} stops and turns to you." },
+        { "t": "say", "who": "jakub", "sk": "Ľúbim ťa.", "en": "I love you." },
+        { "t": "choice", "prompt": "Your move.",
+          "options": [
+            { "sk": "Mám hlad.", "hint": "Romantic moment, {name}! Food later." },
+            { "sk": "Je mi zima.", "hint": "Fair, it's chilly. But he's waiting for something else." },
+            { "sk": "Ľúbim ťa.", "ok": true, "reply": { "who": "jakub", "sk": "Teším sa na zajtra s tebou.", "en": "I'm looking forward to tomorrow with you." } }
+          ] }
+      ],
+      "postcard": "I've walked past that castle a thousand times. It only became my favourite place in Bratislava when you were standing next to it.\n— J."
+    },
+    {
+      "id": "c5", "title": "Babkin recept", "en": "Babka's recipe", "place": "Babkina kuchyňa", "color": "gold",
+      "requires": ["g1", "g2", "g3", "g4"],
+      "beats": [
+        { "t": "narr", "text": "Babka has decided you're ready for the family secret: bryndzové halušky, potato dumplings with sheep cheese." },
+        { "t": "say", "who": "babka", "sk": "Dnes varíme spolu. Čo potrebujeme?", "en": "Today we cook together. What do we need?" },
+        { "t": "narr", "text": "She points at the potatoes, the flour and a tub of bryndza (sheep cheese, feminine), and waits." },
+        { "t": "choice", "prompt": "Say \"We need bryndza\". Careful with the ending!",
+          "options": [
+            { "sk": "Potrebujeme bryndza.", "hint": "It's the thing you need, so feminine -a becomes -u." },
+            { "sk": "Potrebujeme bryndzu.", "ok": true, "reply": { "who": "babka", "sk": "Výborne! Ty sa učíš rýchlo.", "en": "Excellent! You learn quickly." } },
+            { "sk": "Potrebujeme bryndze.", "hint": "Not quite: -a → -u." }
+          ] },
+        { "t": "say", "who": "babka", "sk": "Máš súrodencov?", "en": "Do you have brothers or sisters?" },
+        { "t": "choice", "prompt": "Tell her (the grammatically right way).",
+          "options": [
+            { "sk": "Mám brat.", "hint": "A brother is a living masculine noun, so add -a: brata." },
+            { "sk": "Mám brata.", "ok": true, "reply": { "who": "babka", "sk": "Pekne!", "en": "Lovely!" } },
+            { "sk": "Mám sestru.", "ok": true, "reply": { "who": "babka", "sk": "Pekne!", "en": "Lovely!" } }
+          ] },
+        { "t": "say", "who": "babka", "sk": "A Jakub ti pomáha doma?", "en": "And does Jakub help you at home?" },
+        { "t": "narr", "text": "Behind Babka's back, {partner} is nodding frantically." },
+        { "t": "choice", "prompt": "Defend him. He makes dinner!",
+          "options": [
+            { "sk": "Áno, Jakub robí večeru.", "ok": true, "reply": { "who": "babka", "sk": "To je môj vnuk!", "en": "That's my grandson!" } },
+            { "sk": "Áno, Jakub robím večeru.", "hint": "Jakub is \"he\": robí, not robím." }
+          ] },
+        { "t": "narr", "text": "Babka hands you the grater. Forty minutes later you've made your first halušky. They're lumpy. Babka declares them perfect." },
+        { "t": "say", "who": "babka", "sk": "Si šikovná!", "en": "You're so capable!" }
+      ],
+      "postcard": "Babka only teaches halušky to family. Draw your own conclusions.\n— J."
+    },
+    {
+      "id": "c6", "title": "Výlet do Tatier", "en": "Into the mountains", "place": "Vysoké Tatry", "color": "blue",
+      "requires": ["g5", "g6", "g7", "g8"],
+      "beats": [
+        { "t": "narr", "text": "A weekend in the High Tatras. You're hiking up to a mountain hut above the clouds, and the last stretch is steep." },
+        { "t": "say", "who": "jakub", "sk": "Môžeš ešte?", "en": "Can you keep going?" },
+        { "t": "choice", "prompt": "You can!",
+          "options": [
+            { "sk": "Musím.", "hint": "That's \"I have to\". You mean \"I can\"." },
+            { "sk": "Môžem!", "ok": true, "reply": { "who": "jakub", "sk": "Tak poďme hore!", "en": "Then up we go!" } }
+          ] },
+        { "t": "narr", "text": "At the hut: steaming tea, and a view over half of Slovakia. That evening, Mama calls on video." },
+        { "t": "say", "who": "mama", "sk": "Kde ste boli dnes?", "en": "Where were you today?" },
+        { "t": "choice", "prompt": "Tell her where you were.",
+          "options": [
+            { "sk": "Sme v Tatrách.", "hint": "She asked where you WERE. Use the past tense." },
+            { "sk": "Boli sme v Tatry.", "hint": "After v, the place changes: v Tatrách." },
+            { "sk": "Boli sme v Tatrách.", "ok": true, "reply": { "who": "mama", "sk": "Krása! A čo ste videli?", "en": "Beautiful! And what did you see?" } }
+          ] },
+        { "t": "choice", "prompt": "You saw a kamzík (a chamois, a mountain goat)! Say it as a woman.",
+          "options": [
+            { "sk": "Videla som kamzíka!", "ok": true, "reply": { "who": "mama", "sk": "Naozaj? To je šťastie!", "en": "Really? That's lucky!" } },
+            { "sk": "Videl som kamzíka!", "hint": "That's how a man says it. You're videla." }
+          ] },
+        { "t": "say", "who": "mama", "sk": "Nie ste unavení?", "en": "Aren't you tired?" },
+        { "t": "choice", "prompt": "Tired but happy.",
+          "options": [
+            { "sk": "Som unavený, ale šťastný.", "hint": "The -ý endings are for men. You're unavená, šťastná." },
+            { "sk": "Som unavená, ale šťastná.", "ok": true, "reply": { "who": "mama", "sk": "Tak dobre spite!", "en": "Then sleep well!" } }
+          ] }
+      ],
+      "postcard": "Somewhere above the clouds you stopped asking me how to say things and just said them. I noticed.\n— J."
+    },
+    {
+      "id": "c7", "title": "Prvý deň v nemocnici", "en": "First day at the hospital", "place": "Nemocnica", "color": "navy",
+      "requires": ["m1", "m2", "m3"],
+      "beats": [
+        { "t": "narr", "text": "A Bratislava hospital has invited you to visit its psychiatry department. The head physician, primár Horváth, meets you in the corridor." },
+        { "t": "say", "who": "primar", "sk": "Dobrý deň, pani doktorka. Vitajte u nás.", "en": "Good morning, doctor. Welcome." },
+        { "t": "choice", "prompt": "Introduce yourself.",
+          "options": [
+            { "sk": "Som psychiater.", "hint": "That's the male form. You're a psychiatrička." },
+            { "sk": "Som psychiatrička.", "ok": true, "reply": { "who": "primar", "sk": "Výborne. Máme pre vás pacientku.", "en": "Excellent. We have a patient for you." } }
+          ] },
+        { "t": "narr", "text": "Pani Nováková, 45, sits in the consulting room, clutching her handbag." },
+        { "t": "choice", "prompt": "Invite her to sit.",
+          "options": [
+            { "sk": "Posaďte sa, prosím.", "ok": true, "reply": { "who": "pacientka", "sk": "Ďakujem, pani doktorka.", "en": "Thank you, doctor." } },
+            { "sk": "Sadni si.", "hint": "That's informal (ty). With patients, always vy." }
+          ] },
+        { "t": "choice", "prompt": "Open the interview.",
+          "options": [
+            { "sk": "Ako sa voláte?", "hint": "You already know her name. Ask what brings her in." },
+            { "sk": "S čím prichádzate?", "ok": true, "reply": { "who": "pacientka", "sk": "Už mesiac sa cítim zle. Stále som smutná.", "en": "I've felt bad for a month. I'm always sad." } }
+          ] },
+        { "t": "choice", "prompt": "Respond with empathy.",
+          "options": [
+            { "sk": "To nie je problém.", "hint": "Ouch, that's \"it's not a problem\". Try empathy." },
+            { "sk": "To musí byť ťažké.", "ok": true, "reply": { "who": "pacientka", "sk": "Áno. Nikto mi nerozumie.", "en": "Yes. Nobody understands me." } }
+          ] },
+        { "t": "choice", "prompt": "Ask about her mood.",
+          "options": [
+            { "sk": "Aká je vaša nálada?", "ok": true, "reply": { "who": "pacientka", "sk": "Zlá. Nič ma neteší.", "en": "Bad. Nothing brings me joy." } },
+            { "sk": "Ako sa máš?", "hint": "Informal, and too casual here." }
+          ] },
+        { "t": "say", "who": "primar", "sk": "Výborne, pani doktorka. Hovoríte ako slovenská lekárka.", "en": "Excellent, doctor. You sound like a Slovak doctor." }
+      ],
+      "postcard": "You walked into a Slovak hospital and asked the right questions, in Slovak. I told the whole family group chat. Mama replied with eleven heart emojis.\n— J."
+    },
+    {
+      "id": "c8", "title": "Konzultácia", "en": "The consultation", "place": "Ambulancia", "color": "sky",
+      "requires": ["m4", "m5", "m6"],
+      "beats": [
+        { "t": "narr", "text": "Week two. Pán Kováč, 60, has been referred by his GP for insomnia." },
+        { "t": "choice", "prompt": "Ask how he's sleeping.",
+          "options": [
+            { "sk": "Ako spíte?", "ok": true, "reply": { "who": "pacient", "sk": "Zle. Budím sa o tretej ráno.", "en": "Badly. I wake up at three in the morning." } },
+            { "sk": "Spali ste dobre?", "hint": "That's only about last night. Ask about his sleep in general." }
+          ] },
+        { "t": "choice", "prompt": "Ask about his appetite.",
+          "options": [
+            { "sk": "Máte hlad?", "hint": "That's \"are you hungry right now?\". Ask about appetite." },
+            { "sk": "Máte chuť do jedla?", "ok": true, "reply": { "who": "pacient", "sk": "Nie veľmi. Schudol som päť kíl.", "en": "Not really. I've lost five kilos." } }
+          ] },
+        { "t": "narr", "text": "You need to ask about risk. You take a breath." },
+        { "t": "choice", "prompt": "Ask directly about suicidal thoughts.",
+          "options": [
+            { "sk": "Máte samovražedné myšlienky?", "ok": true, "reply": { "who": "pacient", "sk": "Nie, to nie. Mám vnúčatá.", "en": "No, not that. I have grandchildren." } },
+            { "sk": "Užívate drogy?", "hint": "Important too, but ask about suicidal thoughts first." }
+          ] },
+        { "t": "choice", "prompt": "Ask about current medications.",
+          "options": [
+            { "sk": "Užívate nejaké lieky?", "ok": true, "reply": { "who": "pacient", "sk": "Len na tlak.", "en": "Just for blood pressure." } },
+            { "sk": "Máte nejaké otázky?", "hint": "Save that for the end." }
+          ] },
+        { "t": "choice", "prompt": "Explain the plan: one tablet a day.",
+          "options": [
+            { "sk": "Užívajte jednu tabletku denne.", "ok": true, "reply": { "who": "pacient", "sk": "Dobre. A kedy to začne účinkovať?", "en": "OK. And when will it start working?" } },
+            { "sk": "Neprestaňte ich užívať náhle.", "hint": "Good advice, but first tell him how to take it." }
+          ] },
+        { "t": "choice", "prompt": "Answer his question.",
+          "options": [
+            { "sk": "Uvidíme sa o dva týždne.", "hint": "Good line, but he asked when it starts working." },
+            { "sk": "Účinok nastúpi o dva až štyri týždne.", "ok": true, "reply": { "who": "pacient", "sk": "Rozumiem. Ďakujem, pani doktorka.", "en": "I understand. Thank you, doctor." } }
+          ] },
+        { "t": "choice", "prompt": "Close the consultation.",
+          "options": [
+            { "sk": "Uvidíme sa o dva týždne.", "ok": true, "reply": { "who": "pacient", "sk": "Dovidenia.", "en": "Goodbye." } },
+            { "sk": "Čau!", "hint": "Not with patients!" }
+          ] }
+      ],
+      "postcard": "Most people learn a language to order coffee. You learned one to sit with people on their worst days. That is the most you thing in the world.\n— J."
+    },
+    {
+      "id": "c9", "title": "Svadba: klebety", "en": "The wedding: gossip", "place": "Svadba sesternice Lucie", "color": "magenta",
+      "requires": ["k1", "k2", "k3", "k4", "k5", "k6"],
+      "beats": [
+        { "t": "narr", "text": "Cousin Lucia's wedding. Three hundred guests, a live band, and Teta Zuzka, the family's chief gossip, has claimed the seat next to yours." },
+        { "t": "say", "who": "teta", "sk": "Počula si? Vraj je Lucia tehotná!", "en": "Did you hear? Apparently Lucia's pregnant!" },
+        { "t": "choice", "prompt": "React!",
+          "options": [
+            { "sk": "Ďakujem.", "hint": "She wants a reaction, not thanks!" },
+            { "sk": "Nehovor!", "ok": true, "reply": { "who": "teta", "sk": "Ale nikomu to nehovor!", "en": "But don't tell anyone!" } },
+            { "sk": "Fakt?", "ok": true, "reply": { "who": "teta", "sk": "Fakt! Ale nikomu to nehovor!", "en": "Really! But don't tell anyone!" } }
+          ] },
+        { "t": "say", "who": "teta", "sk": "A vidíš toho chlapa pri bare?", "en": "And do you see that guy by the bar?" },
+        { "t": "choice", "prompt": "Ask who he is.",
+          "options": [
+            { "sk": "Kto je to?", "ok": true, "reply": { "who": "teta", "sk": "To je Luciin bývalý! Rozišli sa minulý rok.", "en": "That's Lucia's ex! They broke up last year." } },
+            { "sk": "Kde je to?", "hint": "That's \"where is it?\". You want \"who\"." }
+          ] },
+        { "t": "narr", "text": "You start to turn around." },
+        { "t": "say", "who": "jakub", "sk": "Neotáčaj sa!", "en": "Don't turn around!" },
+        { "t": "say", "who": "teta", "sk": "A tá v červených šatách je o dvadsať rokov mladšia ako jej manžel!", "en": "And the one in the red dress is twenty years younger than her husband!" },
+        { "t": "choice", "prompt": "React like a true Slovak.",
+          "options": [
+            { "sk": "To snáď nie!", "ok": true, "reply": { "who": "teta", "sk": "Áno, áno! Ale ja som ti nič nepovedala.", "en": "Oh yes! But I didn't tell you anything." } },
+            { "sk": "Je to fešák.", "hint": "Wrong person, and wrong gender!" }
+          ] },
+        { "t": "narr", "text": "Suddenly the woman in the red dress gets up and walks straight toward your table." },
+        { "t": "say", "who": "jakub", "sk": "Pst, ide sem!", "en": "Shh, she's coming over!" },
+        { "t": "choice", "prompt": "Quick, cover!",
+          "options": [
+            { "sk": "Zmeňme tému.", "ok": true, "reply": { "who": "teta", "sk": "Aké krásne počasie dnes, však?", "en": "Lovely weather today, isn't it?" } },
+            { "sk": "Nehovor!", "hint": "Too late for that!" }
+          ] }
+      ],
+      "postcard": "Teta Zuzka told me you're \"one of us\" now. From her, that's the highest honour in the family. Also: everything she tells you is supposedly a secret.\n— J."
+    },
+    {
+      "id": "c10", "title": "Prípitok", "en": "The toast", "place": "Svadba o polnoci", "color": "gold",
+      "requires": ["o1", "o2", "o3"],
+      "beats": [
+        { "t": "narr", "text": "Midnight. The band stops. Lucia's veil is about to be swapped for a married woman's cap: the čepčenie. Otec appears with two little glasses." },
+        { "t": "say", "who": "otec", "sk": "Na zdravie! Pozri sa mi do očí!", "en": "Cheers! Look me in the eyes!" },
+        { "t": "choice", "prompt": "Toast back. Eyes up!",
+          "options": [
+            { "sk": "Dobrú chuť!", "hint": "That's for food. For drinks: Na zdravie!" },
+            { "sk": "Na zdravie!", "ok": true, "reply": { "who": "otec", "sk": "Na mladomanželov!", "en": "To the newlyweds!" } }
+          ] },
+        { "t": "say", "who": "otec", "sk": "Ešte jeden pohárik slivovice?", "en": "Another glass of slivovica?" },
+        { "t": "choice", "prompt": "Slow him down, politely.",
+          "options": [
+            { "sk": "Len trošku, prosím.", "ok": true, "reply": { "who": "otec", "sk": "Trošku… dobre.", "en": "A little… sure." } },
+            { "sk": "Som šoférka.", "ok": true, "reply": { "who": "otec", "sk": "Tak si daj kofolu!", "en": "Then have a Kofola!" } },
+            { "sk": "Ja už nemôžem.", "ok": true, "reply": { "who": "otec", "sk": "Ešte jeden! Je svadba!", "en": "One more! It's a wedding!" } }
+          ] },
+        { "t": "narr", "text": "The band starts a slow song. {partner} holds out his hand." },
+        { "t": "say", "who": "jakub", "sk": "Zatancujeme si?", "en": "Shall we dance?" },
+        { "t": "choice", "prompt": "Of course.",
+          "options": [
+            { "sk": "Áno!", "ok": true, "reply": { "who": "jakub", "sk": "Ľúbim ťa.", "en": "I love you." } },
+            { "sk": "Mám dosť.", "hint": "Not of him, surely!" }
+          ] },
+        { "t": "narr", "text": "Across the room, Babka watches the two of you and nudges Mama." },
+        { "t": "say", "who": "babka", "sk": "No a kedy bude vaša svadba?", "en": "So, when's your wedding?" },
+        { "t": "narr", "text": "{partner} laughs and spins you around. You understood every single word tonight." }
+      ],
+      "postcard": "The end. Or the beginning.\nĎakujem, že sa učíš môj jazyk. Thank you for learning my language. It means more than I know how to say, in either one.\n— J."
+    }
+  ]
+}

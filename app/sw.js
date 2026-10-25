@@ -1,12 +1,13 @@
 // Offline support. App files: serve from cache, refresh in the background
-// (so updates arrive on the next launch). Audio: cache forever once played.
+// (so updates arrive on the next launch). Audio and fonts: cache forever once fetched.
 
-const SHELL = 'shell-v3';
-const AUDIO = 'audio-v1';
+const SHELL = 'shell-v4';
+const MEDIA = 'audio-v1';
+const FONTS = 'fonts-v1';
 const FILES = [
-  './', 'index.html', 'manifest.webmanifest', 'css/app.css',
-  'js/app.js', 'js/audio.js', 'js/course.js', 'js/fsrs.js', 'js/store.js',
-  'data/course.json', 'audio/manifest.json',
+  './', 'index.html', 'report.html', 'manifest.webmanifest', 'css/app.css',
+  'js/app.js', 'js/audio.js', 'js/course.js', 'js/fsrs.js', 'js/store.js', 'js/story.js', 'js/progress.js', 'js/report.js',
+  'data/course.json', 'data/story.json', 'audio/manifest.json',
   'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
 ];
 
@@ -16,22 +17,31 @@ self.addEventListener('install', (e) => {
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys()
-    .then((keys) => Promise.all(keys.filter((k) => k !== SHELL && k !== AUDIO).map((k) => caches.delete(k))))
+    .then((keys) => Promise.all(keys.filter((k) => ![SHELL, MEDIA, FONTS].includes(k)).map((k) => caches.delete(k))))
     .then(() => self.clients.claim()));
 });
 
+async function cacheFirst(cacheName, request) {
+  const cache = await caches.open(cacheName);
+  const hit = await cache.match(request);
+  if (hit) return hit;
+  const res = await fetch(request);
+  if (res.ok || res.type === 'opaque') cache.put(request, res.clone());
+  return res;
+}
+
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-  if (e.request.method !== 'GET' || url.origin !== location.origin) return;
+  if (e.request.method !== 'GET') return;
+
+  if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
+    e.respondWith(cacheFirst(FONTS, e.request));
+    return;
+  }
+  if (url.origin !== location.origin) return;
 
   if (url.pathname.includes('/audio/') && url.pathname.endsWith('.mp3')) {
-    e.respondWith(caches.open(AUDIO).then(async (cache) => {
-      const hit = await cache.match(e.request);
-      if (hit) return hit;
-      const res = await fetch(e.request);
-      if (res.ok) cache.put(e.request, res.clone());
-      return res;
-    }));
+    e.respondWith(cacheFirst(MEDIA, e.request));
     return;
   }
 

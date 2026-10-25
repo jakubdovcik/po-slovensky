@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Slovak Progress</title>
+  <meta name="description" content="A learner's progress in Po slovensky.">
+  <meta name="theme-color" content="#0142a4">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="css/app.css">
+  <style>
+    .screen { padding-bottom: calc(env(safe-area-inset-bottom) + 40px); }
+    .chart { display: flex; align-items: flex-end; gap: 3px; height: 110px; margin-top: 8px; }
+    .chart span { flex: 1; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px; }
+    .chart span.zero { background: var(--line); }
+    .chart-axis { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <div id="app"><p class="center muted" style="margin-top:40vh">Loading…</p></div>
+  <script type="module" src="js/report.js"></script>
+</body>
+</html>

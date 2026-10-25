@@ -49,7 +49,21 @@ async function collectTexts() {
     }
     (unit.pairs || []).forEach((p) => { texts.add(p.a); texts.add(p.b); });
   }
-  return [...texts];
+  // Story dialogue (lines containing {placeholders} are personalised, so they can't be pre-recorded).
+  try {
+    const story = JSON.parse(await readFile(join(ROOT, 'data', 'story.json'), 'utf8'));
+    for (const ch of story.chapters) {
+      for (const b of ch.beats) {
+        if (b.t === 'say') texts.add(b.sk);
+        if (b.audio) texts.add(b.audio);
+        for (const o of b.options || []) {
+          if (!o.sk.includes('{')) texts.add(o.sk);
+          if (o.reply) texts.add(o.reply.sk);
+        }
+      }
+    }
+  } catch { /* no story */ }
+  return [...texts].filter((t) => !t.includes('{'));
 }
 
 async function synth(text, voice, key, region) {

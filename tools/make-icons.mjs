@@ -8,9 +8,9 @@ import { fileURLToPath } from 'node:url';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'app', 'icons');
 
-const BG = [31, 78, 140];
-const HILL = [52, 110, 184];
-const WHITE = [255, 255, 255];
+const BG = [1, 66, 164];   // Wellesley blue
+const HILL = [12, 33, 66];  // deep navy
+const WHITE = [255, 252, 244]; // cream
 
 // Shapes in unit coordinates (0..1). Later shapes paint over earlier ones.
 function colorAt(x, y) {
