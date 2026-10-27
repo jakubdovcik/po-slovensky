@@ -37,24 +37,34 @@
       "color": "sky"
     },
     "primar": {
-      "name": "Primár Horváth",
+      "name": "Primár Novák",
       "voice": "lukas",
       "color": "navy"
     },
     "pacientka": {
-      "name": "Pani Nováková",
+      "name": "Pani Kováčová",
       "voice": "viktoria",
       "color": "sky"
     },
     "pacient": {
-      "name": "Pán Kováč",
+      "name": "Pán Horváth",
       "voice": "lukas",
       "color": "sky"
     },
     "teta": {
-      "name": "Teta Zuzka",
+      "name": "Teta Janka",
       "voice": "viktoria",
       "color": "magenta"
+    },
+    "nina": {
+      "name": "Nina",
+      "voice": "viktoria",
+      "color": "sky"
+    },
+    "filip": {
+      "name": "Filip",
+      "voice": "lukas",
+      "color": "orange"
     }
   },
   "chapters": [
@@ -899,7 +909,17 @@
       "beats": [
         {
           "t": "narr",
-          "text": "A Bratislava hospital has invited you to visit its psychiatry department. The head physician, primár Horváth, meets you in the corridor."
+          "text": "{partner}'s cousin Nina, a medical student, has arranged for you to visit the psychiatry department at her hospital. She meets you at the entrance."
+        },
+        {
+          "t": "say",
+          "who": "nina",
+          "sk": "Ahoj! Vitaj u nás v nemocnici.",
+          "en": "Hi! Welcome to our hospital."
+        },
+        {
+          "t": "narr",
+          "text": "She walks you up to the third floor, where the head of the department, primár Novák, is waiting in the corridor."
         },
         {
           "t": "say",
@@ -928,7 +948,7 @@
         },
         {
           "t": "narr",
-          "text": "Pani Nováková, 45, sits in the consulting room, clutching her handbag."
+          "text": "Pani Kováčová, 45, sits in the consulting room, clutching her handbag."
         },
         {
           "t": "choice",
@@ -1011,6 +1031,12 @@
           "who": "primar",
           "sk": "Výborne, pani doktorka. Hovoríte ako slovenská lekárka.",
           "en": "Excellent, doctor. You sound like a Slovak doctor."
+        },
+        {
+          "t": "say",
+          "who": "nina",
+          "sk": "Super! Ty si lepšia ako naši profesori.",
+          "en": "Great! You're better than our professors."
         }
       ],
       "postcard": "You learned to ask S čím prichádzate? and to say To musí byť ťažké in a language that isn't yours, so that someone having a hard time could feel understood. I'm so proud of you.\n— Tvoj J."
@@ -1029,7 +1055,7 @@
       "beats": [
         {
           "t": "narr",
-          "text": "Week two. Pán Kováč, 60, has been referred by his GP for insomnia."
+          "text": "Week two. Pán Horváth, 60, has been referred by his GP for insomnia."
         },
         {
           "t": "choice",
@@ -1175,7 +1201,7 @@
       "id": "c9",
       "title": "Svadba: klebety",
       "en": "The wedding: gossip",
-      "place": "Svadba sesternice Lucie",
+      "place": "Svadba Lucie a Mareka",
       "color": "magenta",
       "requires": [
         "k1",
@@ -1188,7 +1214,40 @@
       "beats": [
         {
           "t": "narr",
-          "text": "Cousin Lucia's wedding. Three hundred guests, a live band, and Teta Zuzka, the family's chief gossip, has claimed the seat next to yours."
+          "text": "A family friend's wedding: Lucia and Marek. Three hundred guests, a live band, and Teta Janka, the family's chief gossip, has claimed the seat next to yours."
+        },
+        {
+          "t": "narr",
+          "text": "Across the table, cousin Filip, the family dentist, leans over to introduce himself."
+        },
+        {
+          "t": "say",
+          "who": "filip",
+          "sk": "Ahoj! Ja som Filip, zubár.",
+          "en": "Hi! I'm Filip, the dentist."
+        },
+        {
+          "t": "choice",
+          "prompt": "Say nice to meet you.",
+          "options": [
+            {
+              "sk": "Teší ma.",
+              "ok": true,
+              "reply": {
+                "who": "filip",
+                "sk": "Aj mňa. Máš pekné zuby!",
+                "en": "Likewise. You have nice teeth!"
+              }
+            },
+            {
+              "sk": "Dobrú chuť!",
+              "hint": "That's for meals. Try \"nice to meet you\"."
+            }
+          ]
+        },
+        {
+          "t": "narr",
+          "text": "Teta Janka waits, visibly impatient, until Filip turns away. Then she leans in."
         },
         {
           "t": "say",
