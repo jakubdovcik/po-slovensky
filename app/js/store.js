@@ -7,6 +7,8 @@ const PROFILES_KEY = 'poslovensky.profiles';
 const DEFAULT_STATE = {
   v: 1,
   name: '',           // learner's first name (used in the story)
+  avatar: '',         // emoji chosen on the profile screen
+  createdAt: 0,       // when this learner started (ms)
   cards: {},          // itemId -> FSRS card state
   introduced: {},     // itemId -> day number first seen
   days: {},           // day number -> { done, right, secs }
@@ -39,8 +41,50 @@ function load(id) {
 
 export let state = load(profileData.current);
 
-export function save() {
+const saveListeners = [];
+/** Called after every (non-silent) save, e.g. to schedule a cloud sync. */
+export function onSave(fn) { saveListeners.push(fn); }
+
+export function save({ silent = false } = {}) {
+  state.updatedAt = Date.now();
   write(keyFor(profileData.current), JSON.stringify(state));
+  if (!silent) saveListeners.forEach((fn) => fn());
+}
+
+export const currentProfileId = () => profileData.current;
+
+/** Replaces the current learner's state (after merging with the cloud copy). */
+export function replaceState(next) {
+  state = hydrate(next);
+  save({ silent: true });
+}
+
+/**
+ * Combines two copies of the same learner's progress (e.g. phone + iPad) without losing
+ * anything: the most recently reviewed version of each card wins, the rest is unioned.
+ */
+export function mergeStates(local, remote) {
+  const r = hydrate(remote);
+  const out = hydrate(structuredClone(local));
+  out.name = out.name || r.name;
+  out.avatar = out.avatar || r.avatar;
+  out.createdAt = Math.min(out.createdAt || Infinity, r.createdAt || Infinity);
+  if (!Number.isFinite(out.createdAt)) out.createdAt = 0;
+  for (const [id, c] of Object.entries(r.cards)) {
+    const m = out.cards[id];
+    if (!m || c.last > m.last || (c.last === m.last && c.reps > m.reps)) out.cards[id] = c;
+  }
+  for (const [id, d] of Object.entries(r.introduced)) out.introduced[id] = out.introduced[id] == null ? d : Math.min(out.introduced[id], d);
+  for (const [d, x] of Object.entries(r.days)) {
+    const m = out.days[d] || {};
+    out.days[d] = { done: Math.max(m.done || 0, x.done || 0), right: Math.max(m.right || 0, x.right || 0), secs: Math.max(m.secs || 0, x.secs || 0) };
+  }
+  for (const [k, x] of Object.entries(r.pairs)) {
+    const m = out.pairs[k] || { seen: 0, wrong: 0 };
+    out.pairs[k] = { seen: Math.max(m.seen, x.seen), wrong: Math.max(m.wrong, x.wrong) };
+  }
+  for (const [k, d] of Object.entries(r.story.done)) out.story.done[k] = out.story.done[k] == null ? d : Math.min(out.story.done[k], d);
+  return out;
 }
 
 // --- learner profiles ------------------------------------------------------------

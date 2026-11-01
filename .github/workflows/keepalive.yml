@@ -1,0 +1,25 @@
+name: Keep Supabase awake
+
+# Free Supabase projects pause after 7 days without database activity.
+# A tiny read every 3 days prevents that. Uses only the public (publishable) key.
+
+on:
+  schedule:
+    - cron: "17 9 */3 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read public config and ping the database
+        run: |
+          URL=$(sed -n 's/^export const SUPABASE_URL = "\(.*\)";$/\1/p' app/js/config.js)
+          KEY=$(sed -n 's/^export const SUPABASE_KEY = "\(.*\)";$/\1/p' app/js/config.js)
+          code=$(curl -s -o /dev/null -w "%{http_code}" "$URL/rest/v1/profiles?select=id&limit=1" -H "apikey: $KEY")
+          echo "Supabase responded with HTTP $code"
+          test "$code" = "200"

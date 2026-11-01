@@ -26,6 +26,8 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
   interactive scenes where she picks the right Slovak reply. Each ends with a postcard note from Jakub.
 - **Learner profiles and progress**: per-learner progress, time and accuracy tracking, and a shareable progress report
   (`report.html`). The data travels inside the link's `#fragment`, so no server is involved.
+- **Accounts and sync** (Supabase, free tier): email + password sign-in, a profile with avatar, and automatic sync.
+  Progress merges across devices without losing anything, and the phone keeps working offline. See "Accounts" below.
 - **Spaced repetition** (FSRS-5): every item comes back just before she'd forget it.
 - **Recall over recognition**: exercises move from multiple choice → sentence building → typing as each memory gets stronger.
 - **Not annoying**: no hearts, no streak guilt, a capped daily session, typing that tolerates missing accents, and a "can't type right now" escape hatch.
@@ -62,6 +64,16 @@ Write the new units in a JSON file (`{"stages": [...], "units": [...]}`), then:
 node tools/add-units.mjs my-new-units.json
 node tools/generate-audio.mjs
 ```
+
+## Accounts (Supabase)
+
+- `.env` holds `SUPABASE_URL` and `SUPABASE_KEY` (the *publishable* key). `node tools/write-config.mjs` writes them
+  into `app/js/config.js`. These values are public by design; the `profiles` table's row-level security means each
+  user can only read and write their own row.
+- Supabase settings: **Confirm email** is off (sign-up works inside the app). For password resets, set
+  Authentication → URL Configuration → **Site URL** to `https://jakubdovcik.github.io/po-slovensky/`.
+- `.github/workflows/keepalive.yml` pings the database every 3 days so the free project never pauses.
+- Never put the secret / service_role key in the app.
 
 ## Audio (Azure, free tier)
 

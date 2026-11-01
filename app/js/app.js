@@ -12,6 +12,7 @@ import {
 } from './story.js';
 import { weekStats, totals, stageProgress, hardest, reportUrl } from './progress.js';
 import * as audio from './audio.js';
+import * as cloud from './cloud.js';
 
 const app = document.getElementById('app');
 let view = { name: 'home' };
@@ -73,8 +74,8 @@ const fmtMinutes = (secs) => (secs < 60 ? `${Math.round(secs)}s` : `${Math.round
 
 function render() {
   if (view.name !== 'session' && view.name !== 'scene') audio.stop();
-  if (!state.name && view.name !== 'welcome') view = { name: 'welcome' };
-  const screens = { welcome, home, unit: unitScreen, story: storyScreen, scene: sceneScreen, postcard: postcardScreen,
+  if (!state.name && view.name !== 'welcome' && view.name !== 'auth') view = { name: 'welcome' };
+  const screens = { welcome, auth: authScreen, profile: profileScreen, home, unit: unitScreen, story: storyScreen, scene: sceneScreen, postcard: postcardScreen,
     phrasebook, progress, settings, session: sessionScreen, summary };
   app.innerHTML = screens[view.name]();
   app.dataset.view = view.name;
@@ -82,7 +83,7 @@ function render() {
 }
 
 function tabbar() {
-  const active = { unit: 'home', postcard: 'story' }[view.name] || view.name;
+  const active = { unit: 'home', postcard: 'story', profile: 'settings' }[view.name] || view.name;
   const tab = (name, icon, label) =>
     `<button class="tab ${active === name ? 'on' : ''}" data-action="nav" data-to="${name}">${ICON[icon]}<span>${label}</span></button>`;
   return `<nav class="tabbar">${tab('home', 'learn', 'Learn')}${tab('story', 'story', 'Story')}${tab('phrasebook', 'book', 'Phrases')}${tab('progress', 'chart', 'Progress')}${tab('settings', 'gear', 'Settings')}</nav>`;
@@ -106,7 +107,106 @@ function welcome() {
       <label class="field-label" for="nm">What's your first name?</label>
       <input id="nm" class="text-input" data-input="name" autocomplete="given-name" placeholder="Your name" enterkeyhint="go">
       <button class="btn primary big" data-action="set-name">Začnime · Let's begin</button>
+      <button class="link" data-action="go-auth" data-mode="signin">I already have an account</button>
     </main>`;
+}
+
+// --- profile & account ------------------------------------------------------------
+
+const AVATARS = ['🦊', '🐻', '🦉', '🐑', '🦌', '🐿️', '🌻', '🍄', '🏔️', '🌙', '⭐', '🧀', '🥟', '☕', '🎻', '📚', '👩‍⚕️', '💙'];
+
+function face(size = 40, cls = '') {
+  const content = state.avatar ? `<span class="face-emoji">${esc(state.avatar)}</span>` : esc((state.name || '?')[0]);
+  return `<span class="face ${state.avatar ? 'has-emoji' : ''} ${cls}" style="width:${size}px;height:${size}px;font-size:${Math.round(size * 0.48)}px">${content}</span>`;
+}
+
+function timeAgo(ms) {
+  if (!ms) return 'never';
+  const m = Math.round((Date.now() - ms) / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m} min ago`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h} h ago`;
+  return `${Math.round(h / 24)} days ago`;
+}
+
+function syncLine() {
+  if (cloud.syncing()) return 'Syncing…';
+  const err = cloud.syncError();
+  if (err === 'offline') return 'Offline. Progress will sync when you\'re back online.';
+  if (err) return `Couldn't sync just now (${esc(err)}). It'll retry automatically.`;
+  return `Synced ${timeAgo(cloud.lastSync())}`;
+}
+
+function learningSince() {
+  const firstDay = Math.min(...Object.values(state.introduced), Infinity);
+  const ms = state.createdAt || (Number.isFinite(firstDay) ? firstDay * 86400000 : 0);
+  return ms ? new Date(ms).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'today';
+}
+
+function profileScreen() {
+  const tot = totals();
+  const account = cloud.signedIn()
+    ? `<section class="card form">
+        <label>Account</label>
+        <div class="acct-email">${esc(cloud.userEmail())}</div>
+        <p class="muted small sync-line">${syncLine()}</p>
+        <button class="btn secondary" data-action="sync-now">Sync now</button>
+        <button class="link small" data-action="sign-out">Sign out on this phone</button>
+      </section>`
+    : `<section class="block account-cta">
+        <div class="block-kicker">Back up your progress</div>
+        <div class="today-title">Create an account</div>
+        <p>Sign in with your email to keep your progress safe and use the app on more than one device.</p>
+        <button class="btn light" data-action="go-auth" data-mode="signup">Create account ${ICON.arrow}</button>
+        <button class="link on-dark" data-action="go-auth" data-mode="signin">I already have one</button>
+      </section>`;
+  return `<main class="screen">
+      <header class="topbar"><button class="icon-btn" data-action="nav" data-to="settings" aria-label="Back">${ICON.back}</button><div class="kicker-inline">Profil · Profile</div></header>
+      <div class="profile-hero">${face(96, 'big')}
+        <h1 class="display sm"><em>${esc(state.name)}</em></h1>
+        <p class="muted">Learning Slovak since ${learningSince()}</p></div>
+      <section class="stats">
+        <div class="card stat"><b>${tot.learned}</b><span>words &amp; phrases</span></div>
+        <div class="card stat"><b>${tot.daysActive}</b><span>days practised</span></div>
+        <div class="card stat"><b>${doneCount()}</b><span>postcards</span></div>
+      </section>
+      <section class="card">
+        <div class="section-label">Choose your avatar</div>
+        <div class="avatar-grid">${AVATARS.map((a) => `<button class="avatar-pick ${state.avatar === a ? 'on' : ''}" data-action="set-avatar" data-emoji="${a}">${a}</button>`).join('')}
+          <button class="avatar-pick letter ${state.avatar ? '' : 'on'}" data-action="set-avatar" data-emoji="">${esc((state.name || '?')[0])}</button></div>
+      </section>
+      ${account}
+    </main>${tabbar()}`;
+}
+
+function authScreen() {
+  const signup = view.mode === 'signup';
+  const fresh = !state.name;
+  return `<main class="screen auth">
+      <header class="topbar"><button class="icon-btn" data-action="${fresh ? 'go-welcome' : 'nav'}" data-to="profile" aria-label="Back">${ICON.back}</button></header>
+      <div class="welcome-mark sm">${CROSS}</div>
+      <h1 class="display sm center">${signup ? 'Create your account' : 'Welcome back'}</h1>
+      <p class="lede center">${signup ? 'Your progress will be backed up and synced across your devices.' : 'Sign in to bring your progress to this device.'}</p>
+      <label class="field-label" for="em">Email</label>
+      <input id="em" class="text-input left" data-input="email" type="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" value="${attr(view.email || '')}" placeholder="you@example.com">
+      <label class="field-label" for="pw">Password</label>
+      <input id="pw" class="text-input left" data-input="password" type="password" autocomplete="${signup ? 'new-password' : 'current-password'}" placeholder="${signup ? 'At least 6 characters' : 'Your password'}" enterkeyhint="go">
+      ${view.error ? `<div class="form-error">${esc(view.error)}</div>` : ''}
+      ${view.info ? `<div class="hint-bubble">${esc(view.info)}</div>` : ''}
+      <button class="btn primary big" data-action="auth-submit" ${view.busy ? 'disabled' : ''}>${view.busy ? 'One moment…' : signup ? 'Create account' : 'Sign in'}</button>
+      <div class="auth-links">
+        <button class="link" data-action="go-auth" data-mode="${signup ? 'signin' : 'signup'}">${signup ? 'I already have an account' : 'Create a new account'}</button>
+        ${signup ? '' : '<button class="link" data-action="forgot">Forgot password?</button>'}
+      </div>
+      <p class="muted small center">Your progress is stored privately; only you can see it.</p>
+    </main>`;
+}
+
+function backupBanner() {
+  if (cloud.signedIn() || Object.keys(state.cards).length < 10 || state.settings.hideBackupTip) return '';
+  return `<section class="card hint backup-tip"><span>${ICON.send}</span><div><b>Keep your progress safe.</b> Create a free account to back it up and sync across devices.
+      <div class="tip-actions"><button class="link" data-action="go-auth" data-mode="signup">Create account</button><button class="link muted" data-action="hide-backup">Not now</button></div></div></section>`;
 }
 
 function storyTeaser() {
@@ -173,8 +273,9 @@ function home() {
   }).join('');
 
   return `<main class="screen">
-      <header class="hello">${masthead('Po slovensky')}
+      <header class="hello"><div class="hello-top">${masthead('Po slovensky')}<button class="face-btn" data-action="nav" data-to="profile" aria-label="Your profile">${face(38)}</button></div>
         <h1 class="display" lang="sk">${sk}, <em>${esc(state.name)}</em>.</h1><p class="muted">${en}</p></header>
+      ${backupBanner()}
       ${showInstall ? `<section class="card hint"><b>Tip:</b> tap <b>Share</b> → <b>Add to Home Screen</b> to install this like an app. It works offline too.<button class="link" data-action="hide-install">Hide</button></section>` : ''}
       ${todayCard}
       ${storyTeaser()}
@@ -426,8 +527,10 @@ function settings() {
   const people = profiles();
   return `<main class="screen">
       <header class="page-head">${masthead('Nastavenia')}<h1 class="display sm">Settings</h1></header>
+      <button class="card profile-link" data-action="nav" data-to="profile">${face(48)}
+        <span class="pl-text"><b>${esc(state.name)}</b><span class="muted small">${cloud.signedIn() ? esc(cloud.userEmail()) + ' · ' + syncLine() : 'Not backed up · tap to create an account'}</span></span>${ICON.arrow}</button>
       <section class="card form">
-        <label>Learner</label>
+        <label>Learners on this phone</label>
         <div class="learners">${people.map((p) => `<div class="learner ${p.current ? 'on' : ''}">
             <span class="avatar c-blue">${esc((p.name || '?')[0])}</span><span class="ln">${esc(p.name || 'Unnamed')}</span>
             ${p.current ? '<span class="muted small">current</span>' : `<button class="btn small ghost" data-action="switch-profile" data-id="${p.id}">Switch</button>`}
@@ -857,6 +960,7 @@ const actions = {
     const v = app.querySelector('[data-input="name"]')?.value.trim();
     if (!v) return app.querySelector('[data-input="name"]')?.focus();
     state.name = v;
+    state.createdAt = state.createdAt || Date.now();
     save();
     view = { name: 'home' };
     render();
@@ -884,6 +988,40 @@ const actions = {
     render();
   },
   toggle: (el) => { state.settings[el.dataset.key] = el.checked; save(); },
+  // account
+  'go-auth': (el) => { view = { name: 'auth', mode: el.dataset.mode || 'signin' }; render(); window.scrollTo(0, 0); },
+  'go-welcome': () => { view = { name: 'welcome' }; render(); },
+  'auth-submit': async () => {
+    const email = app.querySelector('[data-input="email"]').value.trim();
+    const password = app.querySelector('[data-input="password"]').value;
+    if (!email || !password) { view = { ...view, email, error: 'Please fill in your email and password.', info: '' }; return render(); }
+    view = { ...view, email, busy: true, error: '', info: '' };
+    render();
+    try {
+      if (view.mode === 'signup') await cloud.signUp(email, password); else await cloud.signIn(email, password);
+      view = { name: state.name ? 'profile' : 'welcome' };
+      render();
+      toast(state.name ? `Ahoj, ${state.name}! Your progress is synced.` : 'Signed in. What should we call you?');
+    } catch (e) {
+      view = { ...view, busy: false, error: e.message };
+      render();
+    }
+  },
+  forgot: async () => {
+    const email = app.querySelector('[data-input="email"]').value.trim();
+    if (!email) { view = { ...view, error: 'Type your email above first.', info: '' }; return render(); }
+    try {
+      await cloud.requestPasswordReset(email);
+      view = { ...view, email, error: '', info: 'Check your email for a reset link. Open it, set a new password, then come back here and sign in.' };
+    } catch (e) { view = { ...view, email, error: e.message, info: '' }; }
+    render();
+  },
+  'sync-now': async () => { const ok = await cloud.sync(); toast(ok ? 'Synced.' : 'Couldn\'t sync right now.'); },
+  'sign-out': () => {
+    if (confirm('Sign out on this phone? Your progress stays here and in your account.')) { cloud.signOut(); render(); toast('Signed out.'); }
+  },
+  'set-avatar': (el) => { state.avatar = el.dataset.emoji; save(); render(); },
+  'hide-backup': () => { state.settings.hideBackupTip = true; save(); render(); },
   'hide-install': () => { try { sessionStorage.setItem('hideInstall', '1'); } catch { /* ignore */ } render(); },
   share: () => shareOrCopy('Slovak I learned this week:\n' + recentPhrases().map((it) => `• ${it.sk} — ${it.en}`).join('\n')),
   'send-report': () => shareOrCopy(`${state.name}'s Slovak progress 🇸🇰`, reportUrl()),
@@ -918,8 +1056,19 @@ app.addEventListener('pointerdown', (e) => { if (e.target.closest('.accents butt
 // --- boot ----------------------------------------------------------------------------------
 
 (async function boot() {
+  // Password-reset links from Supabase land on the app's root URL; hand them to the reset page.
+  if (/type=recovery/.test(location.hash)) { location.replace('reset.html' + location.hash); return; }
   await Promise.all([loadCourse(), loadStory(), audio.loadAudioManifest()]);
   render();
+  cloud.onSyncChange(() => {
+    // Refresh screens that show account info or data that may have just been merged in.
+    if (['home', 'profile', 'settings', 'progress', 'story'].includes(view.name)) {
+      const y = window.scrollY;
+      render();
+      window.scrollTo(0, y);
+    }
+  });
+  cloud.sync();
   const dev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
   if ('serviceWorker' in navigator && !dev) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
