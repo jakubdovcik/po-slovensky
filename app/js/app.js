@@ -614,7 +614,7 @@ function exerciseBody() {
       return `<div class="label">What does this mean?</div>${listenBlock()}
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id)}`;
     case 'pic_choose':
-      return `<div class="label">What's this in Slovak?</div><div class="pic-prompt" aria-label="${attr(it.en)}">${esc(it.pic)}</div>
+      return `<div class="label">What would you call this in Slovak?</div><div class="pic-prompt" aria-label="${attr(it.en)}">${esc(it.pic)}</div>
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id, 'sk')}`;
     case 'read_choose':
       return `<div class="label">How do you say…</div><div class="prompt">${esc(it.en)}</div>

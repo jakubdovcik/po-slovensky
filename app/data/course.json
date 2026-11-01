@@ -8,7 +8,9 @@
     {"id":"social","title":"Klebety · Party talk","subtitle":"Who's who, and who's with whom"},
     {"id":"celebrate","title":"Oslavy · Celebrations","subtitle":"Holidays, weddings and toasts"},
     {"id":"everyday","title":"Každý deň · Everyday life","subtitle":"Weather, market, routine, phone"},
-    {"id":"grammar2","title":"Gramatika 2 · Going deeper","subtitle":"The rest of the cases, the future, plurals"}
+    {"id":"grammar2","title":"Gramatika 2 · Going deeper","subtitle":"The rest of the cases, the future, plurals"},
+    {"id":"culture","title":"Kultúra · Slovak culture","subtitle":"Food, folk traditions, places, Slovakia today"},
+    {"id":"history","title":"História · Slovak history","subtitle":"From Great Moravia to independence"}
   ],
   "units": [
     {
@@ -995,6 +997,156 @@
         {"id":"q6_lepsie","sk":"Je mi lepšie.","en":"I feel better."},
         {"id":"q6_horsie","sk":"Je to horšie.","en":"It's worse."},
         {"id":"q6_tazsia","sk":"Slovenčina je ťažšia ako angličtina.","en":"Slovak is harder than English.","blank":"ťažšia","choices":["ťažká","ťažšia","najťažšia"],"note":"But you're doing it anyway."}
+      ]
+    },
+    {
+      "id": "r1",
+      "stage": "culture",
+      "title": "Slovenská kuchyňa · Food traditions",
+      "intro": "Slovak cooking grew out of shepherd and farm life in the mountains: potatoes, cabbage and sheep's cheese. The national dish, <b>bryndzové halušky</b>, combines all three ideas. At Christmas almost every family serves <b>kapustnica</b> (sauerkraut soup) and fried <b>kapor</b> (carp), and the dinner opens with thin <b>oblátky</b> wafers spread with honey.",
+      "items": [
+        {"id":"r1_halusky","sk":"bryndzové halušky","en":"potato dumplings with sheep's cheese","g":"pl","pic":"🥟","note":"The national dish. Bryndza is a soft, salty sheep's cheese."},
+        {"id":"r1_kapustnica","sk":"kapustnica","en":"sauerkraut soup","g":"f","pic":"🍲"},
+        {"id":"r1_kapor","sk":"kapor","en":"carp","g":"m","pic":"🐟","note":"Many families keep the Christmas carp alive in the bathtub for a day or two before Christmas Eve."},
+        {"id":"r1_oblatky","sk":"oblátky","en":"Christmas wafers","g":"pl","pic":"🍯"},
+        {"id":"r1_lokse","sk":"lokše","en":"potato flatbreads","g":"pl","pic":"🫓","note":"Eaten with goose fat, poppy seeds or jam. Especially popular around St. Martin's Day in November."},
+        {"id":"r1_pirohy","sk":"pirohy","en":"filled dumplings","g":"pl","pic":"🥟"},
+        {"id":"r1_ostiepok","sk":"oštiepok","en":"smoked sheep's cheese","g":"m","pic":"🧀","note":"Pressed into carved wooden moulds, so each one carries a pattern."},
+        {"id":"r1_korbacik","sk":"korbáčik","en":"braided string cheese","g":"m","pic":"🧀","note":"From the Orava region. Literally \"little whip\"."},
+        {"id":"r1_langos","sk":"langoš","en":"fried dough with garlic and cheese","g":"m","pic":"🍕"},
+        {"id":"r1_narodne","sk":"Bryndzové halušky sú národné jedlo.","en":"Bryndzové halušky are the national dish."},
+        {"id":"r1_stedry","sk":"Na Štedrý večer jeme kapustnicu a kapra.","en":"On Christmas Eve we eat sauerkraut soup and carp.","pic":"🎄"},
+        {"id":"r1_ostiepokje","sk":"Oštiepok je údený ovčí syr.","en":"Oštiepok is a smoked sheep's cheese."}
+      ]
+    },
+    {
+      "id": "r2",
+      "stage": "culture",
+      "title": "Ľudová kultúra · Folk traditions",
+      "intro": "Slovak folk culture is still very alive: villages have their own <b>kroj</b> (costume), folk ensembles perform everywhere, and the shepherd's flute <b>fujara</b> is on UNESCO's list of intangible heritage. The best-known folk hero is <b>Jánošík</b>, an 18th-century outlaw who, legend says, took from the rich and gave to the poor.",
+      "items": [
+        {"id":"r2_kroj","sk":"kroj","en":"folk costume","g":"m","pic":"👘"},
+        {"id":"r2_fujara","sk":"fujara","en":"shepherd's flute","g":"f","pic":"🪈","note":"Almost two metres long, played standing up. Its sound is deep and haunting."},
+        {"id":"r2_salas","sk":"salaš","en":"mountain sheep farm","g":"m","pic":"🐑"},
+        {"id":"r2_baca","sk":"bača","en":"head shepherd","g":"m","pic":"🧔","note":"A masculine noun ending in -a, because it's a man."},
+        {"id":"r2_drotar","sk":"drotár","en":"wire craftsman / tinker","g":"m","note":"Travelling craftsmen who mended pots with wire. A symbol of the Kysuce region."},
+        {"id":"r2_fasiangy","sk":"fašiangy","en":"carnival season","g":"pl","pic":"🎭","note":"Masks, parades and pork feasts before Lent."},
+        {"id":"r2_piesen","sk":"ľudová pieseň","en":"folk song","g":"f","pic":"🎶"},
+        {"id":"r2_janosik","sk":"Jánošík bral bohatým a dával chudobným.","en":"Jánošík took from the rich and gave to the poor.","pic":"🏹"},
+        {"id":"r2_unesco","sk":"Fujara je na zozname UNESCO.","en":"The fujara is on the UNESCO list."},
+        {"id":"r2_cicmany","sk":"V Čičmanoch sú maľované domy.","en":"In Čičmany the houses are painted.","pic":"🏡","note":"Dark wooden houses covered with white geometric patterns, originally to protect the wood."},
+        {"id":"r2_tancuju","sk":"Na svadbách sa tancuje do rána.","en":"At weddings people dance until morning.","pic":"💃"}
+      ]
+    },
+    {
+      "id": "r3",
+      "stage": "culture",
+      "title": "Krásy Slovenska · Places & nature",
+      "intro": "For a small country, Slovakia packs in a lot: the High Tatras, over 6,000 caves, more castles and castle ruins per person than almost anywhere in Europe, and several UNESCO sites. Two of the best are right next to Spišská Nová Ves: <b>Spišský hrad</b> and the gorges of <b>Slovenský raj</b>.",
+      "items": [
+        {"id":"r3_hrad","sk":"hrad","en":"castle","g":"m","pic":"🏰"},
+        {"id":"r3_jaskyna","sk":"jaskyňa","en":"cave","g":"f","pic":"🕳️"},
+        {"id":"r3_rieka","sk":"rieka","en":"river","g":"f","pic":"🏞️"},
+        {"id":"r3_vrch","sk":"vrch","en":"mountain / peak","g":"m","pic":"⛰️"},
+        {"id":"r3_dunaj","sk":"Dunaj","en":"the Danube","g":"m","pic":"🌊"},
+        {"id":"r3_gerlach","sk":"Gerlachovský štít je najvyšší vrch Karpát.","en":"Gerlach Peak is the highest mountain in the Carpathians.","pic":"🏔️"},
+        {"id":"r3_spis","sk":"Spišský hrad je jeden z najväčších hradov v strednej Európe.","en":"Spiš Castle is one of the largest castles in Central Europe.","pic":"🏰"},
+        {"id":"r3_raj","sk":"Slovenský raj je blízko Spišskej Novej Vsi.","en":"Slovak Paradise is near Spišská Nová Ves.","note":"Gorges climbed with ladders and chains over waterfalls."},
+        {"id":"r3_ladova","sk":"Dobšinská ľadová jaskyňa je plná ľadu aj v lete.","en":"The Dobšiná Ice Cave is full of ice even in summer.","pic":"🧊"},
+        {"id":"r3_stiavnica","sk":"Banská Štiavnica bola bohatá vďaka striebru.","en":"Banská Štiavnica grew rich thanks to silver.","pic":"🪙"},
+        {"id":"r3_vah","sk":"Váh je najdlhšia slovenská rieka.","en":"The Váh is the longest Slovak river."},
+        {"id":"r3_jaskyne","sk":"Slovensko má tisíce jaskýň.","en":"Slovakia has thousands of caves."}
+      ]
+    },
+    {
+      "id": "r4",
+      "stage": "culture",
+      "title": "Slovensko dnes · Slovakia today",
+      "intro": "Slovakia has about 5.4 million people, joined the EU and NATO in 2004, and has used the euro since 2009. The flag and coat of arms carry the <b>double cross on three hills</b> (the hills stand for the Tatra, Fatra and Mátra). The national anthem, <b>Nad Tatrou sa blýska</b>, means \"Lightning over the Tatras\". And when the national hockey team plays, the whole country stops.",
+      "items": [
+        {"id":"r4_hlavne","sk":"hlavné mesto","en":"capital city","g":"n","pic":"🏛️"},
+        {"id":"r4_vlajka","sk":"vlajka","en":"flag","g":"f","pic":"🇸🇰"},
+        {"id":"r4_hymna","sk":"hymna","en":"national anthem","g":"f","pic":"🎺"},
+        {"id":"r4_dvojkriz","sk":"dvojkríž","en":"double cross","g":"m","pic":"☦️"},
+        {"id":"r4_hokej","sk":"hokej","en":"ice hockey","g":"m","pic":"🏒"},
+        {"id":"r4_bratislava","sk":"Bratislava je hlavné mesto Slovenska.","en":"Bratislava is the capital of Slovakia."},
+        {"id":"r4_obyvatelia","sk":"Na Slovensku žije asi päť a pol milióna ľudí.","en":"About five and a half million people live in Slovakia."},
+        {"id":"r4_euro","sk":"Euro máme od roku 2009.","en":"We've had the euro since 2009.","pic":"💶"},
+        {"id":"r4_eu","sk":"Slovensko je v Európskej únii od roku 2004.","en":"Slovakia has been in the EU since 2004.","pic":"🇪🇺"},
+        {"id":"r4_nadtatrou","sk":"Nad Tatrou sa blýska.","en":"Lightning over the Tatras. (the anthem)"},
+        {"id":"r4_hokej2002","sk":"V roku 2002 sme vyhrali majstrovstvá sveta v hokeji.","en":"In 2002 we won the ice hockey world championship.","pic":"🏆","note":"Every Slovak over 30 remembers where they were."},
+        {"id":"r4_madari","sk":"Na juhu žije veľa Maďarov.","en":"Many Hungarians live in the south.","note":"About 8% of the population. Revúca's region, Gemer, is one of the mixed areas."}
+      ]
+    },
+    {
+      "id": "h1",
+      "stage": "history",
+      "title": "Veľká Morava · Great Moravia",
+      "intro": "Slavs settled the area around the 6th century. In the 9th century they formed <b>Great Moravia</b>, an early Slavic state. In <b>863</b> the brothers <b>Cyril and Methodius</b> came from Byzantium, created the first Slavic alphabet (<i>hlaholika</i>, Glagolitic) and translated the liturgy into Old Slavonic. Their feast day, <b>5 July</b>, is a public holiday.",
+      "items": [
+        {"id":"h1_slovania","sk":"Slovania","en":"the Slavs","g":"pl"},
+        {"id":"h1_vmorava","sk":"Veľká Morava","en":"Great Moravia","g":"f","pic":"🗺️"},
+        {"id":"h1_storocie","sk":"storočie","en":"century","g":"n","pic":"📜"},
+        {"id":"h1_pismo","sk":"písmo","en":"script / writing","g":"n","pic":"✍️"},
+        {"id":"h1_hlaholika","sk":"hlaholika","en":"Glagolitic script","g":"f"},
+        {"id":"h1_kostol","sk":"kostol","en":"church","g":"m","pic":"⛪"},
+        {"id":"h1_prisli","sk":"Cyril a Metod prišli v roku 863.","en":"Cyril and Methodius came in 863."},
+        {"id":"h1_vytvorili","sk":"Vytvorili prvé slovanské písmo.","en":"They created the first Slavic script."},
+        {"id":"h1_nitra","sk":"Nitra je jedno z najstarších slovenských miest.","en":"Nitra is one of the oldest Slovak towns.","note":"Prince Pribina had the first known church in the region built there in the 9th century."},
+        {"id":"h1_jul","sk":"Piaty júl je sviatok svätého Cyrila a Metoda.","en":"July fifth is the feast of Saints Cyril and Methodius."}
+      ]
+    },
+    {
+      "id": "h2",
+      "stage": "history",
+      "title": "Uhorsko · The Kingdom of Hungary",
+      "intro": "For about a thousand years, until 1918, today's Slovakia was part of the <b>Kingdom of Hungary</b> (Uhorsko). When the Ottomans took Buda, <b>Bratislava</b> (then called Prešporok or Pressburg) became the coronation city: between 1563 and 1830, 11 kings and 8 queens were crowned there, including <b>Maria Theresa</b>. In the 19th century <b>Ľudovít Štúr</b> and his friends laid the foundations of standard Slovak, the language she's learning now.",
+      "items": [
+        {"id":"h2_uhorsko","sk":"Uhorsko","en":"the Kingdom of Hungary","g":"n","pic":"👑"},
+        {"id":"h2_kral","sk":"kráľ","en":"king","g":"m","pic":"🤴"},
+        {"id":"h2_kralovna","sk":"kráľovná","en":"queen","g":"f","pic":"👸"},
+        {"id":"h2_korunovacia","sk":"korunovácia","en":"coronation","g":"f","pic":"👑"},
+        {"id":"h2_turci","sk":"Turci","en":"the Turks (Ottomans)","g":"pl"},
+        {"id":"h2_presporok","sk":"Bratislava sa kedysi volala Prešporok.","en":"Bratislava used to be called Prešporok."},
+        {"id":"h2_korunovali","sk":"V Bratislave korunovali uhorských kráľov.","en":"Hungarian kings were crowned in Bratislava."},
+        {"id":"h2_terezia","sk":"Mária Terézia bola korunovaná v Bratislave.","en":"Maria Theresa was crowned in Bratislava."},
+        {"id":"h2_stur","sk":"Ľudovít Štúr je otec spisovnej slovenčiny.","en":"Ľudovít Štúr is the father of standard Slovak.","pic":"🖋️"},
+        {"id":"h2_janosik","sk":"Jánošík žil na začiatku osemnásteho storočia.","en":"Jánošík lived at the beginning of the 18th century."}
+      ]
+    },
+    {
+      "id": "h3",
+      "stage": "history",
+      "title": "Československo · Czechoslovakia",
+      "intro": "On <b>28 October 1918</b>, after World War I, Slovaks and Czechs founded <b>Czechoslovakia</b>. Its co-founder <b>Milan Rastislav Štefánik</b>, an astronomer, general and diplomat, is a national hero. During World War II Slovaks rose against the fascist regime in the <b>Slovak National Uprising</b> (SNP) on 29 August 1944. From 1948 the country was communist. In 1968 the Slovak <b>Alexander Dubček</b> led the Prague Spring, \"socialism with a human face\", until Soviet tanks ended it.",
+      "items": [
+        {"id":"h3_cs","sk":"Československo","en":"Czechoslovakia","g":"n"},
+        {"id":"h3_vojna","sk":"vojna","en":"war","g":"f"},
+        {"id":"h3_povstanie","sk":"povstanie","en":"uprising","g":"n"},
+        {"id":"h3_komunizmus","sk":"komunizmus","en":"communism","g":"m"},
+        {"id":"h3_vzniklo","sk":"Československo vzniklo v roku 1918.","en":"Czechoslovakia was founded in 1918."},
+        {"id":"h3_stefanik","sk":"Štefánik bol astronóm, generál a diplomat.","en":"Štefánik was an astronomer, a general and a diplomat.","pic":"🔭"},
+        {"id":"h3_snp","sk":"Dvadsiaty deviaty august je výročie SNP.","en":"August twenty-ninth is the anniversary of the Slovak National Uprising."},
+        {"id":"h3_tanky","sk":"V roku 1968 prišli sovietske tanky.","en":"In 1968 the Soviet tanks came."},
+        {"id":"h3_dubcek","sk":"Dubček chcel socializmus s ľudskou tvárou.","en":"Dubček wanted socialism with a human face."}
+      ]
+    },
+    {
+      "id": "h4",
+      "stage": "history",
+      "title": "Nežná revolúcia · Freedom & independence",
+      "intro": "On <b>17 November 1989</b> student protests began the <b>Velvet Revolution</b>, which Slovaks call <i>Nežná revolúcia</i>, \"the gentle revolution\". Crowds filled the squares jingling their keys: time for the communists to go. Three years later Czechs and Slovaks split peacefully, and on <b>1 January 1993</b> the independent Slovak Republic was born. Jakub's parents grew up on both sides of this story.",
+      "items": [
+        {"id":"h4_revolucia","sk":"Nežná revolúcia","en":"the Velvet Revolution","g":"f","pic":"🕊️"},
+        {"id":"h4_sloboda","sk":"sloboda","en":"freedom","g":"f","pic":"🗽"},
+        {"id":"h4_demokracia","sk":"demokracia","en":"democracy","g":"f","pic":"🗳️"},
+        {"id":"h4_namestie","sk":"námestie","en":"town square","g":"n"},
+        {"id":"h4_november","sk":"Sedemnásty november je Deň boja za slobodu a demokraciu.","en":"November seventeenth is the Day of the Struggle for Freedom and Democracy."},
+        {"id":"h4_kluce","sk":"Ľudia štrngali kľúčmi na námestiach.","en":"People jingled their keys on the squares.","pic":"🔑"},
+        {"id":"h4_rozdelenie","sk":"Československo sa rozdelilo pokojne.","en":"Czechoslovakia split peacefully."},
+        {"id":"h4_vznik","sk":"Slovenská republika vznikla prvého januára 1993.","en":"The Slovak Republic was founded on January first, 1993.","pic":"🇸🇰"},
+        {"id":"h4_samostatnost","sk":"samostatnosť","en":"independence","g":"f"},
+        {"id":"h4_rodicia","sk":"Jakubovi rodičia si to pamätajú.","en":"Jakub's parents remember it."}
       ]
     }
   ]
