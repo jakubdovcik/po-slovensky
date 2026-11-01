@@ -80,6 +80,19 @@ node tools/generate-audio.mjs
 - `.github/workflows/keepalive.yml` pings the database every 3 days so the free project never pauses.
 - Never put the secret / service_role key in the app.
 
+## Private lesson packs
+
+Personal content (e.g. sentences about the learner) must not go in the public repo or site. Put it in
+`private/` (git-ignored) as `{"stage": {...}, "units": [...]}` and run:
+
+```
+node tools/make-pack.mjs private/about-me.json
+```
+
+This writes a link to `private/about-me-link.txt`. The pack travels inside the link's `#fragment` (never sent to
+any server). When she opens it, the app saves the units into her own state, which syncs only to her account.
+Pack items use the device's Slovak voice, since Azure audio would have to be published on the public site.
+
 ## Audio (Azure, free tier)
 
 1. In the Azure portal, create a **Speech** resource, picking the **Free F0** pricing tier and a region such as West Europe.

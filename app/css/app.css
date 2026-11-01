@@ -562,3 +562,6 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 .lvl-row span:nth-child(2) { flex: 1; }
 .lvl-row.on { color: var(--ink); }
 .level-news { text-align: left; }
+
+/* Alphabet chips: the letter big, its name small */
+.example.letter span { font-family: var(--serif); font-size: 22px; min-width: 1.4em; text-align: center; }

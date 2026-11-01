@@ -3,7 +3,7 @@ import {
   profiles, switchProfile, addProfile, deleteProfile,
 } from './store.js';
 import {
-  course, loadCourse, unitById, unitProgress, makeExercise, buildSession, gradeItem, recordPair,
+  course, loadCourse, rebuildCourse, unitById, unitProgress, makeExercise, buildSession, gradeItem, recordPair,
   checkTyped, todaySummary, normalize, stripAccents, tokens,
 } from './course.js';
 import {
@@ -322,7 +322,7 @@ function soundItemBlock(item) {
       <div class="muted">${esc(item.en)}</div>
       ${item.explain ? `<p class="explain">${item.explain}</p>` : ''}
       <div class="examples">${item.examples.map((e) =>
-        `<button class="example" data-action="play" data-text="${attr(e.sk)}"><span lang="sk">${esc(e.sk)}</span><small>${esc(e.en)}</small>${ICON.speaker}</button>`).join('')}</div>
+        `<button class="example ${e.show ? 'letter' : ''}" data-action="play" data-text="${attr(e.sk)}"><span lang="sk">${esc(e.show || e.sk)}</span><small>${esc(e.en)}</small>${ICON.speaker}</button>`).join('')}</div>
     </div>`;
 }
 
@@ -746,7 +746,7 @@ function exerciseBody() {
         <div class="pair-hints muted small"><span>${esc(ex.pair.a)} = ${esc(ex.pair.ea)}</span><span>${esc(ex.pair.b)} = ${esc(ex.pair.eb)}</span></div>`;
     case 'sound_pick':
       return `<div class="label">Listen: which word is it?</div><div class="muted center">Practising <b lang="sk">${esc(it.sk)}</b></div>${listenBlock()}
-        ${optionButtons(ex.options, (o) => o.sk, (o) => o.sk, 'sk')}`;
+        ${optionButtons(ex.options, (o) => o.show || o.sk, (o) => o.sk, 'sk')}`;
     case 'listen_choose':
       return `<div class="label">What does this mean?</div>${listenBlock()}
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id)}`;
@@ -1023,11 +1023,12 @@ const actions = {
     const v = app.querySelector('[data-input="new-learner"]')?.value.trim();
     if (!v) return;
     addProfile(v);
+    rebuildCourse();
     toast(`Switched to ${v}.`);
     view = { name: 'home' };
     render();
   },
-  'switch-profile': (el) => { switchProfile(el.dataset.id); view = { name: 'home' }; render(); toast(`Ahoj, ${state.name}!`); },
+  'switch-profile': (el) => { switchProfile(el.dataset.id); rebuildCourse(); view = { name: 'home' }; render(); toast(`Ahoj, ${state.name}!`); },
   'delete-profile': (el) => {
     if (confirm('Remove this learner and all their progress from this phone?')) { deleteProfile(el.dataset.id); render(); }
   },
@@ -1081,7 +1082,7 @@ const actions = {
   },
   import: () => {
     const ta = app.querySelector('[data-input="import"]');
-    try { importState(ta.value.trim()); toast('Backup restored.'); render(); }
+    try { importState(ta.value.trim()); rebuildCourse(); toast('Backup restored.'); render(); }
     catch { toast('That doesn\'t look like a valid backup.'); }
   },
   reset: () => {
@@ -1103,14 +1104,37 @@ app.addEventListener('change', (e) => {
 // Keep the keyboard open when tapping accent buttons.
 app.addEventListener('pointerdown', (e) => { if (e.target.closest('.accents button')) e.preventDefault(); });
 
+// --- private packs ---------------------------------------------------------------------------
+// A personal unit set (e.g. sentences about the learner) arrives in a link's #fragment, which is
+// never sent to any server. It's stored in the learner's own state and synced to her account only.
+
+function importPackFromLink() {
+  const m = /[#&]pack=([A-Za-z0-9_-]+)/.exec(location.hash);
+  if (!m) return;
+  history.replaceState(null, '', location.pathname + location.search);
+  try {
+    const bin = atob(m[1].replace(/-/g, '+').replace(/_/g, '/'));
+    const pack = JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0))));
+    if (!pack?.stage?.id || !Array.isArray(pack.units) || !pack.units.every((u) => u.id && Array.isArray(u.items))) throw new Error('bad pack');
+    state.custom = { stage: pack.stage, units: pack.units };
+    save();
+    rebuildCourse();
+    setTimeout(() => toast(`Added your private lessons: ${pack.stage.title}`), 400);
+  } catch {
+    setTimeout(() => toast('That lesson link looks broken.'), 400);
+  }
+}
+
 // --- boot ----------------------------------------------------------------------------------
 
 (async function boot() {
   // Password-reset links from Supabase land on the app's root URL; hand them to the reset page.
   if (/type=recovery/.test(location.hash)) { location.replace('reset.html' + location.hash); return; }
   await Promise.all([loadCourse(), loadStory(), audio.loadAudioManifest()]);
+  importPackFromLink();
   render();
   cloud.onSyncChange(() => {
+    rebuildCourse();
     // Refresh screens that show account info or data that may have just been merged in.
     if (['home', 'profile', 'settings', 'progress', 'story'].includes(view.name)) {
       const y = window.scrollY;

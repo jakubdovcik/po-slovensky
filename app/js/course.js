@@ -5,12 +5,34 @@ import { review, retrievability } from './fsrs.js';
 
 export const course = { stages: [], units: [], items: {}, order: [] };
 
+let base = { stages: [], units: [] };
+
 export async function loadCourse() {
   const res = await fetch('data/course.json');
-  const data = await res.json();
-  course.stages = data.stages;
-  course.units = data.units;
-  for (const unit of data.units) {
+  base = await res.json();
+  rebuildCourse();
+}
+
+/**
+ * Builds the lookup tables from the public course plus the learner's private units
+ * (state.custom, e.g. an "About me" pack). Private units come right after Survival Slovak.
+ * Call again whenever the learner's state is replaced (profile switch, cloud sync).
+ */
+export function rebuildCourse() {
+  const custom = state.custom?.units?.length ? state.custom : null;
+  const stages = [...base.stages];
+  const units = [...base.units];
+  if (custom) {
+    const after = stages.findIndex((s) => s.id === 'survival');
+    stages.splice(after + 1, 0, custom.stage);
+    const lastSurvival = units.map((u) => u.stage).lastIndexOf('survival');
+    units.splice(lastSurvival + 1, 0, ...custom.units.map((u) => ({ ...u, stage: custom.stage.id })));
+  }
+  course.stages = stages;
+  course.units = units;
+  course.items = {};
+  course.order = [];
+  for (const unit of units) {
     for (const item of unit.items) {
       const kind = item.kind || (/[\s.?!]/.test(item.sk.trim()) ? 'phrase' : 'word');
       course.items[item.id] = { ...item, kind, unit: unit.id, stage: unit.stage };
@@ -106,7 +128,7 @@ export function makeExercise(id, { easy = false, isNew = false } = {}) {
 
   if (item.kind === 'sound') {
     const example = pick(item.examples);
-    if (!easy && !isNew && s >= 5) return { type: 'dictation', item, target: example.sk, targetEn: example.en };
+    if (!easy && !isNew && s >= 5 && !example.show) return { type: 'dictation', item, target: example.sk, targetEn: example.en };
     const others = shuffle(unitById(item.unit).items
       .filter((o) => o.id !== item.id).flatMap((o) => o.examples));
     const opts = shuffle([...item.examples, ...others].slice(0, Math.max(4, item.examples.length)))

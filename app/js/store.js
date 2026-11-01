@@ -14,6 +14,7 @@ const DEFAULT_STATE = {
   days: {},           // day number -> { done, right, secs }
   pairs: {},          // "a|b" -> { seen, wrong }
   story: { done: {} },// chapterId -> day completed
+  custom: null,       // private units for this learner only ({ stage, units }), synced to her account
   settings: { newPerDay: 8, voice: 'mix', autoplay: true, clinicMix: true, showTranslations: true },
 };
 
@@ -85,6 +86,7 @@ export function mergeStates(local, remote) {
   }
   for (const [k, d] of Object.entries(r.story.done)) out.story.done[k] = out.story.done[k] == null ? d : Math.min(out.story.done[k], d);
   out.trailBest = Math.max(out.trailBest || 0, r.trailBest || 0);
+  if (!out.custom?.units?.length && r.custom?.units?.length) out.custom = r.custom;
   return out;
 }
 
