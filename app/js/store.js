@@ -84,6 +84,7 @@ export function mergeStates(local, remote) {
     out.pairs[k] = { seen: Math.max(m.seen, x.seen), wrong: Math.max(m.wrong, x.wrong) };
   }
   for (const [k, d] of Object.entries(r.story.done)) out.story.done[k] = out.story.done[k] == null ? d : Math.min(out.story.done[k], d);
+  out.trailBest = Math.max(out.trailBest || 0, r.trailBest || 0);
   return out;
 }
 

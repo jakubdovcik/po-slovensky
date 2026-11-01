@@ -549,3 +549,16 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 .trail-news { text-align: left; border: 2px solid var(--edge); box-shadow: var(--hard); }
 .tn-title { font-family: var(--serif); font-size: 24px; font-weight: 600; line-height: 1.15; }
 .trail-news p { margin: 6px 0; font-size: 15px; }
+
+/* CEFR milestones on the trail */
+.lvl-pole { stroke: var(--edge); stroke-width: 1.2; }
+.lvl-flag { fill: var(--surface); stroke: var(--edge); stroke-width: 1; }
+.lvl-text { font-family: var(--condensed); font-size: 7.5px; fill: var(--ink); }
+.lvl-on .lvl-flag { fill: var(--gold); }
+.lvl-chip { display: inline-block; font-family: var(--condensed); font-size: 12px; letter-spacing: .05em; padding: 3px 6px 2px; border-radius: 5px; border: 1.5px solid var(--line); color: var(--muted); margin-right: 8px; vertical-align: 6px; }
+.lvl-chip.on { background: var(--gold); color: var(--navy); border-color: var(--edge); }
+.lvl-rows { margin-top: 12px; }
+.lvl-row { display: flex; align-items: center; gap: 4px; font-size: 14px; padding: 6px 0; border-top: 1px solid var(--line); color: var(--muted); }
+.lvl-row span:nth-child(2) { flex: 1; }
+.lvl-row.on { color: var(--ink); }
+.level-news { text-align: left; }

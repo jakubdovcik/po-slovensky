@@ -32,7 +32,7 @@ function render(r) {
     <section class="block progress-hero">
       <div><div class="block-kicker">Course</div><div class="hero-num">${r.tot.learned}<span>/${r.tot.total}</span></div>
       <div>learned (${pct}%) · ${r.tot.solid} in long-term memory</div>
-      ${r.tot.km != null ? `<div>🚶‍♀️ km ${r.tot.km} of 765 on Cesta hrdinov SNP</div>` : ''}</div>
+      ${r.tot.km != null ? `<div>🚶‍♀️ km ${r.tot.km} of 765 on Cesta hrdinov SNP (the road to B1)</div>` : ''}</div>
     </section>
     <section class="stats">
       <div class="card stat"><b>${Math.round(wkSecs / 60)}</b><span>min this week</span></div>

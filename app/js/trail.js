@@ -4,6 +4,15 @@
 
 export const TOTAL_KM = 764.5;
 
+// The trail is the road to B1. Common estimates of active vocabulary per CEFR level
+// (approximate: CEFR describes skills, not word counts).
+export const LEVELS = [
+  { level: 'A1', items: 600, name: 'Breakthrough' },
+  { level: 'A2', items: 1200, name: 'Waystage' },
+  { level: 'B1', items: 2000, name: 'Independent' },
+];
+export const B1_ITEMS = 2000;
+
 export const STOPS = [
   { sk: 'Dukliansky priesmyk', km: 0, lat: 49.40, lon: 21.69, label: 'Dukla', fact: 'The start. In autumn 1944 one of the bloodiest battles of the war in the Carpathians was fought for this pass; a memorial stands here today.' },
   { sk: 'Svidník', km: 30, lat: 49.31, lon: 21.57, fact: 'A small town in the Rusyn heartland of north-eastern Slovakia.' },
@@ -58,8 +67,15 @@ const W = (22.65 - LON0) * KX, H = (LAT0 - 47.7) * KY;
 const xy = (lat, lon) => [(lon - LON0) * KX, (LAT0 - lat) * KY];
 const pt = ([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`;
 
-/** Kilometres walked for a share (0..1) of the course learned. */
-export const kmFor = (fraction) => Math.max(0, Math.min(1, fraction)) * TOTAL_KM;
+/** Kilometres walked for a number of "known item" points (B1 = 2,000 = Devín). */
+export const kmFor = (points) => Math.max(0, Math.min(1, points / B1_ITEMS)) * TOTAL_KM;
+export const levelKm = (lv) => kmFor(lv.items);
+
+/** The highest level reached at a given km, and the next one. */
+export function levelAt(km) {
+  const reached = LEVELS.filter((lv) => km >= levelKm(lv) - 0.01);
+  return { current: reached[reached.length - 1] || null, next: LEVELS[reached.length] || null };
+}
 
 /** Where on the trail a given km is: the last stop reached, the next one, and the exact point. */
 export function position(km) {
@@ -95,11 +111,19 @@ export function mapSvg(km, figure = '🚶‍♀️') {
     return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" class="map-home" text-anchor="middle">♥</text>
       <text x="${(x + (above ? 6 : 0)).toFixed(1)}" y="${(y + (above ? -6 : 14)).toFixed(1)}" class="map-home-label" text-anchor="middle">${h.sk}</text>`;
   }).join('');
-  return `<svg class="snp-map" viewBox="-6 -6 ${(W + 12).toFixed(0)} ${(H + 12).toFixed(0)}" role="img" aria-label="Map of the SNP trail across Slovakia, ${Math.round(km)} of ${Math.round(TOTAL_KM)} km walked">
+  return `<svg class="snp-map" viewBox="-6 -22 ${(W + 12).toFixed(0)} ${(H + 28).toFixed(0)}" role="img" aria-label="Map of the SNP trail across Slovakia, ${Math.round(km)} of ${Math.round(TOTAL_KM)} km walked towards B1">
     <polygon points="${OUTLINE.map(([a, b]) => pt(xy(a, b))).join(' ')}" class="map-land"/>
     <polyline points="${route}" class="map-route"/>
     <polyline points="${walked}" class="map-walked"/>
     ${homes}${dots}${labels}
+    ${LEVELS.map((lv) => {
+      const p = position(levelKm(lv));
+      const [x, y] = xy(p.lat, p.lon);
+      const got = km >= levelKm(lv) - 0.01;
+      return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" class="lvl ${got ? 'lvl-on' : ''}">
+        <line x1="0" y1="0" x2="0" y2="-17" class="lvl-pole"/><rect x="0" y="-18" width="17" height="10" rx="1.5" class="lvl-flag"/>
+        <text x="8.5" y="-10.3" text-anchor="middle" class="lvl-text">${lv.level}</text></g>`;
+    }).join('')}
     <g class="map-walker" transform="translate(${fx.toFixed(1)} ${fy.toFixed(1)})">
       <circle r="12" class="walker-halo"/><text y="6.5" text-anchor="middle" class="walker">${figure}</text>
     </g>

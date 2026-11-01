@@ -1,10 +1,22 @@
 // Learner progress summary, shared as a link. The data travels in the URL fragment
 // (after #), which browsers never send to the server, so it stays between the two of you.
 
-import { state, today } from './store.js';
+import { state, today, save } from './store.js';
 import { course, unitProgress } from './course.js';
 import { story, doneCount, nextChapter, fill } from './story.js';
 import { kmFor } from './trail.js';
+
+/** Progress towards B1: half a point for each learned item, a full point once it's in long-term memory. */
+export function b1Points() {
+  return Object.entries(state.cards).reduce((n, [id, c]) => n + (course.items[id] ? (c.s >= 21 ? 1 : 0.5) : 0), 0);
+}
+
+/** km walked on the trail. Never goes backwards (forgetting or new content won't move her back). */
+export function trailKm() {
+  const km = kmFor(b1Points());
+  if (km > (state.trailBest || 0) + 0.05) { state.trailBest = km; save({ silent: true }); }
+  return Math.max(km, state.trailBest || 0);
+}
 
 const DAYS = 35;
 
@@ -31,7 +43,8 @@ export function totals() {
     due: cards.filter((c) => c.due <= t).length,
     total: course.order.length,
     minutes: Math.round(allSecs / 60),
-    km: Math.round(kmFor(cards.length / course.order.length)),
+    km: Math.round(trailKm()),
+    points: Math.round(b1Points()),
     daysActive: Object.keys(state.days).length,
   };
 }
