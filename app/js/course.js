@@ -129,12 +129,16 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
   if (item.kind === 'sound') {
     const example = pick(item.examples);
     if (!easy && !isNew && s >= 5 && !example.show) return { type: 'dictation', item, target: example.sk, targetEn: example.en };
-    const others = shuffle(unitById(item.unit).items
-      .filter((o) => o.id !== item.id).flatMap((o) => o.examples));
-    const opts = shuffle([...item.examples, ...others].slice(0, Math.max(4, item.examples.length)))
-      .filter((v, i, a) => a.findIndex((x) => x.sk === v.sk) === i);
-    if (!opts.some((o) => o.sk === example.sk)) opts[0] = example;
-    return { type: 'sound_pick', item, target: example.sk, targetEn: example.en, options: shuffle(opts).slice(0, 4) };
+    // The right answer is always among the options: pick it first, then add three others
+    // (from the same group first, then the rest of the unit), never cutting it out.
+    const sameGroup = shuffle(item.examples.filter((e) => e.sk !== example.sk));
+    const rest = shuffle(unitById(item.unit).items.filter((o) => o.id !== item.id && o.examples).flatMap((o) => o.examples));
+    const distract = [];
+    for (const e of [...sameGroup, ...rest]) {
+      if (distract.length === 3) break;
+      if (e.sk !== example.sk && !distract.some((d) => d.sk === e.sk || (d.show || d.sk) === (e.show || e.sk))) distract.push(e);
+    }
+    return { type: 'sound_pick', item, target: example.sk, targetEn: example.en, options: shuffle([example, ...distract]) };
   }
 
   const words = tokens(item.sk).length;
