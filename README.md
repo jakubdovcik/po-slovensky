@@ -34,7 +34,13 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
 - **Accounts and sync** (Supabase, free tier): email + password sign-in, a profile with avatar, and automatic sync.
   Progress merges across devices without losing anything, and the phone keeps working offline. See "Accounts" below.
 - **Spaced repetition** (FSRS-5): every item comes back just before she'd forget it.
-- **Recall over recognition**: exercises move from multiple choice → sentence building → typing as each memory gets stronger.
+- **Recall over recognition**: multiple choice only at first exposure; after that mostly production: **Say it** (say the
+  Slovak out loud, reveal, self-grade Missed / Almost / Got it), typing, sentence building, fill-the-gap.
+- **Feedback you act on**: after a miss the correct answer is shown (typed mistakes highlight the wrong words), and the
+  item returns a few cards later as a recall attempt ("Once more, from memory"), up to twice.
+- **Visible learning**: a review log feeds a "Remembered a week later" score (reviews ≥ 7 days after the previous one),
+  and a can-do list unlocks when a skill's units are learned *and* retained. A daily calendar reminder (.ics) replaces
+  push notifications.
 - **Not annoying**: no hearts, no streak guilt, a capped daily session, typing that tolerates missing accents, and a "can't type right now" escape hatch.
 
 ## Adding or editing content

@@ -121,7 +121,7 @@ function distractors(item, field, n = 3) {
 
 // Recognition first, then production as soon as the memory is stable enough:
 // recall beats recognition, so it's used as soon as possible.
-export function makeExercise(id, { easy = false, isNew = false } = {}) {
+export function makeExercise(id, { easy = false, isNew = false, retry = false } = {}) {
   const item = course.items[id];
   const card = state.cards[id];
   const s = card?.s ?? 0;
@@ -139,26 +139,40 @@ export function makeExercise(id, { easy = false, isNew = false } = {}) {
 
   const words = tokens(item.sk).length;
   let type;
+
+  // Mistake retries ask for recall again (say it or type it), now that the right answer was just shown.
+  if (retry) return { type: 'say', item, retry: true };
+
   if (item.blank) {
-    // Grammar items: fill-the-gap trains the pattern; later, produce the whole sentence.
+    // Grammar items: fill-the-gap trains the pattern; then produce the whole sentence.
     if (isNew || easy) type = 'cloze';
-    else if (s < 6) type = pick(['cloze', 'cloze', words >= 3 ? 'build' : 'read_choose']);
-    else type = pick(['cloze', 'type']);
+    else if (s < 2) type = pick(['cloze', 'cloze', 'say']);
+    else if (s < 6) type = pick(['cloze', 'say', words >= 3 ? 'build' : 'type']);
+    else type = pick(['say', 'say', 'type', 'cloze']);
     if (type === 'cloze') return { type, item, options: shuffle(item.choices) };
+    if (type === 'say') return { type, item };
   }
-  if (item.pic && !easy && s < 6 && Math.random() < (isNew ? 0.5 : 0.35)) {
+  if (item.pic && !easy && !isNew && s < 6 && Math.random() < 0.25) {
     // Picture → word: pairing a word with an image helps it stick.
     const ds = shuffle(course.order.map((id) => course.items[id])
       .filter((o) => o.pic && o.id !== item.id && o.pic !== item.pic && o.sk !== item.sk && o.kind === item.kind))
       .sort((a, b) => (b.unit === item.unit) - (a.unit === item.unit)).slice(0, 3);
     if (ds.length >= 2) return { type: 'pic_choose', item, options: shuffle([item, ...ds]).map((o) => ({ id: o.id, label: o.sk })) };
   }
-  if (isNew) type = 'listen_choose';
+  // Recognition only at first exposure; after that mostly production (say it, type it, build it).
+  if (isNew) type = item.pic && Math.random() < 0.5 ? 'pic_new' : 'listen_choose';
   else if (easy) type = 'read_choose';
-  else if (s < 2) type = pick(['listen_choose', 'read_choose']);
-  else if (s < 6) type = words >= 3 ? pick(['build', 'read_choose', 'listen_choose']) : pick(['read_choose', 'type']);
-  else type = words <= 4 ? pick(['type', 'dictation']) : pick(['type', 'build']);
+  else if (s < 2) type = pick(['say', 'say', 'read_choose', 'listen_choose']);
+  else if (s < 6) type = words >= 3 ? pick(['say', 'say', 'build', 'type']) : pick(['say', 'type', 'type', 'dictation']);
+  else type = words <= 4 ? pick(['say', 'type', 'dictation']) : pick(['say', 'say', 'type', 'build']);
 
+  if (type === 'say') return { type, item };
+  if (type === 'pic_new') {
+    const ds = shuffle(course.order.map((id) => course.items[id])
+      .filter((o) => o.pic && o.id !== item.id && o.pic !== item.pic && o.sk !== item.sk && o.kind === item.kind)).slice(0, 3);
+    if (ds.length >= 2) return { type: 'pic_choose', item, options: shuffle([item, ...ds]).map((o) => ({ id: o.id, label: o.sk })) };
+    type = 'listen_choose';
+  }
   if (type === 'listen_choose') {
     const ds = distractors(item, 'en');
     if (ds.length < 2) type = 'type';
@@ -277,9 +291,15 @@ export function buildSession({ unitId = null, extra = false } = {}) {
 
 // --- recording results (activity/time is logged by the session in app.js) ---------
 
+const LOG_MAX = 4000;
+
 export function gradeItem(id, grade) {
   const t = today();
-  state.cards[id] = review(state.cards[id] || null, grade, t);
+  const prev = state.cards[id];
+  // Review log: [day, itemId, days since last review (-1 = first time), grade]
+  (state.log ||= []).push([t, id, prev ? t - prev.last : -1, grade]);
+  if (state.log.length > LOG_MAX) state.log.splice(0, state.log.length - LOG_MAX);
+  state.cards[id] = review(prev || null, grade, t);
   if (state.introduced[id] == null) state.introduced[id] = t;
   save();
 }

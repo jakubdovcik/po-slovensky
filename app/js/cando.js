@@ -1,0 +1,49 @@
+// "Can-do" statements: real-world abilities, achieved when the units behind them are both
+// learned and retained (most items recalled after a week or more), not just completed.
+
+import { state, today } from './store.js';
+import { unitById } from './course.js';
+
+export const CAN_DO = [
+  { text: 'I can read any Slovak word out loud', units: ['s0', 's1', 's2', 's3', 's4', 's5', 's6', 's7'] },
+  { text: 'I can greet people and be polite', units: ['u1'] },
+  { text: 'I can introduce myself', units: ['u2'] },
+  { text: 'I can talk about my family', units: ['u3'] },
+  { text: 'I can order food and drinks', units: ['u4'] },
+  { text: 'I can count and ask what something costs', units: ['u6'] },
+  { text: 'I can say how I feel', units: ['u7'] },
+  { text: 'I can find my way around town', units: ['u9', 'c3'] },
+  { text: 'I can say what I did yesterday', units: ['g5'] },
+  { text: 'I can describe my daily routine', units: ['d3'] },
+  { text: 'I can describe symptoms at the doctor', units: ['c1'] },
+  { text: 'I can shop for clothes', units: ['c2'] },
+  { text: 'I can open a psychiatric interview in Slovak', units: ['m1', 'm2', 'm3'] },
+  { text: 'I can ask about sleep, appetite and risk', units: ['m4', 'm5'] },
+  { text: 'I can explain a treatment plan', units: ['m6'] },
+  { text: 'I can make plans and say what I\'d like', units: ['q4', 'x2'] },
+  { text: 'I can give my opinion and say why', units: ['x4'] },
+  { text: 'I can keep up with family gossip', units: ['k1', 'k2', 'k3', 'k4', 'k5'] },
+  { text: 'I can toast at a Slovak wedding', units: ['o2', 'o3'] },
+];
+
+// An item counts as retained once its memory is stable for about a week (FSRS stability ≥ 7 days).
+const RETAINED_S = 7;
+
+export function canDoStatus(cd) {
+  const items = cd.units.map(unitById).filter(Boolean).flatMap((u) => u.items);
+  if (!items.length) return null;
+  const learned = items.filter((i) => state.cards[i.id]).length / items.length;
+  const retained = items.filter((i) => (state.cards[i.id]?.s || 0) >= RETAINED_S).length / items.length;
+  return { learned, retained, achieved: learned >= 0.8 && retained >= 0.6 };
+}
+
+/**
+ * Of the reviews in the last `days` days that came at least a week after the previous one,
+ * the share she got right. This is "what you can still produce a week later".
+ */
+export function weekLaterRecall(days = 30) {
+  const t = today();
+  const checks = (state.log || []).filter(([d, , gap]) => d > t - days && gap >= 7);
+  const ok = checks.filter(([, , , g]) => g >= 2).length;
+  return { checks: checks.length, rate: checks.length ? ok / checks.length : null };
+}

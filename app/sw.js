@@ -1,12 +1,12 @@
 // Offline support. App files: serve from cache, refresh in the background
 // (so updates arrive on the next launch). Audio and fonts: cache forever once fetched.
 
-const SHELL = 'shell-v15';
+const SHELL = 'shell-v16';
 const MEDIA = 'audio-v1';
 const FONTS = 'fonts-v1';
 const FILES = [
   './', 'index.html', 'report.html', 'reset.html', 'manifest.webmanifest', 'css/app.css',
-  'js/app.js', 'js/audio.js', 'js/course.js', 'js/fsrs.js', 'js/store.js', 'js/story.js', 'js/progress.js', 'js/report.js', 'js/cloud.js', 'js/config.js', 'js/reset.js', 'js/trail.js',
+  'js/app.js', 'js/audio.js', 'js/course.js', 'js/fsrs.js', 'js/store.js', 'js/story.js', 'js/progress.js', 'js/report.js', 'js/cloud.js', 'js/config.js', 'js/reset.js', 'js/trail.js', 'js/cando.js',
   'data/course.json', 'data/story.json', 'audio/manifest.json',
   'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png',
 ];

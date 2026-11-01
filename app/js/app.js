@@ -13,6 +13,7 @@ import {
 import { weekStats, totals, stageProgress, hardest, reportUrl, trailKm, b1Points } from './progress.js';
 import * as audio from './audio.js';
 import * as cloud from './cloud.js';
+import { CAN_DO, canDoStatus, weekLaterRecall } from './cando.js';
 import { TOTAL_KM, STOPS, LEVELS, B1_ITEMS, levelKm, levelAt, position, mapSvg } from './trail.js';
 
 const app = document.getElementById('app');
@@ -519,6 +520,25 @@ function calendar() {
     </section>`;
 }
 
+function retentionCard() {
+  const w = weekLaterRecall();
+  const body = w.checks >= 10
+    ? `<div class="ret-num">${Math.round(w.rate * 100)}%</div>
+       <p>of words you still knew <b>a week or more</b> after you last saw them (${w.checks} checks in the last 30 days). This is the number that shows real learning.</p>`
+    : `<p class="muted">Not enough data yet. This shows how many words you still remember a week after seeing them. Check back in a week or two of practice.</p>`;
+  return `<section class="card retention"><div class="section-label">Remembered a week later</div>${body}</section>`;
+}
+
+function canDoCard() {
+  const rows = CAN_DO.map((cd) => ({ cd, st: canDoStatus(cd) })).filter((r) => r.st);
+  const done = rows.filter((r) => r.st.achieved).length;
+  return `<section class="card cando"><div class="section-label">What you can do · ${done}/${rows.length}</div>
+    <ul class="cando-list">${rows.map(({ cd, st }) => `<li class="${st.achieved ? 'on' : ''}">
+      <span class="cd-mark">${st.achieved ? ICON.check : ''}</span><span class="cd-text">${esc(cd.text)}</span>
+      ${st.achieved ? '' : `<span class="cd-bar"><i style="width:${Math.round(100 * Math.min(st.learned, st.retained / 0.75))}%"></i></span>`}</li>`).join('')}</ul>
+    <p class="muted small">A skill counts once you've learned its lessons <i>and</i> still remember most of them a week later.</p></section>`;
+}
+
 function progress() {
   const tot = totals();
   const wk = weekStats();
@@ -533,6 +553,8 @@ function progress() {
         <div>words &amp; phrases learned · ${tot.solid} in long-term memory</div></div>
       </section>
       ${trailCard({ full: true })}
+      ${retentionCard()}
+      ${canDoCard()}
       <section class="stats">
         <div class="card stat"><b>${fmtMinutes(wk.secs)}</b><span>${wk.secs < 60 ? '' : 'min '}this week</span></div>
         <div class="card stat"><b>${wk.accuracy == null ? '–' : Math.round(wk.accuracy * 100) + '%'}</b><span>accuracy, 7 days</span></div>
@@ -591,6 +613,11 @@ function settings() {
         <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic".</p>
       </section>
       <section class="card form">
+        <label>Daily reminder</label>
+        <p class="muted small">Adds a repeating event to your phone's calendar, with an alert. Move or delete it there any time.</p>
+        <div class="inline-form"><input class="text-input sm" type="time" data-input="reminder" value="${attr(state.reminder || '19:00')}"><button class="btn small secondary" data-action="add-reminder">Add to Calendar</button></div>
+      </section>
+      <section class="card form">
         <label>Backup</label>
         <p class="muted small">Progress is stored on this phone. Copy a backup now and then, e.g. into Notes.</p>
         <button class="btn secondary" data-action="export">Copy backup</button>
@@ -607,7 +634,7 @@ function settings() {
 function startSession(opts) {
   const queue = buildSession(opts);
   if (!queue.length) { toast('Nothing to practice here right now.'); return; }
-  sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0 }, ex: null, phase: 'question', fb: null,
+  sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0, said: 0 }, ex: null, phase: 'question', fb: null,
     lastAt: Date.now(), storyBefore: nextChapter()?.status.unlocked, stopBefore: position(trailKm()).index, levelBefore: levelAt(trailKm()).current?.level };
   nextExercise();
 }
@@ -630,7 +657,7 @@ function nextExercise() {
   } else if (q.kind === 'intro') {
     sess.ex = { type: 'intro', item: course.items[q.id] };
   } else {
-    sess.ex = makeExercise(q.id, { easy: q.retry, isNew: q.isNew });
+    sess.ex = makeExercise(q.id, { retry: !!q.retry, isNew: q.isNew });
   }
   sess.phase = 'question';
   sess.fb = null;
@@ -658,12 +685,14 @@ function playTarget(slow = false) {
   audio.play(targetText(sess.ex), { slow });
 }
 
-function answer(result, extra = {}) {
+/** Grades the current exercise (first attempt only counts for scheduling) and queues a retry after a miss. */
+function recordResult(result) {
   const ex = sess.ex;
   const q = sess.queue[sess.idx];
   const correct = result !== 'wrong';
   sess.stats.total++;
   if (correct) sess.stats.right++;
+  if (ex.type === 'say') sess.stats.said++;
   tick(1, correct ? 1 : 0);
 
   if (ex.type === 'pair') {
@@ -674,10 +703,16 @@ function answer(result, extra = {}) {
     gradeItem(q.id, result === 'exact' ? 3 : correct ? 2 : 1);
     if (wasNew) sess.stats.learned++; else sess.stats.reviewed++;
   }
-  if (!correct && ex.type !== 'pair') {
-    // Bring it back a few cards later in an easier form, until she gets it.
-    sess.queue.splice(Math.min(sess.idx + 4, sess.queue.length), 0, { kind: 'review', id: q.id, retry: true });
+  if (!correct && ex.type !== 'pair' && (q.tries || 0) < 2) {
+    // Bring it back a few cards later and ask for it again from memory (up to twice).
+    sess.queue.splice(Math.min(sess.idx + 4, sess.queue.length), 0, { kind: 'review', id: q.id, retry: true, tries: (q.tries || 0) + 1 });
   }
+  return correct;
+}
+
+function answer(result, extra = {}) {
+  const ex = sess.ex;
+  const correct = recordResult(result);
   sess.phase = 'feedback';
   sess.fb = { result, ...extra };
   render();
@@ -757,6 +792,21 @@ function exerciseBody() {
     case 'listen_choose':
       return `<div class="label">What does this mean?</div>${listenBlock()}
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id)}`;
+    case 'say': {
+      const pic = it.pic ? `<div class="pic-intro" aria-hidden="true">${esc(it.pic)}</div>` : '';
+      if (!ex.revealed) {
+        return `<div class="label">${ex.retry ? 'Once more, from memory' : 'Say it in Slovak'}</div>${pic}
+          <div class="prompt">${esc(it.en)}</div>
+          <p class="muted say-hint">Say it out loud first, then check yourself.</p>
+          ${micBlock(it.sk)}`;
+      }
+      return `<div class="label">How did you do?</div>${pic}
+        <div class="muted">${esc(it.en)}</div>
+        <div class="big-sk revealed" lang="sk">${esc(it.sk)}</div>
+        <div class="listen small-listen"><button class="icon-btn round" data-action="play" data-text="${attr(it.sk)}" aria-label="Play">${ICON.speaker}</button><button class="icon-btn slow" data-action="play-slow" data-text="${attr(it.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
+        ${it.note ? `<p class="note-box">${esc(it.note)}</p>` : ''}
+        ${micBlock(it.sk)}`;
+    }
     case 'pic_choose':
       return `<div class="label">What would you call this in Slovak?</div><div class="pic-prompt" aria-label="${attr(it.en)}">${esc(it.pic)}</div>
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id, 'sk')}`;
@@ -779,6 +829,16 @@ function exerciseBody() {
   return '';
 }
 
+// Highlights the words of the right answer that were missing or wrong in what she typed.
+function wordDiff(typed, target) {
+  const have = new Set(tokens(typed).map((w) => stripAccents(normalize(w))));
+  return target.split(/(\s+)/).map((part) => {
+    if (/^\s+$/.test(part)) return part;
+    const key = stripAccents(normalize(part));
+    return key && !have.has(key) ? `<mark>${esc(part)}</mark>` : esc(part);
+  }).join('');
+}
+
 function diffAccents(typed, target) {
   // Highlight letters where only the accent was missing.
   const t = [...target];
@@ -798,6 +858,9 @@ function feedbackBar() {
   else if (fb.result === 'accents') { title = 'Almost: watch the accents'; body = `<div class="fb-sk" lang="sk">${diffAccents(fb.typed, fb.target)}</div>`; }
   else if (fb.result === 'typo') title = 'Close, just a small typo';
   else title = 'Not quite';
+  if (fb.result === 'wrong' && fb.typed) {
+    body = `<div class="fb-typed">You wrote: <s>${esc(fb.typed)}</s></div><div class="fb-sk" lang="sk">${wordDiff(fb.typed, fb.target)}</div>`;
+  }
   if (!body) body = `<div class="fb-sk" lang="sk">${esc(fb.target || sk)}</div>`;
   const compare = ex.type === 'pair'
     ? `<div class="fb-compare"><button class="chip" data-action="play" data-text="${attr(ex.pair.a)}" lang="sk">${ICON.speaker} ${esc(ex.pair.a)}</button><button class="chip" data-action="play" data-text="${attr(ex.pair.b)}" lang="sk">${ICON.speaker} ${esc(ex.pair.b)}</button></div>`
@@ -817,6 +880,12 @@ function sessionScreen() {
   let footer = '';
   if (sess.phase === 'feedback') footer = feedbackBar();
   else if (ex.type === 'intro' || ex.type === 'lesson') footer = `<footer class="actions"><button class="btn primary big" data-action="continue">Got it ${ICON.arrow}</button></footer>`;
+  else if (ex.type === 'say' && !ex.revealed) footer = `<footer class="actions"><button class="btn primary big" data-action="say-reveal">Check ${ICON.arrow}</button>
+      <button class="link small center-link" data-action="no-speaking">Can't speak right now</button></footer>`;
+  else if (ex.type === 'say') footer = `<footer class="actions say-grade">
+      <button class="grade bad" data-action="say-grade" data-r="wrong">Missed</button>
+      <button class="grade mid" data-action="say-grade" data-r="almost">Almost</button>
+      <button class="grade good" data-action="say-grade" data-r="exact">Got it</button></footer>`;
   else if (ex.type === 'type' || ex.type === 'dictation') footer = '<footer class="actions"><button class="btn primary big" data-action="check-typed">Check</button></footer>';
   else if (ex.type === 'build') footer = `<footer class="actions"><button class="btn primary big" data-action="check-build" ${ex.chosen.length ? '' : 'disabled'}>Check</button></footer>`;
   return `<div class="session">
@@ -854,6 +923,7 @@ function summary() {
         <div class="card stat"><b>${s.reviewed}</b><span>reviewed</span></div>
         <div class="card stat"><b>${acc}%</b><span>first try</span></div>
       </section>
+      ${s.said ? `<p class="muted">🗣️ You said ${s.said} ${s.said === 1 ? 'sentence' : 'sentences'} out loud.</p>` : ''}
       ${levelNews}
       ${trailNews}
       ${newlyUnlocked ? `<button class="card teaser ready c-${next.ch.color}" data-action="play-chapter" data-index="${next.index}">
@@ -962,6 +1032,23 @@ const actions = {
     input.value = input.value.slice(0, s) + el.dataset.char + input.value.slice(e);
     input.focus();
     input.setSelectionRange(s + 1, s + 1);
+  },
+  'say-reveal': () => {
+    sess.ex.revealed = true;
+    render();
+    audio.play(sess.ex.item.sk);
+  },
+  'say-grade': (el) => {
+    recordResult(el.dataset.r);
+    sess.idx++;
+    nextExercise();
+  },
+  'no-speaking': () => {
+    // Swap to typing (or building) with no penalty.
+    const it = sess.ex.item;
+    const ex = makeExercise(it.id, {});
+    sess.ex = tokens(it.sk).length >= 4 && ex.type === 'build' ? ex : { type: 'type', item: it, target: it.sk, targets: [it.sk, ...(it.alt || [])] };
+    render();
   },
   'no-typing': () => {
     // Swap to a multiple-choice version with no penalty.
@@ -1080,6 +1167,12 @@ const actions = {
   },
   'set-avatar': (el) => { state.avatar = el.dataset.emoji; save(); render(); },
   'hide-backup': () => { state.settings.hideBackupTip = true; save(); render(); },
+  'add-reminder': () => {
+    const time = app.querySelector('[data-input="reminder"]').value || '19:00';
+    state.reminder = time;
+    save();
+    downloadReminder(time);
+  },
   'hide-install': () => { try { sessionStorage.setItem('hideInstall', '1'); } catch { /* ignore */ } render(); },
   share: () => shareOrCopy('Slovak I learned this week:\n' + recentPhrases().map((it) => `• ${it.sk} — ${it.en}`).join('\n')),
   'send-report': () => shareOrCopy(`${state.name}'s Slovak progress 🇸🇰`, reportUrl()),
@@ -1110,6 +1203,43 @@ app.addEventListener('change', (e) => {
 });
 // Keep the keyboard open when tapping accent buttons.
 app.addEventListener('pointerdown', (e) => { if (e.target.closest('.accents button')) e.preventDefault(); });
+
+// --- calendar reminder ------------------------------------------------------------------------
+// An .ics file with a daily repeating event: no server or push notifications needed.
+
+function downloadReminder(time) {
+  const [hh, mm] = time.split(':').map(Number);
+  const startAt = new Date();
+  startAt.setHours(hh, mm, 0, 0);
+  if (startAt <= new Date()) startAt.setDate(startAt.getDate() + 1);
+  const endAt = new Date(startAt.getTime() + 15 * 60000);
+  const pad = (n) => String(n).padStart(2, '0');
+  const local = (x) => `${x.getFullYear()}${pad(x.getMonth() + 1)}${pad(x.getDate())}T${pad(x.getHours())}${pad(x.getMinutes())}00`;
+  const start = local(startAt);
+  const end = local(endAt);
+  const url = new URL('./', location.href).href;
+  const ics = [
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Po slovensky//EN', 'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:po-slovensky-daily-${Date.now()}@jakubdovcik.github.io`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').slice(0, 15)}Z`,
+    `DTSTART:${start}`, `DTEND:${end}`,
+    'RRULE:FREQ=DAILY',
+    'SUMMARY:🇸🇰 Po slovensky · 10 minút',
+    `DESCRIPTION:Time for a little Slovak. ${url}`,
+    `URL:${url}`,
+    'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:Po slovensky', 'TRIGGER:PT0M', 'END:VALARM',
+    'END:VEVENT', 'END:VCALENDAR',
+  ].join('\r\n');
+  const blob = new Blob([ics], { type: 'text/calendar' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'po-slovensky-reminder.ics';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+  toast('Opening your calendar… tap "Add" to save the reminder.');
+}
 
 // --- private packs ---------------------------------------------------------------------------
 // A personal unit set (e.g. sentences about the learner) arrives in a link's #fragment, which is
