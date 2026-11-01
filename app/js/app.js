@@ -14,6 +14,10 @@ import { weekStats, totals, stageProgress, hardest, reportUrl, trailKm, b1Points
 import * as audio from './audio.js';
 import * as cloud from './cloud.js';
 import { CAN_DO, canDoStatus, weekLaterRecall } from './cando.js';
+import {
+  practice, loadPractice, unlocked, heard, spoke, availableDialogues, nextDialogue, availablePrompts,
+  promptForToday, markHeard, markSpoke, skipSpeakingToday,
+} from './practice.js';
 import { TOTAL_KM, STOPS, LEVELS, B1_ITEMS, levelKm, levelAt, position, mapSvg } from './trail.js';
 
 const app = document.getElementById('app');
@@ -75,9 +79,9 @@ const fmtMinutes = (secs) => (secs < 60 ? `${Math.round(secs)}s` : `${Math.round
 // --- rendering --------------------------------------------------------------------
 
 function render() {
-  if (view.name !== 'session' && view.name !== 'scene') audio.stop();
+  if (!['session', 'scene', 'dialogue', 'speak'].includes(view.name)) audio.stop();
   if (!state.name && view.name !== 'welcome' && view.name !== 'auth') view = { name: 'welcome' };
-  const screens = { welcome, auth: authScreen, profile: profileScreen, home, unit: unitScreen, story: storyScreen, scene: sceneScreen, postcard: postcardScreen,
+  const screens = { welcome, auth: authScreen, profile: profileScreen, practice: practiceScreen, dialogue: dialogueScreen, speak: speakScreen, home, unit: unitScreen, story: storyScreen, scene: sceneScreen, postcard: postcardScreen,
     phrasebook, progress, settings, session: sessionScreen, summary };
   app.innerHTML = screens[view.name]();
   app.dataset.view = view.name;
@@ -86,7 +90,7 @@ function render() {
 }
 
 function tabbar() {
-  const active = { unit: 'home', postcard: 'story', profile: 'settings' }[view.name] || view.name;
+  const active = { unit: 'home', postcard: 'story', profile: 'settings', practice: 'home', dialogue: 'home', speak: 'home' }[view.name] || view.name;
   const tab = (name, icon, label) =>
     `<button class="tab ${active === name ? 'on' : ''}" data-action="nav" data-to="${name}">${ICON[icon]}<span>${label}</span></button>`;
   return `<nav class="tabbar">${tab('home', 'learn', 'Learn')}${tab('story', 'story', 'Story')}${tab('phrasebook', 'book', 'Phrases')}${tab('progress', 'chart', 'Progress')}${tab('settings', 'gear', 'Settings')}</nav>`;
@@ -314,6 +318,7 @@ function home() {
       ${todayCard}
       ${storyTeaser()}
       ${trailCard()}
+      ${practiceCard()}
       ${stages}
     </main>${tabbar()}`;
 }
@@ -421,7 +426,7 @@ function storyScreen() {
     </main>${tabbar()}`;
 }
 
-function bubble(b) {
+function bubble(b, i) {
   if (b.t === 'narr') return `<p class="narr">${escFill(b.text)}</p>`;
   if (b.t === 'me') return `<div class="line me"><div class="bubble" lang="sk">${escFill(b.sk)}</div></div>`;
   const ch = story.characters[b.who] || { name: b.who, color: 'navy' };
@@ -429,14 +434,16 @@ function bubble(b) {
   return `<div class="line">
       <span class="avatar c-${ch.color}">${esc(name[0])}</span>
       <div class="bubble"><div class="who">${esc(name)}</div>
-        <button class="say" data-action="play-as" data-text="${attr(b.sk)}" data-voice="${ch.voice || ''}" lang="sk">${esc(b.sk)} ${ICON.speaker}</button>
-        ${state.settings.showTranslations ? `<div class="tr">${esc(b.en)}</div>` : ''}</div>
+        ${state.settings.listenFirst && !scene.revealed?.has(i)
+          ? `<button class="say hidden-line" data-action="reveal-line" data-i="${i}">${ICON.speaker} <span>Listen, then tap to see the words</span></button>`
+          : `<button class="say" data-action="play-as" data-text="${attr(b.sk)}" data-voice="${ch.voice || ''}" lang="sk">${esc(b.sk)} ${ICON.speaker}</button>
+        ${state.settings.showTranslations ? `<div class="tr">${esc(b.en)}</div>` : ''}`}</div>
     </div>`;
 }
 
 function sceneScreen() {
   const ch = scene.ch;
-  const transcript = scene.log.map(bubble).join('');
+  const transcript = scene.log.map((b, i) => bubble(b, i)).join('');
   let footer;
   if (scene.pending) {
     const p = scene.pending;
@@ -454,6 +461,7 @@ function sceneScreen() {
   return `<div class="scene c-${ch.color}">
       <header class="scene-top"><button class="icon-btn" data-action="scene-quit" aria-label="Close">${ICON.close}</button>
         <div class="scene-title"><span>Kapitola ${scene.index + 1} · ${escFill(ch.place)}</span><b lang="sk">${esc(ch.title)}</b></div>
+        <button class="icon-btn tr-toggle ${state.settings.listenFirst ? 'on' : ''}" data-action="toggle-listen" aria-label="Listen first">👂</button>
         <button class="icon-btn tr-toggle ${state.settings.showTranslations ? 'on' : ''}" data-action="toggle-tr" aria-label="Toggle translations">EN</button></header>
       <main class="transcript">${transcript}</main>
       ${footer}
@@ -610,6 +618,7 @@ function settings() {
           : '<p class="muted small">Using your device\'s built-in Slovak voice.</p>'}
         ${toggle('autoplay', 'Play audio automatically')}
         ${toggle('showTranslations', 'Show English in story scenes')}
+        ${toggle('listenFirst', 'Story: listen first, then tap to see the text')}
         ${toggle('clinicMix', 'Mix clinic phrases into daily lessons')}
         <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic".</p>
       </section>
@@ -635,6 +644,8 @@ function settings() {
 function startSession(opts) {
   const queue = buildSession(opts);
   if (!queue.length) { toast('Nothing to practice here right now.'); return; }
+  const prompt = !opts.unitId && promptForToday();
+  if (prompt && queue.length >= 6) queue.splice(queue.length - 2, 0, { kind: 'speak', prompt });
   sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0, said: 0 }, ex: null, phase: 'question', fb: null,
     lastAt: Date.now(), storyBefore: nextChapter()?.status.unlocked, stopBefore: position(trailKm()).index, levelBefore: levelAt(trailKm()).current?.level };
   nextExercise();
@@ -655,6 +666,8 @@ function nextExercise() {
     sess.ex = { type: 'pair', pair: q.pair, target: Math.random() < 0.5 ? 'a' : 'b' };
   } else if (q.kind === 'lesson') {
     sess.ex = { type: 'lesson', unit: unitById(q.unit) };
+  } else if (q.kind === 'speak') {
+    sess.ex = { type: 'speak', prompt: q.prompt };
   } else if (q.kind === 'intro') {
     sess.ex = { type: 'intro', item: course.items[q.id] };
   } else {
@@ -672,6 +685,7 @@ const AUDIO_FIRST = { pair: 1, sound_pick: 1, listen_choose: 1, dictation: 1 };
 function autoplayQuestion() {
   const ex = sess.ex;
   if (AUDIO_FIRST[ex.type]) return playTarget();
+  if (ex.type === 'speak') return audio.play(ex.prompt.q, { voice: 'lukas' });
   if (ex.type === 'intro' && state.settings.autoplay) {
     audio.play(ex.item.kind === 'sound' ? ex.item.examples[0].sk : ex.item.sk);
   }
@@ -679,6 +693,7 @@ function autoplayQuestion() {
 
 function targetText(ex) {
   if (ex.type === 'pair') return ex.pair[ex.target];
+  if (ex.variant) return ex.variant.sk;
   return ex.target || ex.item.sk;
 }
 
@@ -693,7 +708,7 @@ function recordResult(result) {
   const correct = result !== 'wrong';
   sess.stats.total++;
   if (correct) sess.stats.right++;
-  if (ex.type === 'say') sess.stats.said++;
+  if (ex.type === 'say' || ex.type === 'vary') sess.stats.said++;
   tick(1, correct ? 1 : 0);
 
   if (ex.type === 'pair') {
@@ -718,6 +733,141 @@ function answer(result, extra = {}) {
   sess.fb = { result, ...extra };
   render();
   if (!AUDIO_FIRST[ex.type] || !correct) audio.play(targetText(ex));
+}
+
+// --- free speaking ------------------------------------------------------------------------
+
+const currentPrompt = () => (view.name === 'speak' ? view.prompt : sess.ex.prompt);
+const speakState = () => (view.name === 'speak' ? view.st : sess.ex);
+
+function speakBody(ex) {
+  const p = ex.prompt || currentPrompt();
+  const st = view.name === 'speak' ? view.st : ex;
+  return `<div class="label">Speak freely</div>
+    <div class="speak-q">
+      <button class="listen-btn sm" data-action="speak-play" aria-label="Play the question">${ICON.speaker}</button>
+      <div>${st.showText ? `<div class="speak-sk" lang="sk">${esc(p.q)}</div>` : '<button class="link small" data-action="speak-text">Show the question</button>'}
+      <div class="muted small">${esc(p.en)}</div></div>
+    </div>
+    <p class="say-hint">Answer out loud in your own words. Short and simple is perfect. Then compare with a sample answer.</p>
+    ${micBlock(fill(p.sample))}
+    ${st.sample ? `<div class="sample-card"><div class="mc-label">One possible answer</div>
+        <button class="say" data-action="speak-sample-play" lang="sk">${escFill(p.sample)} ${ICON.speaker}</button>
+        <div class="muted small">${escFill(p.sampleEn)}</div></div>` : ''}
+    <p class="muted small">Try this one with ${esc(partnerName())} at dinner, too.</p>`;
+}
+
+function speakFooter(ex) {
+  const st = view.name === 'speak' ? view.st : ex;
+  return `<footer class="actions speak-foot">
+    ${st.sample ? `<button class="btn primary big" data-action="speak-done">I answered ${ICON.check}</button>`
+      : `<button class="btn primary big" data-action="speak-sample">Show a sample answer</button>`}
+    <button class="link small center-link" data-action="speak-skip">${view.name === 'speak' ? 'Back' : 'Skip for today'}</button></footer>`;
+}
+
+function speakScreen() {
+  return `<div class="session"><header class="session-top"><button class="icon-btn" data-action="go-practice" aria-label="Close">${ICON.close}</button><div class="kicker-inline">Rozprávanie · Speaking</div></header>
+    <main class="exercise ex-speak">${speakBody({ prompt: view.prompt })}</main>${speakFooter({})}</div>`;
+}
+
+// --- listening ------------------------------------------------------------------------------
+
+let dlg = null;
+let stopPlayback = null;
+
+function openDialogue(id) {
+  const d = practice.dialogues.find((x) => x.id === id);
+  dlg = { d, phase: 'listen', plays: 0, playing: -1, qi: 0, picked: null, score: 0 };
+  view = { name: 'dialogue' };
+  render();
+  window.scrollTo(0, 0);
+}
+
+function playDialogue(slow) {
+  stopDialogue();
+  const lines = dlg.d.lines.map((l) => ({ text: l.sk, voice: l.v === 'A' ? 'viktoria' : 'lukas' }));
+  stopPlayback = audio.playQueue(lines, {
+    slow,
+    onLine: (i) => { dlg.playing = i; render(); },
+    onDone: () => { dlg.playing = -1; dlg.plays++; render(); },
+  });
+}
+
+function stopDialogue() { if (stopPlayback) { stopPlayback(); stopPlayback = null; } if (dlg) dlg.playing = -1; }
+
+function dialogueScreen() {
+  const d = dlg.d;
+  let body;
+  if (dlg.phase === 'listen') {
+    body = `<div class="label">Listen first</div>
+      <h2 class="lesson-title" lang="sk">${esc(d.title)}</h2>
+      <p class="muted">${esc(d.en)}. No text yet: just listen. Play it as many times as you like.</p>
+      <div class="dlg-player">
+        <button class="listen-btn" data-action="dlg-play" aria-label="Play">${ICON.speaker}</button>
+        <button class="icon-btn slow" data-action="dlg-play" data-slow="1" aria-label="Play slowly">${ICON.slow}</button>
+      </div>
+      <div class="dlg-dots">${d.lines.map((l, i) => `<span class="dot v${l.v} ${dlg.playing === i ? 'on' : ''}"></span>`).join('')}</div>`;
+  } else if (dlg.phase === 'questions') {
+    const q = d.questions[dlg.qi];
+    body = `<div class="label">Question ${dlg.qi + 1} of ${d.questions.length}</div>
+      <div class="prompt">${esc(q.q)}</div>
+      <div class="options">${q.options.map((o, n) => {
+        let cls = '';
+        if (dlg.picked != null) cls = n === q.answer ? 'right' : n === dlg.picked ? 'wrong' : 'dim';
+        return `<button class="option ${cls}" data-action="dlg-answer" data-n="${n}" ${dlg.picked != null ? 'disabled' : ''}>${esc(o)}</button>`;
+      }).join('')}</div>
+      <button class="link small" data-action="dlg-play">${ICON.speaker} Listen again</button>`;
+  } else {
+    body = `<div class="label">Transcript · ${dlg.score}/${d.questions.length} right</div>
+      <h2 class="lesson-title" lang="sk">${esc(d.title)}</h2>
+      <p class="muted small">Tap a line to hear it again.</p>
+      <div class="transcript dlg-transcript">${d.lines.map((l, i) => `<div class="line ${l.v === 'A' ? '' : 'me'}">
+        ${l.v === 'A' ? '<span class="avatar c-magenta">A</span>' : ''}
+        <button class="bubble" data-action="dlg-line" data-i="${i}"><div class="say" lang="sk">${esc(l.sk)} ${ICON.speaker}</div><div class="tr">${esc(l.en)}${l.note ? ` · ${esc(l.note)}` : ''}</div></button>
+        ${l.v === 'B' ? '<span class="avatar c-blue">B</span>' : ''}</div>`).join('')}</div>`;
+  }
+  let footer;
+  if (dlg.phase === 'listen') footer = `<button class="btn primary big" data-action="dlg-questions" ${dlg.plays ? '' : 'disabled'}>${dlg.plays ? 'Answer the questions' : 'Play it first'} ${ICON.arrow}</button>`;
+  else if (dlg.phase === 'questions') footer = dlg.picked != null ? `<button class="btn primary big" data-action="dlg-next">${dlg.qi + 1 < d.questions.length ? 'Next question' : 'See the transcript'} ${ICON.arrow}</button>` : '';
+  else footer = `<button class="btn primary big" data-action="dlg-close">Done</button>`;
+  return `<div class="session"><header class="session-top"><button class="icon-btn" data-action="dlg-close" aria-label="Close">${ICON.close}</button><div class="kicker-inline">Počúvanie · Listening</div></header>
+    <main class="exercise">${body}</main><footer class="actions">${footer}</footer></div>`;
+}
+
+function practiceCard() {
+  const dl = availableDialogues();
+  const pr = availablePrompts();
+  if (!dl.length && !pr.length) return '';
+  const fresh = dl.filter((d) => !heard(d.id)).length;
+  return `<button class="card practice-card" data-action="go-practice">
+      <span class="pc-icons">🎧🗣️</span>
+      <span class="pl-text"><b>Listen &amp; speak</b><span class="muted small">${dl.length} dialogues${fresh ? ` · ${fresh} new` : ''} · ${pr.length} speaking questions</span></span>${ICON.arrow}</button>`;
+}
+
+function practiceScreen() {
+  const lockedNote = (x) => `after ${x.requires.map((id) => unitById(id)?.title.split(' · ')[0] || id).join(', ')}`;
+  const dRows = practice.dialogues.map((d) => {
+    const open = unlocked(d);
+    const h = heard(d.id);
+    return `<button class="row ${open ? '' : 'locked'}" ${open ? `data-action="open-dialogue" data-id="${d.id}"` : 'disabled'}>
+      <span class="row-pic">${open ? '🎧' : '🔒'}</span>
+      <span class="row-main"><span class="sk" lang="sk">${esc(d.title)}</span><span class="en">${esc(d.en)}${open ? '' : ` · ${esc(lockedNote(d))}`}</span></span>
+      ${h ? `<span class="learned">${h.score}/${h.total}</span>` : open ? '<span class="new-badge">new</span>' : ''}</button>`;
+  }).join('');
+  const pRows = practice.prompts.map((p) => {
+    const open = unlocked(p);
+    return `<button class="row ${open ? '' : 'locked'}" ${open ? `data-action="open-speak" data-id="${p.id}"` : 'disabled'}>
+      <span class="row-pic">${open ? '🗣️' : '🔒'}</span>
+      <span class="row-main"><span class="sk" lang="sk">${open ? esc(p.q) : '…'}</span><span class="en">${esc(p.en)}${open ? '' : ` · ${esc(lockedNote(p))}`}</span></span>
+      ${spoke(p.id) ? `<span class="learned">${ICON.check}</span>` : ''}</button>`;
+  }).join('');
+  return `<main class="screen">
+      <header class="topbar"><button class="icon-btn" data-action="nav" data-to="home" aria-label="Back">${ICON.back}</button><div class="kicker-inline">Počúvanie a rozprávanie</div></header>
+      <h1 class="display sm">Listen &amp; speak</h1>
+      <p class="lede">Short conversations to understand without reading, and questions to answer in your own words.</p>
+      <h3>🎧 Listening</h3><div class="card list">${dRows}</div>
+      <h3>🗣️ Speaking</h3><div class="card list">${pRows}</div>
+    </main>${tabbar()}`;
 }
 
 function listenBlock() {
@@ -808,6 +958,22 @@ function exerciseBody() {
         ${it.note ? `<p class="note-box">${esc(it.note)}</p>` : ''}
         ${micBlock(it.sk)}`;
     }
+    case 'vary': {
+      const model = `<div class="model-card"><div class="mc-label">You know</div>
+          <button class="say" data-action="play" data-text="${attr(it.sk)}" lang="sk">${esc(it.sk)} ${ICON.speaker}</button>
+          <div class="muted small">${esc(it.en)}</div></div>`;
+      if (!ex.revealed) {
+        return `<div class="label">Change it</div>${model}
+          <div class="vary-arrow">↓</div><div class="prompt">${esc(ex.variant.en)}</div>
+          <p class="muted say-hint">Say the new sentence out loud, then check.</p>${micBlock(ex.variant.sk)}`;
+      }
+      return `<div class="label">How did you do?</div>${model}<div class="vary-arrow">↓</div>
+        <div class="muted">${esc(ex.variant.en)}</div>
+        <div class="big-sk revealed" lang="sk">${esc(ex.variant.sk)}</div>
+        <div class="listen small-listen"><button class="icon-btn round" data-action="play" data-text="${attr(ex.variant.sk)}" aria-label="Play">${ICON.speaker}</button><button class="icon-btn slow" data-action="play-slow" data-text="${attr(ex.variant.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
+        ${micBlock(ex.variant.sk)}`;
+    }
+    case 'speak': return speakBody(ex);
     case 'pic_choose':
       return `<div class="label">What would you call this in Slovak?</div><div class="pic-prompt" aria-label="${attr(it.en)}">${esc(it.pic)}</div>
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id, 'sk')}`;
@@ -823,7 +989,7 @@ function exerciseBody() {
         <div class="tiles bank" lang="sk">${bank}</div>`;
     }
     case 'type':
-      return `<div class="label">Type it in Slovak</div><div class="prompt">${esc(it.en)}</div>${sess.fb ? '' : typeBlock('Type in Slovak…')}`;
+      return `<div class="label">Type it in Slovak</div><div class="prompt">${esc(ex.promptEn || it.en)}</div>${sess.fb ? '' : typeBlock('Type in Slovak…')}`;
     case 'dictation':
       return `<div class="label">Type what you hear</div>${listenBlock()}${sess.fb ? '' : typeBlock('What did you hear?')}`;
   }
@@ -881,9 +1047,10 @@ function sessionScreen() {
   let footer = '';
   if (sess.phase === 'feedback') footer = feedbackBar();
   else if (ex.type === 'intro' || ex.type === 'lesson') footer = `<footer class="actions"><button class="btn primary big" data-action="continue">Got it ${ICON.arrow}</button></footer>`;
-  else if (ex.type === 'say' && !ex.revealed) footer = `<footer class="actions"><button class="btn primary big" data-action="say-reveal">Check ${ICON.arrow}</button>
+  else if (ex.type === 'speak') footer = speakFooter(ex);
+  else if ((ex.type === 'say' || ex.type === 'vary') && !ex.revealed) footer = `<footer class="actions"><button class="btn primary big" data-action="say-reveal">Check ${ICON.arrow}</button>
       <button class="link small center-link" data-action="no-speaking">Can't speak right now</button></footer>`;
-  else if (ex.type === 'say') footer = `<footer class="actions say-grade">
+  else if (ex.type === 'say' || ex.type === 'vary') footer = `<footer class="actions say-grade">
       <button class="grade bad" data-action="say-grade" data-r="wrong">Missed</button>
       <button class="grade mid" data-action="say-grade" data-r="almost">Almost</button>
       <button class="grade good" data-action="say-grade" data-r="exact">Got it</button></footer>`;
@@ -927,6 +1094,8 @@ function summary() {
       ${s.said ? `<p class="muted">🗣️ You said ${s.said} ${s.said === 1 ? 'sentence' : 'sentences'} out loud.</p>` : ''}
       ${levelNews}
       ${trailNews}
+      ${nextDialogue() ? `<button class="card practice-card bonus" data-action="open-dialogue" data-id="${nextDialogue().id}"><span class="pc-icons">🎧</span>
+        <span class="pl-text"><b>Bonus: a 1-minute listening</b><span class="muted small" lang="sk">${esc(nextDialogue().title)}</span></span>${ICON.arrow}</button>` : ''}
       ${newlyUnlocked ? `<button class="card teaser ready c-${next.ch.color}" data-action="play-chapter" data-index="${next.index}">
           <div class="teaser-body"><div class="teaser-kicker">New chapter unlocked</div>
           <div class="teaser-title">${esc(next.ch.title)}</div><div class="teaser-line"><span class="go">Play now ${ICON.arrow}</span></div></div>
@@ -1037,7 +1206,7 @@ const actions = {
   'say-reveal': () => {
     sess.ex.revealed = true;
     render();
-    audio.play(sess.ex.item.sk);
+    audio.play(targetText(sess.ex));
   },
   'say-grade': (el) => {
     recordResult(el.dataset.r);
@@ -1047,10 +1216,63 @@ const actions = {
   'no-speaking': () => {
     // Swap to typing (or building) with no penalty.
     const it = sess.ex.item;
+    if (sess.ex.variant) {
+      const v = sess.ex.variant;
+      sess.ex = { type: 'type', item: it, target: v.sk, targets: [v.sk], promptEn: v.en, targetEn: v.en };
+      return render();
+    }
     const ex = makeExercise(it.id, {});
     sess.ex = tokens(it.sk).length >= 4 && ex.type === 'build' ? ex : { type: 'type', item: it, target: it.sk, targets: [it.sk, ...(it.alt || [])] };
     render();
   },
+  // free speaking
+  'speak-play': () => audio.play(currentPrompt().q, { voice: 'lukas' }),
+  'speak-text': () => { speakState().showText = true; render(); },
+  'speak-sample': () => {
+    speakState().sample = true;
+    render();
+    audio.play(fill(currentPrompt().sample), { voice: 'viktoria' });
+  },
+  'speak-sample-play': () => audio.play(fill(currentPrompt().sample), { voice: 'viktoria' }),
+  'speak-done': () => {
+    markSpoke(currentPrompt().id);
+    if (view.name === 'speak') { toast('Výborne! 🗣️'); view = { name: 'practice' }; return render(); }
+    sess.stats.said++;
+    sess.idx++;
+    nextExercise();
+  },
+  'speak-skip': () => {
+    if (view.name === 'speak') { view = { name: 'practice' }; return render(); }
+    skipSpeakingToday();
+    sess.idx++;
+    nextExercise();
+  },
+  'open-speak': (el) => { view = { name: 'speak', prompt: practice.prompts.find((p) => p.id === el.dataset.id), st: {} }; recordedUrl = null; render(); audio.play(view.prompt.q, { voice: 'lukas' }); },
+  // listening
+  'open-dialogue': (el) => openDialogue(el.dataset.id),
+  'dlg-play': (el) => playDialogue(!!el.dataset.slow),
+  'dlg-questions': () => { stopDialogue(); dlg.phase = 'questions'; render(); },
+  'dlg-answer': (el) => {
+    const q = dlg.d.questions[dlg.qi];
+    const n = Number(el.dataset.n);
+    if (dlg.picked != null) return;
+    dlg.picked = n;
+    if (n === q.answer) dlg.score++;
+    logActivity({ answered: 1, correct: n === q.answer ? 1 : 0 });
+    render();
+  },
+  'dlg-next': () => {
+    dlg.qi++;
+    dlg.picked = null;
+    if (dlg.qi >= dlg.d.questions.length) { dlg.phase = 'done'; markHeard(dlg.d.id, dlg.score, dlg.d.questions.length); }
+    render();
+  },
+  'dlg-line': (el) => { const l = dlg.d.lines[Number(el.dataset.i)]; audio.play(l.sk, { voice: l.v === 'A' ? 'viktoria' : 'lukas' }); },
+  'dlg-close': () => { stopDialogue(); view = { name: 'practice' }; render(); },
+  'go-practice': () => { view = { name: 'practice' }; render(); window.scrollTo(0, 0); },
+  // story: listen first
+  'reveal-line': (el) => { (scene.revealed ||= new Set()).add(Number(el.dataset.i)); render(); },
+  'toggle-listen': () => { state.settings.listenFirst = !state.settings.listenFirst; save(); render(); toast(state.settings.listenFirst ? 'Listen first: text appears when you tap it.' : 'Text shown right away.'); },
   'no-typing': () => {
     // Swap to a multiple-choice version with no penalty.
     const q = sess.queue[sess.idx];
@@ -1275,7 +1497,7 @@ function reloadIfCalm() {
 (async function boot() {
   // Password-reset links from Supabase land on the app's root URL; hand them to the reset page.
   if (/type=recovery/.test(location.hash)) { location.replace('reset.html' + location.hash); return; }
-  await Promise.all([loadCourse(), loadStory(), audio.loadAudioManifest()]);
+  await Promise.all([loadCourse(), loadStory(), loadPractice(), audio.loadAudioManifest()]);
   importPackFromLink();
   render();
   cloud.onSyncChange(() => {

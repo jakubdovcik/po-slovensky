@@ -70,6 +70,7 @@ export function play(text, { slow = false, voice = null } = {}) {
   const files = manifest.files?.[text];
   const chosen = state.settings.voice === 'device' ? null : files && pickVoice(files, voice);
   stop();
+  player.onended = null;
   if (chosen) {
     lastVoice = chosen;
     player.src = 'audio/' + files[chosen];
@@ -89,6 +90,43 @@ function speak(text, slow) {
     u.rate = slow ? 0.6 : 0.9;
     speechSynthesis.speak(u);
   } catch { /* no speech available */ }
+}
+
+/**
+ * Plays several lines one after another (a dialogue). Each line: { text, voice }.
+ * onLine(i) is called as each line starts, onDone() at the end. Returns a function that stops playback.
+ */
+export function playQueue(lines, { slow = false, onLine = () => {}, onDone = () => {} } = {}) {
+  let i = -1;
+  let cancelled = false;
+  const next = () => {
+    if (cancelled) return;
+    i++;
+    if (i >= lines.length) { player.onended = null; onDone(); return; }
+    onLine(i);
+    const { text, voice } = lines[i];
+    const files = manifest.files?.[text];
+    const chosen = state.settings.voice === 'device' ? null : files && (files[voice] ? voice : Object.keys(files)[0]);
+    if (chosen) {
+      player.onended = () => setTimeout(next, 350);
+      player.src = 'audio/' + files[chosen];
+      player.playbackRate = slow ? 0.75 : 1;
+      player.play().catch(() => setTimeout(next, 600));
+    } else {
+      try {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'sk-SK';
+        const v = slovakDeviceVoice();
+        if (v) u.voice = v;
+        u.rate = slow ? 0.6 : 0.9;
+        u.onend = () => setTimeout(next, 350);
+        speechSynthesis.speak(u);
+      } catch { setTimeout(next, 600); }
+    }
+  };
+  stop();
+  next();
+  return () => { cancelled = true; player.onended = null; stop(); };
 }
 
 export function stop() {

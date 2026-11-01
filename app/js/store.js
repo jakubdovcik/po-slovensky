@@ -89,6 +89,13 @@ export function mergeStates(local, remote) {
   for (const [k, d] of Object.entries(r.story.done)) out.story.done[k] = out.story.done[k] == null ? d : Math.min(out.story.done[k], d);
   out.trailBest = Math.max(out.trailBest || 0, r.trailBest || 0);
   if (!out.custom?.units?.length && r.custom?.units?.length) out.custom = r.custom;
+  const pr = out.practice || { heard: {}, spoke: {}, speakDay: 0 };
+  const rp = r.practice || {};
+  out.practice = {
+    heard: { ...(rp.heard || {}), ...pr.heard },
+    spoke: { ...(rp.spoke || {}), ...pr.spoke },
+    speakDay: Math.max(pr.speakDay || 0, rp.speakDay || 0),
+  };
   const seen = new Set();
   out.log = [...(out.log || []), ...(r.log || [])]
     .filter((e) => { const k = e.join('|'); if (seen.has(k)) return false; seen.add(k); return true; })

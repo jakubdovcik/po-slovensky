@@ -38,6 +38,12 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
   Slovak out loud, reveal, self-grade Missed / Almost / Got it), typing, sentence building, fill-the-gap.
 - **Feedback you act on**: after a miss the correct answer is shown (typed mistakes highlight the wrong words), and the
   item returns a few cards later as a recall attempt ("Once more, from memory"), up to twice.
+- **Listening without a transcript** (`app/data/practice.json`): 12 two-voice dialogues, each unlocked by its lessons.
+  Listen first, answer comprehension questions, then see the transcript. Story scenes have a "listen first" switch (👂).
+- **Speaking freely**: 18 open questions answered out loud (record, then compare with a sample answer); one appears
+  near the end of a session at most once a day, always skippable.
+- **"Change it" drills**: 50 known sentences carry `"variants"` (new word or person). She produces the changed
+  sentence, which forces new endings.
 - **Visible learning**: a review log feeds a "Remembered a week later" score (reviews ≥ 7 days after the previous one),
   and a can-do list unlocks when a skill's units are learned *and* retained. A daily calendar reminder (.ics) replaces
   push notifications.

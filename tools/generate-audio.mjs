@@ -43,6 +43,7 @@ async function collectTexts() {
       else {
         texts.add(item.sk);
         (item.alt || []).forEach((a) => texts.add(a));
+        (item.variants || []).forEach((v) => texts.add(v.sk));
         // Single words for sentence-building tiles.
         if (/\s/.test(item.sk)) item.sk.replace(/[.,!?…]/g, '').split(/\s+/).filter(Boolean).forEach((w) => texts.add(w));
       }
@@ -63,6 +64,12 @@ async function collectTexts() {
       }
     }
   } catch { /* no story */ }
+  // Listening dialogues and speaking prompts.
+  try {
+    const practice = JSON.parse(await readFile(join(ROOT, 'data', 'practice.json'), 'utf8'));
+    for (const d of practice.dialogues) d.lines.forEach((l) => texts.add(l.sk));
+    for (const p of practice.prompts) { texts.add(p.q); texts.add(p.sample); }
+  } catch { /* no practice */ }
   return [...texts].filter((t) => !t.includes('{'));
 }
 

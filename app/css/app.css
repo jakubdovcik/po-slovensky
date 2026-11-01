@@ -602,3 +602,40 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 .cd-text { flex: 1; }
 .cd-bar { width: 54px; height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; flex: none; }
 .cd-bar i { display: block; height: 100%; background: var(--accent); }
+
+/* Change it (variation drills) */
+.model-card, .sample-card { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 4px; }
+.mc-label { font-family: var(--condensed); text-transform: uppercase; letter-spacing: .07em; font-size: 11px; color: var(--accent); margin-bottom: 2px; }
+.model-card .say, .sample-card .say { font-size: 18px; }
+.vary-arrow { text-align: center; font-size: 22px; color: var(--muted); line-height: 1; margin: 6px 0; }
+.sample-card { margin-top: 16px; background: var(--good-bg); border-color: transparent; animation: rise .2s ease-out; }
+
+/* Speak freely */
+.speak-q { display: flex; align-items: center; gap: 14px; margin: 4px 0 14px; }
+.listen-btn.sm { width: 64px; height: 64px; flex: none; }
+.listen-btn.sm svg { width: 30px; height: 30px; }
+.speak-sk { font-family: var(--serif); font-size: 26px; font-weight: 600; line-height: 1.15; }
+.speak-foot .btn { margin: 0; }
+
+/* Listening */
+.dlg-player { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 26px 0 18px; }
+.dlg-dots { display: flex; justify-content: center; gap: 8px; }
+.dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--edge); background: var(--surface); transition: transform .15s; }
+.dot.vA { border-color: var(--magenta); }
+.dot.vB { border-color: var(--blue); }
+.dot.on { transform: scale(1.35); background: var(--gold); }
+.dlg-transcript { padding: 6px 0 0; }
+.dlg-transcript .bubble { text-align: left; }
+.practice-card { display: flex; align-items: center; gap: 14px; width: 100%; margin-top: 14px; }
+.practice-card > svg { color: var(--muted); }
+.practice-card.bonus { text-align: left; border: 2px solid var(--edge); box-shadow: var(--hard); }
+.pc-icons { font-size: 26px; flex: none; }
+.new-badge { font-family: var(--condensed); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; background: var(--gold); color: var(--navy); border-radius: 5px; padding: 3px 6px 2px; }
+.row.locked { opacity: .55; }
+
+/* Story: listen first */
+.say.hidden-line { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; color: var(--accent); }
+.say.hidden-line span { text-decoration: underline dotted; }
+.line.me .tr { color: rgba(255, 252, 244, .82); }
+.line.me .say svg { color: inherit; }
+@media (prefers-color-scheme: dark) { .line.me .tr { color: rgba(10, 24, 48, .75); } }

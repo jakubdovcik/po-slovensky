@@ -148,6 +148,11 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
   // Mistake retries ask for recall again (say it or type it), now that the right answer was just shown.
   if (retry) return { type: 'say', item, retry: true };
 
+  // "Change it": once a sentence is known, ask for a variation of it (new word, new ending).
+  if (item.variants?.length && !isNew && !easy && s >= 3 && Math.random() < 0.35) {
+    return { type: 'vary', item, variant: pick(item.variants) };
+  }
+
   if (item.blank) {
     // Grammar items: fill-the-gap trains the pattern; then produce the whole sentence.
     if (isNew || easy) type = 'cloze';
