@@ -335,6 +335,12 @@ function itemRow(it) {
     </button>`;
 }
 
+/** "The logic" and "Comme en français" boxes for a unit, if it has them. */
+function unitNotes(unit) {
+  return `${unit.logic ? `<aside class="note-card logic"><div class="note-head">💡 The logic</div><p>${unit.logic}</p></aside>` : ''}
+    ${unit.fr ? `<aside class="note-card fr"><div class="note-head">🇫🇷 Comme en français</div><p>${unit.fr}</p></aside>` : ''}`;
+}
+
 function unitScreen() {
   const unit = unitById(view.id);
   const stage = course.stages.find((s) => s.id === unit.stage);
@@ -351,6 +357,7 @@ function unitScreen() {
         <div class="kicker-inline">${esc(stage.title)}</div></header>
       <div class="unit-hero">${hoop(learned / total, { size: 64, label: `${learned}/${total}` })}<h1 class="display sm">${esc(unit.title)}</h1></div>
       <section class="card intro-note"><p>${unit.intro}</p></section>
+      ${unitNotes(unit)}
       <button class="btn primary big" data-action="start" data-unit="${unit.id}">${label} ${ICON.arrow}</button>
       <h3>${unit.stage === 'sounds' ? 'Sounds' : 'Words & phrases'} <span class="muted small">tap to hear</span></h3>
       <div class="${items[0].kind === 'sound' ? 'stack' : 'card list'}">${rows}</div>
@@ -720,7 +727,7 @@ function exerciseBody() {
   switch (ex.type) {
     case 'lesson':
       return `<div class="label">New lesson</div><h2 class="lesson-title">${esc(ex.unit.title)}</h2>
-        <div class="card intro-note lesson">${ex.unit.intro}</div>`;
+        <div class="card intro-note lesson">${ex.unit.intro}</div>${unitNotes(ex.unit)}`;
     case 'cloze': {
       const gap = sess.fb
         ? `<span class="gap filled ${sess.fb.result === 'wrong' ? 'bad' : ''}">${esc(it.blank)}</span>`

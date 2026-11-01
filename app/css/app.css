@@ -565,3 +565,14 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 
 /* Alphabet chips: the letter big, its name small */
 .example.letter span { font-family: var(--serif); font-size: 22px; min-width: 1.4em; text-align: center; }
+
+/* "The logic" and "Comme en français" boxes */
+.note-card { border-radius: var(--radius); padding: 12px 14px; margin-top: 10px; font-size: 15px; border: 1.5px solid var(--line); }
+.note-card p { margin: 4px 0 0; }
+.note-head { font-family: var(--condensed); text-transform: uppercase; letter-spacing: .07em; font-size: 12px; }
+.note-card.logic { background: var(--good-bg); border-left: 4px solid var(--gold); }
+.note-card.logic .note-head { color: var(--ink); }
+.note-card.fr { background: var(--accent-soft, rgba(1, 66, 164, .07)); border-left: 4px solid var(--blue); }
+.note-card.fr .note-head { color: var(--accent); }
+@media (prefers-color-scheme: dark) { .note-card.fr { background: rgba(27, 157, 229, .1); } }
+.lesson + .note-card { margin-top: 12px; }

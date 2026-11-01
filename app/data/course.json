@@ -38,6 +38,8 @@
       "stage": "sounds",
       "title": "Vowels & stress",
       "intro": "Slovak is spelled the way it sounds. Learn the sounds once and you can read anything. Vowels are short and pure, with no English-style glide (Slovak <b>o</b> never turns into \"ow\"). And stress is <b>always on the first syllable</b>.",
+      "logic": "Fixed stress is a gift: once you know where a word starts, you know where to stress it, so you never have to memorise it word by word.",
+      "fr": "French stresses the <b>last</b> syllable of a phrase; Slovak always stresses the <b>first</b>. Same kind of rule, opposite end.",
       "items": [
         {"id":"s_a","kind":"sound","sk":"a","en":"short 'a', like in 'father' but quicker","examples":[{"sk":"mama","en":"mom"},{"sk":"mapa","en":"map"}]},
         {"id":"s_e","kind":"sound","sk":"e","en":"like 'e' in 'bet'","examples":[{"sk":"meno","en":"name"},{"sk":"pero","en":"pen"}]},
@@ -80,6 +82,7 @@
       "stage": "sounds",
       "title": "Háček sounds",
       "intro": "The little hook <b>ˇ</b> (called <i>mäkčeň</i>) turns hissy sounds into hushy ones. These four are easy for English speakers, because you already have them.",
+      "fr": "You already know these sounds: <b>š</b> is French <i>ch</i> (<i>chat</i>), <b>ž</b> is French <i>j</i> (<i>je</i>), and <b>č</b> is the <i>tch</i> in <i>tchèque</i>. Slovak simply gives each sound its own letter.",
       "items": [
         {"id":"s_ch2","kind":"sound","sk":"č","en":"like 'ch' in 'church'","examples":[{"sk":"čaj","en":"tea"},{"sk":"čo","en":"what"},{"sk":"človek","en":"person"}]},
         {"id":"s_sh","kind":"sound","sk":"š","en":"like 'sh' in 'shoe'","examples":[{"sk":"šesť","en":"six"},{"sk":"škola","en":"school"},{"sk":"šaty","en":"dress"}]},
@@ -96,6 +99,7 @@
       "stage": "sounds",
       "title": "Soft consonants",
       "intro": "<b>ď ť ň ľ</b> are made by pressing the <b>middle of your tongue</b> against the roof of your mouth. Say \"yes\" and notice where your tongue is. That's the spot. This is the most Slovak-sounding part of Slovak.",
+      "fr": "<b>ň</b> is the French <i>gn</i> in <i>montagne</i> or <i>champagne</i>. <b>ľ</b> is close to the <i>li</i> in <i>million</i> said quickly, as one sound.",
       "items": [
         {"id":"s_dsoft","kind":"sound","sk":"ď","en":"a 'd' with a 'y' squeezed in, like British 'during'","examples":[{"sk":"ďakujem","en":"thank you"},{"sk":"ďaleko","en":"far"}]},
         {"id":"s_tsoft","kind":"sound","sk":"ť","en":"a 't' with a 'y' squeezed in, like British 'tune'","examples":[{"sk":"päť","en":"five"},{"sk":"byť","en":"to be"}]},
@@ -114,6 +118,7 @@
       "stage": "sounds",
       "title": "c, ch, h, j, r, dz",
       "intro": "A few letters look familiar but sound different from English. These are the classic beginner traps.",
+      "fr": "Careful: Slovak <b>ch</b> is <i>not</i> French <i>ch</i>. It's the rough sound in German <i>Bach</i>. And unlike French, <b>h</b> is always pronounced. <b>j</b> is the French <i>y</i> in <i>yaourt</i>.",
       "items": [
         {"id":"s_c","kind":"sound","sk":"c","en":"always 'ts', like in 'cats'","examples":[{"sk":"cukor","en":"sugar"},{"sk":"ulica","en":"street"},{"sk":"noc","en":"night"}]},
         {"id":"s_chh","kind":"sound","sk":"ch","en":"a raspy 'h', like Scottish 'loch'","examples":[{"sk":"chlieb","en":"bread"},{"sk":"chata","en":"cottage"},{"sk":"ucho","en":"ear"}]},
@@ -142,6 +147,8 @@
       "stage": "survival",
       "title": "Ahoj! Greetings",
       "intro": "Slovak has two words for \"you\": <b>ty</b> for friends, family and kids, and <b>vy</b> for strangers, elders and formal situations. With your boyfriend's parents, start with <b>vy</b> until they offer <b>ty</b>.",
+      "logic": "Formality is built into the verb: <i>ty</i> forms end in <b>-š</b> (<i>máš</i>), <i>vy</i> forms in <b>-te</b> (<i>máte</i>). Hear the ending and you know the relationship.",
+      "fr": "<b>ty / vy</b> works exactly like <b>tu / vous</b>, including <i>vy</i> for one person you respect. <i>Prosím</i> covers <i>s'il vous plaît</i>, <i>je vous en prie</i> and <i>pardon ?</i> all at once.",
       "items": [
         {"id":"p_ahoj","sk":"Ahoj","en":"Hi / Bye (informal)","pic":"👋"},
         {"id":"p_cau","sk":"Čau","en":"Hey / See ya (casual)","pic":"👋"},
@@ -168,6 +175,7 @@
       "stage": "survival",
       "title": "Meeting people",
       "intro": "Some words change depending on who is speaking. A woman says <b>Som Američanka</b>, a man says <b>Som Američan</b>. Where it matters, these lessons use the version for a woman speaking.",
+      "fr": "<i>Volám sa Anna</i> is word for word <i>je m'appelle Anna</i>: <b>sa</b> is French <b>se</b>. And like French, Slovak <i>has</i> years: <i>Mám tridsať rokov</i> = <i>j'ai trente ans</i>.",
       "items": [
         {"id":"p_volas","sk":"Ako sa voláš?","en":"What's your name? (informal)"},
         {"id":"p_volamsa","sk":"Volám sa Anna.","en":"My name is Anna.","note":"Swap in your own name!"},
@@ -192,6 +200,8 @@
       "stage": "survival",
       "title": "Rodina · Family",
       "intro": "Every Slovak noun is <span class=\"g g-m\">masculine</span>, <span class=\"g g-f\">feminine</span> or <span class=\"g g-n\">neuter</span>. The ending usually tells you which: consonant → masculine, <b>-a</b> → feminine, <b>-o / -e</b> → neuter. \"My\" changes to match: <b>môj</b> brat, <b>moja</b> mama, <b>moje</b> dieťa.",
+      "logic": "The ending usually tells you the gender, so you learn the word and get its gender for free: consonant = masculine, <b>-a</b> = feminine, <b>-o / -e</b> = neuter.",
+      "fr": "Like French, every noun has a gender and \"my\" agrees: <b>môj / moja</b> like <b>mon / ma</b>. Slovak adds a third gender (neuter), but no <i>le / la</i> to memorise.",
       "items": [
         {"id":"w_rodina","sk":"rodina","en":"family","g":"f","pic":"👨‍👩‍👧"},
         {"id":"w_mama","sk":"mama","en":"mom","g":"f","pic":"👩"},
@@ -218,6 +228,8 @@
       "stage": "survival",
       "title": "Jedlo · Food & drink",
       "intro": "When you order or want something, feminine words ending in <b>-a</b> switch to <b>-u</b>: <i>káva</i> → <b>Prosím si kávu</b>. That's your first taste of Slovak cases. No need to master it yet, just notice it.",
+      "logic": "Slovak has <b>no articles</b>. <i>Káva</i> means \"coffee\", \"a coffee\" and \"the coffee\". The job articles do in French is done by context and word endings.",
+      "fr": "<i>Mám hlad</i> = <i>j'ai faim</i>, exactly. Both languages <i>have</i> hunger.",
       "items": [
         {"id":"w_chlieb","sk":"chlieb","en":"bread","g":"m","pic":"🍞"},
         {"id":"w_voda","sk":"voda","en":"water","g":"f","pic":"💧"},
@@ -293,6 +305,8 @@
       "stage": "survival",
       "title": "Láska · Feelings & love",
       "intro": "Feelings change form with the speaker: a woman says <b>Som šťastná</b> and <b>Mám ťa rada</b>, a man says <b>Som šťastný</b> and <b>Mám ťa rád</b>. These lessons use the version for a woman speaking.",
+      "logic": "With feelings that happen <i>to</i> you, Slovak puts you in the \"to whom\" form: <i>Je mi zima</i> is literally \"to me it is cold\".",
+      "fr": "French uses <i>avoir</i> (<i>j'ai froid</i>); Slovak says \"it is cold to me\". Same idea as <i>ça me plaît</i>: the thing affects you.",
       "items": [
         {"id":"p_lubimta","sk":"Ľúbim ťa.","en":"I love you.","pic":"❤️"},
         {"id":"p_mamtarada","sk":"Mám ťa rada.","en":"I really like you / love you. (woman speaking)","note":"Warm and a little softer than Ľúbim ťa. Used with family too."},
@@ -365,6 +379,8 @@
       "stage": "grammar",
       "title": "Byť · To be",
       "intro": "The most important verb. Slovak usually drops the pronoun, because the verb already says who: <b>Som doma</b> means \"I'm at home\".<table><tr><td>ja</td><td><b>som</b></td><td>I am</td></tr><tr><td>ty</td><td><b>si</b></td><td>you are</td></tr><tr><td>on / ona / ono</td><td><b>je</b></td><td>he / she / it is</td></tr><tr><td>my</td><td><b>sme</b></td><td>we are</td></tr><tr><td>vy</td><td><b>ste</b></td><td>you are (formal / plural)</td></tr><tr><td>oni</td><td><b>sú</b></td><td>they are</td></tr></table>Negative: put <b>nie</b> in front, as a separate word: <b>nie som</b>, <b>nie je</b>.",
+      "logic": "Pronouns are optional because the verb ending already says who: <b>som</b> can only mean \"I am\". Slovaks add <i>ja</i>, <i>ty</i>… only for emphasis.",
+      "fr": "<b>byť</b> is <b>être</b>, and just as irregular: <i>som / si / je</i> ≈ <i>suis / es / est</i>. Negation is easier: just <b>nie</b> in front, no <i>ne … pas</i> sandwich.",
       "items": [
         {"id":"g1_som","sk":"Ja som lekárka.","en":"I am a doctor. (woman)","blank":"som","choices":["som","si","je"]},
         {"id":"g1_si","sk":"Ty si môj priateľ.","en":"You are my boyfriend.","blank":"si","choices":["som","si","je"]},
@@ -383,6 +399,8 @@
       "stage": "grammar",
       "title": "Ten, tá, to · Gender in action",
       "intro": "Words that describe a noun take its gender. Masculine words end in <b>-ý</b>, feminine in <b>-á</b>, neuter in <b>-é</b>. \"That/the\" works the same way.<table><tr><td><span class=\"g g-m\">m</span></td><td><b>ten</b> dobr<b>ý</b> brat</td></tr><tr><td><span class=\"g g-f\">f</span></td><td><b>tá</b> dobr<b>á</b> sestra</td></tr><tr><td><span class=\"g g-n\">n</span></td><td><b>to</b> dobr<b>é</b> pivo</td></tr></table>\"My\" follows the same pattern: <b>môj</b>, <b>moja</b>, <b>moje</b>.",
+      "logic": "Words that describe a noun copy its gender, so you can tell what belongs together even in a long sentence.",
+      "fr": "Agreement works like French adjectives (<i>petit / petite</i> → <i>malý / malá</i>), but Slovak always puts the adjective <b>before</b> the noun. <b>ten / tá / to</b> behave like <b>ce / cette</b>, not <i>le / la</i>.",
       "items": [
         {"id":"g2_dom","sk":"ten veľký dom","en":"the big house","blank":"veľký","choices":["veľký","veľká","veľké"]},
         {"id":"g2_izba","sk":"tá malá izba","en":"the small room","blank":"malá","choices":["malý","malá","malé"]},
@@ -402,6 +420,8 @@
       "stage": "grammar",
       "title": "Present tense · What I do",
       "intro": "Good news: <b>every \"I\" form ends in -m</b> (except <i>som</i>). Verbs follow three main patterns, and only the vowel changes:<table><tr><th></th><th>volať (call)</th><th>robiť (do)</th><th>písať (write)</th></tr><tr><td>ja</td><td>volá<b>m</b></td><td>robí<b>m</b></td><td>píše<b>m</b></td></tr><tr><td>ty</td><td>volá<b>š</b></td><td>robí<b>š</b></td><td>píše<b>š</b></td></tr><tr><td>on/ona</td><td>volá</td><td>robí</td><td>píše</td></tr><tr><td>my</td><td>volá<b>me</b></td><td>robí<b>me</b></td><td>píše<b>me</b></td></tr><tr><td>vy</td><td>volá<b>te</b></td><td>robí<b>te</b></td><td>píše<b>te</b></td></tr><tr><td>oni</td><td>volajú</td><td>robia</td><td>píšu</td></tr></table>",
+      "logic": "The ending carries the person, which is why the pronoun can be dropped. Learn the six endings once and they work for almost every verb.",
+      "fr": "Same principle as French conjugation, except every ending is pronounced. Handy anchors: <b>-me</b> ≈ <i>-ons</i> (<i>robíme</i> = <i>nous faisons</i>), <b>-te</b> ≈ <i>-ez</i> (<i>robíte</i> = <i>vous faites</i>).",
       "items": [
         {"id":"g3_volam","sk":"Volám mamu.","en":"I'm calling mom.","blank":"Volám","choices":["Volám","Voláš","Volá"]},
         {"id":"g3_robis","sk":"Čo robíš?","en":"What are you doing? (informal)","blank":"robíš","choices":["robím","robíš","robí"]},
@@ -421,6 +441,8 @@
       "stage": "grammar",
       "title": "I want, I have, I see",
       "intro": "This is your first real case, the <b>accusative</b>. When a noun is the thing you want, have or see, its ending can change:<table><tr><td><span class=\"g g-f\">f</span></td><td>-a → <b>-u</b></td><td>káva → Chcem káv<b>u</b>.</td></tr><tr><td><span class=\"g g-m\">m</span> person or animal</td><td>+ <b>-a</b></td><td>brat → Mám brat<b>a</b>.</td></tr><tr><td><span class=\"g g-m\">m</span> thing</td><td>no change</td><td>Chcem čaj.</td></tr><tr><td><span class=\"g g-n\">n</span></td><td>no change</td><td>Chcem pivo.</td></tr></table>\"That\" changes too: <b>tá</b> žena → Vidím <b>tú</b> ženu.",
+      "logic": "Endings mark who does what, so word order is free: <i>Mám brata</i> and <i>Brata mám</i> mean the same, the second just stresses \"a brother\".",
+      "fr": "French does this only with pronouns: <i>il voit Pierre</i> → <i>il <b>le</b> voit</i>. Slovak marks every noun, the way French marks <i>le / lui</i>.",
       "items": [
         {"id":"g4_vodu","sk":"Chcem vodu.","en":"I want water.","blank":"vodu","choices":["voda","vodu","vody"]},
         {"id":"g4_sestru","sk":"Mám sestru.","en":"I have a sister.","blank":"sestru","choices":["sestra","sestru","sestre"]},
@@ -440,6 +462,8 @@
       "stage": "grammar",
       "title": "Past tense · What I did",
       "intro": "One of the easiest parts of Slovak. Take the infinitive, drop <b>-ť</b>, and add an ending for gender:<table><tr><td>robiť →</td><td>robi<b>l</b> (he)</td><td>robi<b>la</b> (she)</td><td>robi<b>li</b> (they)</td></tr></table>For \"I\" and \"you\", add <b>som</b> / <b>si</b>: <b>Robila som</b> = I did (said by a woman), <b>Robil som</b> = I did (said by a man). For \"we\" and \"you (formal)\", add <b>sme</b> / <b>ste</b> with the -li form.",
+      "logic": "One form for all past actions: drop <b>-ť</b>, add <b>-l / -la / -li</b>. The ending agrees with who did it, so the past tense always tells you their gender.",
+      "fr": "It's the <i>passé composé</i> with <i>être</i>-style agreement: <i>elle est allée / il est allé</i>. Slovak does it with <b>every</b> verb: <i>bola som / bol som</i>. <b>som</b> works like the auxiliary.",
       "items": [
         {"id":"g5_bola","sk":"Bola som doma.","en":"I was at home. (woman)","blank":"Bola","choices":["Bol","Bola","Boli"]},
         {"id":"g5_pracovala","sk":"Včera som pracovala.","en":"Yesterday I worked. (woman)","blank":"pracovala","choices":["pracoval","pracovala","pracovali"]},
@@ -459,6 +483,7 @@
       "stage": "grammar",
       "title": "Where? · v, na",
       "intro": "After <b>v</b> (in) and <b>na</b> (on / at), place names change their ending, usually to <b>-e</b> or <b>-i</b>:<table><tr><td>Bratislava</td><td>→ v Bratislav<b>e</b></td></tr><tr><td>obchod</td><td>→ v obchod<b>e</b></td></tr><tr><td>práca</td><td>→ v prác<b>i</b></td></tr><tr><td>letisko</td><td>→ na letisk<b>u</b></td></tr></table>Some places use <b>na</b> instead of v, which you just have to learn: <b>na stanici</b>, <b>na letisku</b>, and <b>na Slovensku</b> (but <i>v Amerike</i>).",
+      "fr": "Choosing <b>v</b> or <b>na</b> is as arbitrary as <i>en France</i>, <i>au Canada</i>, <i>à Paris</i>: learn each place together with its preposition.",
       "items": [
         {"id":"g6_praci","sk":"Som v práci.","en":"I'm at work.","blank":"práci","choices":["práca","práci","prácu"]},
         {"id":"g6_bratislave","sk":"Bývam v Bratislave.","en":"I live in Bratislava.","blank":"Bratislave","choices":["Bratislava","Bratislave","Bratislavu"]},
@@ -477,6 +502,8 @@
       "stage": "grammar",
       "title": "Questions & saying no",
       "intro": "To say \"don't\", glue <b>ne-</b> onto the front of the verb: <i>mám</i> → <b>nemám</b>, <i>chcem</i> → <b>nechcem</b>. The only exception is <i>byť</i>: <b>nie som</b>, <b>nie je</b>. For a yes/no question, keep the same words and raise your voice at the end: <b>Máš čas?</b>",
+      "logic": "Negation glues onto the verb (<i>ne-</i>), so a negative sentence is often a single word: <i>Nechcem.</i>",
+      "fr": "<b>ne-</b> is French <i>ne … pas</i> squeezed into one syllable. Yes/no questions work like spoken French: <i>Tu as le temps ?</i> = <i>Máš čas?</i>, same words, rising voice.",
       "items": [
         {"id":"g7_co","sk":"čo","en":"what"},
         {"id":"g7_kto","sk":"kto","en":"who"},
@@ -497,6 +524,7 @@
       "stage": "grammar",
       "title": "Want, can, must",
       "intro": "Three helper verbs plus a second verb in the <b>-ť</b> form (the infinitive):<table><tr><td>chcieť</td><td><b>Chcem</b> ísť.</td><td>I want to go.</td></tr><tr><td>môcť</td><td><b>Môžem</b> ísť.</td><td>I can go.</td></tr><tr><td>musieť</td><td><b>Musím</b> ísť.</td><td>I have to go.</td></tr><tr><td>vedieť</td><td><b>Viem</b> variť.</td><td>I know how to cook.</td></tr></table>",
+      "fr": "<b>vedieť</b> vs <b>môcť</b> is exactly <b>savoir</b> vs <b>pouvoir</b>: <i>Viem plávať</i> = <i>je sais nager</i> (a skill), <i>Môžem plávať</i> = <i>je peux nager</i> (I'm able or allowed right now).",
       "items": [
         {"id":"g8_chcem","sk":"Chcem ísť domov.","en":"I want to go home.","blank":"Chcem","choices":["Chcem","Chceš","Chce"]},
         {"id":"g8_mozem","sk":"Môžem ti pomôcť?","en":"Can I help you? (informal)","blank":"Môžem","choices":["Môžem","Môžeš","Môže"]},
@@ -833,6 +861,7 @@
       "stage": "everyday",
       "title": "Počasie · Weather & seasons",
       "intro": "Slovak weather verbs need no \"it\": <b>Prší</b> (it's raining), <b>Sneží</b> (it's snowing). And <b>zima</b> means both \"winter\" and \"cold\", so <i>Je zima</i> means \"it's cold\".",
+      "fr": "<i>Prší</i> = <i>il pleut</i>, but without the <i>il</i>: Slovak doesn't need an empty subject.",
       "items": [
         {"id":"d1_pocasie","sk":"počasie","en":"weather","g":"n","pic":"🌤️"},
         {"id":"d1_slnko","sk":"slnko","en":"sun","g":"n","pic":"☀️"},
@@ -925,6 +954,8 @@
       "stage": "grammar2",
       "title": "Z, do, bez · Of, from, without",
       "intro": "The <b>genitive</b> case answers \"of what / from where\". It comes after <b>do</b> (to/into), <b>z</b> (from), <b>bez</b> (without), <b>od</b> (from someone), <b>u</b> (at someone's), and after amounts like <i>pohár</i>, <i>kúsok</i>, <i>veľa</i>.<table><tr><td><span class=\"g g-f\">f</span></td><td>-a → <b>-y</b> (-e after soft letters)</td><td>voda → pohár vod<b>y</b></td></tr><tr><td><span class=\"g g-m\">m</span> thing</td><td>+ <b>-u</b></td><td>obchod → do obchod<b>u</b></td></tr><tr><td><span class=\"g g-m\">m</span> person</td><td>+ <b>-a</b></td><td>otec → auto otc<b>a</b></td></tr><tr><td><span class=\"g g-n\">n</span></td><td>-o → <b>-a</b></td><td>mlieko → bez mliek<b>a</b></td></tr></table>",
+      "logic": "The genitive marks \"of\": a part of something, where something comes from, or what's missing.",
+      "fr": "Think of it as French <b>de</b>: <i>pohár vody</i> = <i>un verre d'eau</i>, <i>kúsok chleba</i> = <i>un morceau de pain</i>, <i>bez cukru</i> = <i>sans sucre</i>, and <i>u mamy</i> = <i>chez maman</i>, exactly.",
       "items": [
         {"id":"q1_obchodu","sk":"Idem do obchodu.","en":"I'm going to the shop.","blank":"obchodu","choices":["obchod","obchode","obchodu"]},
         {"id":"q1_revucej","sk":"Mama je z Revúcej.","en":"Mom is from Revúca.","blank":"Revúcej","choices":["Revúca","Revúcej","Revúcu"],"note":"Revúca declines like an adjective (-á → -ej)."},
@@ -944,6 +975,8 @@
       "stage": "grammar2",
       "title": "S, pod, pred · With",
       "intro": "The <b>instrumental</b> case means \"with\" or \"by means of\". You already know one: <i>platiť kart<b>ou</b></i>. It also follows <b>pod</b> (under), <b>nad</b> (above), <b>pred</b> (in front of), <b>za</b> (behind), <b>medzi</b> (between).<table><tr><td><span class=\"g g-f\">f</span></td><td>-a → <b>-ou</b></td><td>s mam<b>ou</b></td></tr><tr><td><span class=\"g g-m\">m</span> <span class=\"g g-n\">n</span></td><td>→ <b>-om</b></td><td>s brat<b>om</b>, aut<b>om</b></td></tr></table>Before words starting with s, z, š or ž, <b>s</b> becomes <b>so</b>: <i>so sestrou</i>.",
+      "logic": "The instrumental answers \"with what / with whom / by what means\". One ending does the work of a preposition.",
+      "fr": "<i>s mamou</i> = <i>avec maman</i>, <i>autom</i> = <i>en voiture</i>, <i>kartou</i> = <i>par carte</i>. Where French needs <i>en</i> or <i>par</i>, Slovak often needs only the ending.",
       "items": [
         {"id":"q2_mamou","sk":"Idem s mamou.","en":"I'm going with Mom.","blank":"mamou","choices":["mama","mamu","mamou"]},
         {"id":"q2_mliekom","sk":"Kávu s mliekom, prosím.","en":"Coffee with milk, please.","blank":"mliekom","choices":["mlieko","mlieka","mliekom"],"pic":"☕"},
@@ -964,6 +997,8 @@
       "stage": "grammar2",
       "title": "Komu? · To whom",
       "intro": "The <b>dative</b> is for the person something goes <i>to</i>. You've been using it since day one: <b>Je mi zima</b>, <b>Chýbaš mi</b>, <b>Páči sa mi</b>.<table><tr><td>mi</td><td>to me</td><td>nám</td><td>to us</td></tr><tr><td>ti</td><td>to you</td><td>vám</td><td>to you (formal)</td></tr><tr><td>mu / jej</td><td>to him / her</td><td>im</td><td>to them</td></tr></table>Nouns: feminine <b>-e</b> (<i>mame</i>), masculine people <b>-ovi</b> (<i>bratovi</i>).",
+      "logic": "The dative marks the person something goes <i>to</i> or happens <i>to</i>: giving, telling, liking, feeling.",
+      "fr": "It's the French indirect object, <i>à quelqu'un</i>: <b>mu / jej / im</b> = <b>lui / lui / leur</b>. <i>Páči sa mi</i> is literally <i>ça me plaît</i>.",
       "items": [
         {"id":"q3_pacimi","sk":"Páči sa mi to.","en":"I like it.","blank":"mi","choices":["mi","ti","mu"]},
         {"id":"q3_paciti","sk":"Páči sa ti?","en":"Do you like it? (informal)","blank":"ti","choices":["mi","ti","mu"]},
@@ -983,6 +1018,8 @@
       "stage": "grammar2",
       "title": "Budúci čas · The future",
       "intro": "Two ways to talk about the future:<table><tr><td><b>budem</b> + infinitive</td><td>ongoing: <i>Budem pracovať.</i> I'll be working.</td></tr><tr><td>a \"completed\" verb</td><td>its present form already means future: <i>Urobím to.</i> I'll get it done.</td></tr></table>Completed verbs usually just add a prefix: <i>robiť → <b>u</b>robiť</i>, <i>písať → <b>na</b>písať</i>, <i>volať → <b>za</b>volať</i>. Never combine them: <s>budem urobiť</s> is the classic learner mistake.",
+      "logic": "Slovak verbs come in pairs: one for the process (<i>robiť</i>, to be doing), one for the result (<i>urobiť</i>, to get it done). The \"done\" verb in present form points to the future.",
+      "fr": "Aspect will feel familiar: the process verb ≈ <i>imparfait</i> (ongoing, repeated), the result verb ≈ <i>passé composé</i> (completed). <i>Budem robiť</i> works like <i>futur proche</i>: <i>je vais faire</i>.",
       "items": [
         {"id":"q4_budem","sk":"Zajtra budem pracovať.","en":"Tomorrow I'll be working.","blank":"budem","choices":["budem","budeš","bude"]},
         {"id":"q4_budes","sk":"Budeš doma?","en":"Will you be home? (informal)","blank":"Budeš","choices":["Budem","Budeš","Bude"]},
@@ -1001,6 +1038,7 @@
       "stage": "grammar2",
       "title": "Množné číslo · More than one",
       "intro": "Plurals depend on gender:<table><tr><td><span class=\"g g-m\">m</span> people</td><td><b>-i</b></td><td>študent → študent<b>i</b></td></tr><tr><td><span class=\"g g-m\">m</span> things</td><td><b>-y</b></td><td>dom → dom<b>y</b></td></tr><tr><td><span class=\"g g-f\">f</span></td><td><b>-y</b> / <b>-e</b></td><td>žena → žen<b>y</b></td></tr><tr><td><span class=\"g g-n\">n</span></td><td><b>-á</b> / <b>-ia</b></td><td>auto → aut<b>á</b></td></tr></table>With 2, 3 and 4, use this plural (<i>dve kávy</i>). From 5 up, the noun shifts again (<i>päť minút</i>).",
+      "fr": "From five upwards Slovak switches to the \"of\" form, a bit like French <i>beaucoup <b>de</b></i>: <i>päť minút</i> is literally \"five of minutes\".",
       "items": [
         {"id":"q5_kavy","sk":"dve kávy","en":"two coffees","blank":"kávy","choices":["kávy","káv","kávu"],"pic":"☕"},
         {"id":"q5_piva","sk":"tri pivá","en":"three beers","blank":"pivá","choices":["pivo","pivá","pív"],"pic":"🍻"},
@@ -1019,6 +1057,7 @@
       "stage": "grammar2",
       "title": "Lepší, najlepší · Better, the best",
       "intro": "Comparatives end in <b>-ší</b> or <b>-ejší</b>; the superlative adds <b>naj-</b>. \"Than\" is <b>ako</b>. The most common ones are irregular, just like in English:<table><tr><td>dobrý</td><td>lepší</td><td>najlepší</td></tr><tr><td>zlý</td><td>horší</td><td>najhorší</td></tr><tr><td>veľký</td><td>väčší</td><td>najväčší</td></tr><tr><td>malý</td><td>menší</td><td>najmenší</td></tr></table>Like other adjectives they change with gender: <i>lepší / lepšia / lepšie</i>.",
+      "fr": "Irregular in the same places as French: <i>dobrý → lepší</i> like <i>bon → meilleur</i>. <b>naj-</b> works like <i>le / la plus</i>, and <b>ako</b> = <b>que</b>: <i>väčšia ako</i> = <i>plus grande que</i>.",
       "items": [
         {"id":"q6_lepsi","sk":"lepší","en":"better"},
         {"id":"q6_najlepsi","sk":"najlepší","en":"the best","pic":"🏆"},
