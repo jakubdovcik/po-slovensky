@@ -466,3 +466,11 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 
 @keyframes rise { from { transform: translateY(14px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* Pictures (emoji: zero download size, crisp on iPhone) */
+.pic-intro { font-size: 72px; line-height: 1; margin: 2px 0 10px; }
+.pic-prompt {
+  font-size: 96px; line-height: 1; text-align: center; margin: 6px auto 26px; width: 160px; height: 160px;
+  display: grid; place-items: center; background: var(--surface); border: 2px solid var(--edge); border-radius: 50%; box-shadow: var(--hard);
+}
+.row-pic { font-size: 26px; width: 34px; text-align: center; flex: none; }

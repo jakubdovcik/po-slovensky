@@ -14,6 +14,11 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
   appetite, risk assessment, treatment and medication instructions. Mixed into daily lessons by default
   (every third new item, after the Sounds stage). This can be turned off in Settings.
 - **Celebrations** (3 units): holidays and name days, the wedding, toasts and drinking etiquette.
+- **Everyday life** (4 units): weather and seasons, the market, daily routine, phone calls and texts.
+- **Gramatika 2** (6 units): genitive (do/z/bez, amounts), instrumental (s, by car), dative (komu, páči sa mi),
+  the future and aspect, plurals, comparatives.
+- **Pictures**: concrete words carry an emoji (`"pic"` in course.json), shown on intro cards, in the phrasebook and in a
+  "What's this?" picture exercise. Emoji cost zero download size and look sharp on iPhone.
 - **Story mode, "Cesta domov"**: ten chapters through Slovakia (airport, meeting the parents, Babka's Sunday lunch,
   Bratislava castle, the Tatras, a hospital, a family wedding). Each unlocks when its units are learned. Chapters are
   interactive scenes where she picks the right Slovak reply. Each ends with a postcard note from Jakub.

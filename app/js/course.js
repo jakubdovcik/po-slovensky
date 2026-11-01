@@ -124,6 +124,13 @@ export function makeExercise(id, { easy = false, isNew = false } = {}) {
     else type = pick(['cloze', 'type']);
     if (type === 'cloze') return { type, item, options: shuffle(item.choices) };
   }
+  if (item.pic && !easy && s < 6 && Math.random() < (isNew ? 0.5 : 0.35)) {
+    // Picture → word: pairing a word with an image helps it stick.
+    const ds = shuffle(course.order.map((id) => course.items[id])
+      .filter((o) => o.pic && o.id !== item.id && o.pic !== item.pic && o.sk !== item.sk && o.kind === item.kind))
+      .sort((a, b) => (b.unit === item.unit) - (a.unit === item.unit)).slice(0, 3);
+    if (ds.length >= 2) return { type: 'pic_choose', item, options: shuffle([item, ...ds]).map((o) => ({ id: o.id, label: o.sk })) };
+  }
   if (isNew) type = 'listen_choose';
   else if (easy) type = 'read_choose';
   else if (s < 2) type = pick(['listen_choose', 'read_choose']);

@@ -194,6 +194,7 @@ function soundItemBlock(item) {
 
 function itemRow(it) {
   return `<button class="row" data-action="play" data-text="${attr(it.sk)}">
+      ${it.pic ? `<span class="row-pic" aria-hidden="true">${esc(it.pic)}</span>` : ''}
       <span class="row-main"><span class="sk" lang="sk">${esc(it.sk)}</span> ${genderChip(it.g)}<span class="en">${esc(it.en)}</span>
       ${it.note ? `<span class="note">${esc(it.note)}</span>` : ''}</span>
       ${state.cards[it.id] ? `<span class="learned">${ICON.check}</span>` : ''}
@@ -596,6 +597,7 @@ function exerciseBody() {
         return `<div class="label">New sound</div>${soundItemBlock(it)}${micBlock(it.examples[0].sk)}`;
       }
       return `<div class="label">New ${it.kind === 'word' ? 'word' : 'phrase'}</div>
+        ${it.pic ? `<div class="pic-intro" aria-hidden="true">${esc(it.pic)}</div>` : ''}
         <div class="big-sk" lang="sk">${it.blank ? withBlank(it, `<mark class="hl">${esc(it.blank)}</mark>`) : esc(it.sk)} ${genderChip(it.g)}</div>
         <div class="listen small-listen"><button class="icon-btn round" data-action="play" data-text="${attr(it.sk)}" aria-label="Play">${ICON.speaker}</button><button class="icon-btn slow" data-action="play-slow" data-text="${attr(it.sk)}" aria-label="Play slowly">${ICON.slow}</button></div>
         <div class="big-en">${esc(it.en)}</div>
@@ -611,6 +613,9 @@ function exerciseBody() {
     case 'listen_choose':
       return `<div class="label">What does this mean?</div>${listenBlock()}
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id)}`;
+    case 'pic_choose':
+      return `<div class="label">What's this in Slovak?</div><div class="pic-prompt" aria-label="${attr(it.en)}">${esc(it.pic)}</div>
+        ${optionButtons(ex.options, (o) => o.label, (o) => o.id, 'sk')}`;
     case 'read_choose':
       return `<div class="label">How do you say…</div><div class="prompt">${esc(it.en)}</div>
         ${optionButtons(ex.options, (o) => o.label, (o) => o.id, 'sk')}`;
