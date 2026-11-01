@@ -182,7 +182,9 @@
         {"id":"p_pomalsie","sk":"Pomalšie, prosím.","en":"Slower, please."},
         {"id":"p_akosapovie","sk":"Ako sa to povie po slovensky?","en":"How do you say that in Slovak?"},
         {"id":"p_znamena","sk":"Čo to znamená?","en":"What does that mean?"},
-        {"id":"p_neviem","sk":"Neviem.","en":"I don't know."}
+        {"id":"p_neviem","sk":"Neviem.","en":"I don't know."},
+        {"id":"p_baltimore","sk":"Bývam v Baltimore.","en":"I live in Baltimore.","pic":"🏙️"},
+        {"id":"p_francuzsky","sk":"Hovorím po anglicky a po francúzsky.","en":"I speak English and French.","pic":"🇫🇷"}
       ]
     },
     {
@@ -207,7 +209,8 @@
         {"id":"w_ujo","sk":"ujo","en":"uncle","g":"m"},
         {"id":"w_pes","sk":"pes","en":"dog","g":"m","pic":"🐕"},
         {"id":"p_mojamama","sk":"Toto je moja mama.","en":"This is my mom."},
-        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."}
+        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."},
+        {"id":"p_maine","sk":"Moja rodina žije v štáte Maine.","en":"My family lives in Maine.","pic":"🦞"}
       ]
     },
     {
@@ -233,7 +236,8 @@
         {"id":"p_dobruchut","sk":"Dobrú chuť!","en":"Enjoy your meal!","pic":"🍽️"},
         {"id":"p_nazdravie","sk":"Na zdravie!","en":"Cheers! / Bless you!","pic":"🥂"},
         {"id":"p_kavu","sk":"Prosím si kávu.","en":"A coffee, please.","pic":"☕"},
-        {"id":"p_uznie","sk":"Už nie, ďakujem.","en":"No more, thank you.","note":"Essential at a Slovak grandma's table. (It may not work.)"}
+        {"id":"p_uznie","sk":"Už nie, ďakujem.","en":"No more, thank you.","note":"Essential at a Slovak grandma's table. (It may not work.)"},
+        {"id":"p_restauracie","sk":"Rada skúšam nové reštaurácie.","en":"I love trying new restaurants.","pic":"🍜"}
       ]
     },
     {
@@ -446,7 +450,8 @@
         {"id":"g5_varila","sk":"Mama varila obed.","en":"Mom cooked lunch.","blank":"varila","choices":["varil","varila","varili"]},
         {"id":"g5_boli","sk":"Boli sme v Tatrách.","en":"We were in the Tatras.","blank":"Boli","choices":["Bol","Bola","Boli"]},
         {"id":"g5_zabudla","sk":"Zabudla som.","en":"I forgot. (woman)","blank":"Zabudla","choices":["Zabudol","Zabudla","Zabudli"]},
-        {"id":"g5_jedli","sk":"Jedli ste už?","en":"Have you eaten yet? (formal)","blank":"Jedli","choices":["Jedol","Jedla","Jedli"],"note":"jesť (to eat) is irregular: jedol, jedla, jedli."}
+        {"id":"g5_jedli","sk":"Jedli ste už?","en":"Have you eaten yet? (formal)","blank":"Jedli","choices":["Jedol","Jedla","Jedli"],"note":"jesť (to eat) is irregular: jedol, jedla, jedli."},
+        {"id":"g5_studovala","sk":"Študovala som neurovedy a francúzštinu.","en":"I studied neuroscience and French. (woman)","blank":"Študovala","choices":["Študoval","Študovala","Študovali"],"pic":"🧠"}
       ]
     },
     {
@@ -525,7 +530,9 @@
         {"id":"m1_vysetrenie","sk":"vyšetrenie","en":"examination","g":"n","pic":"🩺"},
         {"id":"m1_somlekarka","sk":"Som psychiatrička.","en":"I'm a psychiatrist. (woman)"},
         {"id":"m1_nechsapaci","sk":"Pani Nováková, nech sa páči.","en":"Mrs. Nováková, please come in.","note":"Nech sa páči: \"please, go ahead / come in / here you are\"."},
-        {"id":"m1_posadte","sk":"Posaďte sa, prosím.","en":"Please sit down.","pic":"🪑"}
+        {"id":"m1_posadte","sk":"Posaďte sa, prosím.","en":"Please sit down.","pic":"🪑"},
+        {"id":"m1_ucim","sk":"Učím študentov medicíny.","en":"I teach medical students.","pic":"👩‍🏫"},
+        {"id":"m1_forenzna","sk":"Zaujíma ma forenzná psychiatria.","en":"I'm interested in forensic psychiatry.","pic":"⚖️"}
       ]
     },
     {
@@ -591,7 +598,8 @@
         {"id":"m4_chutdojedla","sk":"Máte chuť do jedla?","en":"Do you have an appetite?"},
         {"id":"m4_schudli","sk":"Schudli ste?","en":"Have you lost weight?"},
         {"id":"m4_sustredit","sk":"Dokážete sa sústrediť?","en":"Can you concentrate?"},
-        {"id":"m4_unaveny","sk":"Som stále unavený.","en":"I'm always tired. (man speaking)","note":"What a patient might say. A woman says: Som stále unavená."}
+        {"id":"m4_unaveny","sk":"Som stále unavený.","en":"I'm always tired. (man speaking)","note":"What a patient might say. A woman says: Som stále unavená."},
+        {"id":"m4_ppp","sk":"Pracujem aj s pacientmi s poruchami príjmu potravy.","en":"I also work with patients with eating disorders."}
       ]
     },
     {
@@ -816,7 +824,8 @@
         {"id":"o3_trosku","sk":"Len trošku, prosím.","en":"Just a little, please."},
         {"id":"o3_nemozem","sk":"Ja už nemôžem.","en":"I can't anymore."},
         {"id":"o3_dost","sk":"Mám dosť.","en":"I've had enough."},
-        {"id":"o3_soferka","sk":"Som šoférka.","en":"I'm driving. (woman)","note":"The one excuse every Slovak host accepts.","pic":"🚗"}
+        {"id":"o3_soferka","sk":"Som šoférka.","en":"I'm driving. (woman)","note":"The one excuse every Slovak host accepts.","pic":"🚗"},
+        {"id":"o3_hostia","sk":"Som šťastná, keď mám plný dom hostí.","en":"I'm happiest with a house full of guests. (woman)","pic":"🏡"}
       ]
     },
     {
@@ -886,7 +895,9 @@
         {"id":"d3_sprcha","sk":"Osprchujem sa.","en":"I'll take a shower.","pic":"🚿"},
         {"id":"d3_riad","sk":"Umývam riad.","en":"I'm doing the dishes.","pic":"🧽"},
         {"id":"d3_smeti","sk":"Kto vynesie smeti?","en":"Who's taking out the trash?","pic":"🗑️","note":"An important negotiation in any Slovak household."},
-        {"id":"d3_spat","sk":"Idem spať.","en":"I'm going to bed.","pic":"😴"}
+        {"id":"d3_spat","sk":"Idem spať.","en":"I'm going to bed.","pic":"😴"},
+        {"id":"d3_hostia","sk":"Rada pozývam priateľov na večeru.","en":"I love having friends over for dinner.","pic":"🍽️"},
+        {"id":"d3_truecrime","sk":"Večer rada pozerám kriminálne seriály.","en":"In the evening I like watching true crime series.","pic":"🔎"}
       ]
     },
     {
@@ -943,7 +954,9 @@
         {"id":"q2_citronom","sk":"Čaj s citrónom.","en":"Tea with lemon.","blank":"citrónom","choices":["citrón","citróna","citrónom"],"pic":"🍋"},
         {"id":"q2_stolom","sk":"Kľúč je pod stolom.","en":"The key is under the table.","blank":"stolom","choices":["stôl","stole","stolom"],"pic":"🔑"},
         {"id":"q2_kinom","sk":"Stretneme sa pred kinom.","en":"Let's meet in front of the cinema.","blank":"kinom","choices":["kino","kine","kinom"],"pic":"🎦"},
-        {"id":"q2_skym","sk":"S kým ideš?","en":"Who are you going with? (informal)"}
+        {"id":"q2_skym","sk":"S kým ideš?","en":"Who are you going with? (informal)"},
+        {"id":"q2_puzzle","sk":"Rada skladám puzzle s priateľmi.","en":"I like doing puzzles with friends.","pic":"🧩"},
+        {"id":"q2_knihy","sk":"S priateľmi si vymieňame knihy.","en":"My friends and I swap books.","pic":"📚"}
       ]
     },
     {
@@ -961,7 +974,8 @@
         {"id":"q3_lekarovi","sk":"Idem k lekárovi.","en":"I'm going to the doctor.","blank":"lekárovi","choices":["lekár","lekára","lekárovi"],"pic":"🩺"},
         {"id":"q3_babke","sk":"Poďakuj babke.","en":"Say thank you to Grandma. (informal)","blank":"babke","choices":["babka","babku","babke"]},
         {"id":"q3_vam","sk":"Ďakujem vám.","en":"Thank you. (formal)","blank":"vám","choices":["vás","vám","vy"]},
-        {"id":"q3_dari","sk":"Ako sa vám darí?","en":"How are you doing? (formal)"}
+        {"id":"q3_dari","sk":"Ako sa vám darí?","en":"How are you doing? (formal)"},
+        {"id":"q3_fandim","sk":"Fandím baltimorským tímom.","en":"I cheer for Baltimore's teams.","pic":"🏈","note":"fandiť (to cheer for) takes the dative: who are you cheering to?"}
       ]
     },
     {
