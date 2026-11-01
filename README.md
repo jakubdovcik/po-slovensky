@@ -26,6 +26,9 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
   interactive scenes where she picks the right Slovak reply. Each ends with a postcard note from Jakub.
 - **Learner profiles and progress**: per-learner progress, time and accuracy tracking, and a shareable progress report
   (`report.html`). The data travels inside the link's `#fragment`, so no server is involved.
+- **Cesta hrdinov SNP**: progress is walked along the 765 km SNP Heroes' Trail from the Dukla Pass to Devín
+  (`app/js/trail.js`): a map with a walking figure, 29 stops with short facts, and new stops announced after
+  each session. The share of the course learned equals the share of the trail walked.
 - **Accounts and sync** (Supabase, free tier): email + password sign-in, a profile with avatar, and automatic sync.
   Progress merges across devices without losing anything, and the phone keeps working offline. See "Accounts" below.
 - **Spaced repetition** (FSRS-5): every item comes back just before she'd forget it.

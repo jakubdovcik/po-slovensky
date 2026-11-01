@@ -4,6 +4,7 @@
 import { state, today } from './store.js';
 import { course, unitProgress } from './course.js';
 import { story, doneCount, nextChapter, fill } from './story.js';
+import { kmFor } from './trail.js';
 
 const DAYS = 35;
 
@@ -30,6 +31,7 @@ export function totals() {
     due: cards.filter((c) => c.due <= t).length,
     total: course.order.length,
     minutes: Math.round(allSecs / 60),
+    km: Math.round(kmFor(cards.length / course.order.length)),
     daysActive: Object.keys(state.days).length,
   };
 }

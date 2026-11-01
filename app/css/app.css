@@ -515,3 +515,37 @@ mark.hl { background: var(--gold); color: var(--navy); border-radius: 6px; paddi
 .backup-tip > span svg { color: var(--accent); margin-top: 2px; }
 .tip-actions { display: flex; gap: 16px; }
 .tip-actions .link { padding-bottom: 0; }
+
+/* ---------- Cesta hrdinov SNP ---------- */
+.trail { display: block; width: 100%; margin-top: 14px; }
+.trail-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 10px; }
+.trail-head .section-label { margin-bottom: 2px; }
+.trail-km { font-family: var(--condensed); font-size: 15px; color: var(--muted); letter-spacing: .02em; }
+.trail-km b { font-size: 30px; color: var(--ink); font-weight: 400; }
+.trail-ends { display: flex; align-items: center; gap: 4px; font-family: var(--condensed); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.trail-ends svg { width: 14px; height: 14px; transform: scaleX(-1); color: var(--gold); }
+.snp-map { width: 100%; height: auto; display: block; margin: 8px 0 6px; overflow: visible; }
+.map-land { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.2; stroke-linejoin: round; }
+.map-route { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 3 3; stroke-linejoin: round; opacity: .7; }
+.map-walked { fill: none; stroke: var(--gold); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.stop-on { fill: var(--blue); stroke: var(--surface); stroke-width: 1; }
+.stop-off { fill: var(--surface); stroke: var(--muted); stroke-width: 1; }
+.map-label { font-family: var(--condensed); font-size: 10px; letter-spacing: .04em; fill: var(--ink); paint-order: stroke; stroke: var(--surface-2); stroke-width: 3px; stroke-linejoin: round; }
+.map-home { font-size: 11px; fill: var(--magenta); }
+.map-home-label { font-size: 7.5px; font-weight: 600; fill: var(--magenta); paint-order: stroke; stroke: var(--surface-2); stroke-width: 2.5px; }
+.walker-halo { fill: var(--gold); stroke: var(--edge); stroke-width: 1.5; }
+.walker { font-size: 18px; }
+.map-walker { transition: transform .6s ease; }
+.trail-status { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2px 12px; font-size: 14px; color: var(--muted); }
+.trail-status b { color: var(--ink); }
+.trail-fact { margin: 10px 0 0; font-size: 15px; }
+.trail-list { margin: 12px 0 8px; }
+.trail-list summary { cursor: pointer; font-weight: 650; color: var(--accent); }
+.trail-list ol { list-style: none; padding: 0; margin: 8px 0 0; }
+.trail-list li { display: flex; align-items: center; gap: 10px; padding: 5px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+.trail-list li.on { color: var(--ink); }
+.trail-list li svg { width: 16px; height: 16px; color: var(--accent); margin-left: auto; }
+.tl-km { font-family: var(--condensed); width: 34px; text-align: right; color: var(--muted); }
+.trail-news { text-align: left; border: 2px solid var(--edge); box-shadow: var(--hard); }
+.tn-title { font-family: var(--serif); font-size: 24px; font-weight: 600; line-height: 1.15; }
+.trail-news p { margin: 6px 0; font-size: 15px; }

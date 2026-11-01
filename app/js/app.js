@@ -13,6 +13,7 @@ import {
 import { weekStats, totals, stageProgress, hardest, reportUrl } from './progress.js';
 import * as audio from './audio.js';
 import * as cloud from './cloud.js';
+import { TOTAL_KM, STOPS, kmFor, position, mapSvg } from './trail.js';
 
 const app = document.getElementById('app');
 let view = { name: 'home' };
@@ -203,6 +204,31 @@ function authScreen() {
     </main>`;
 }
 
+// --- Cesta hrdinov SNP --------------------------------------------------------------
+
+const trailKm = () => { const t = totals(); return kmFor(t.learned / t.total); };
+
+function trailCard({ full = false } = {}) {
+  const km = trailKm();
+  const pos = position(km);
+  const done = !pos.next;
+  const status = done
+    ? `<div class="trail-status"><b>Devín!</b> You've walked all ${Math.round(TOTAL_KM)} km. Gratulujem, hrdinka.</div>`
+    : `<div class="trail-status"><span>Last stop <b>${esc(pos.here.sk)}</b></span><span>Next: <b>${esc(pos.next.sk)}</b> in ${Math.max(1, Math.round(pos.toNext))} km</span></div>`;
+  const head = `<div class="trail-head"><div><div class="section-label">Cesta hrdinov SNP</div>
+      <div class="trail-km"><b>${Math.round(km)}</b> / ${Math.round(TOTAL_KM)} km</div></div>
+      <div class="trail-ends" aria-label="from Dukla to Devín"><span>Devín</span>${ICON.arrow}<span>Dukla</span></div></div>`;
+  if (!full) {
+    return `<button class="card trail" data-action="nav" data-to="progress">${head}${mapSvg(km)}${status}</button>`;
+  }
+  const list = STOPS.map((st, i) => `<li class="${i <= pos.index ? 'on' : ''}"><span class="tl-km">${Math.round(st.km)}</span><span class="tl-name">${esc(st.sk)}</span>${i <= pos.index ? ICON.check : ''}</li>`).join('');
+  return `<section class="card trail">${head}${mapSvg(km)}${status}
+      <p class="trail-fact"><b>${esc(pos.here.sk)}:</b> ${esc(pos.here.fact)}</p>
+      <details class="trail-list"><summary>All ${STOPS.length} stops</summary><ol>${list}</ol></details>
+      <p class="muted small">The SNP Heroes' Trail runs ${Math.round(TOTAL_KM)} km across Slovakia, from the Dukla Pass to Devín Castle, in memory of the 1944 Slovak National Uprising. Every word you learn walks you further west.</p>
+    </section>`;
+}
+
 function backupBanner() {
   if (cloud.signedIn() || Object.keys(state.cards).length < 10 || state.settings.hideBackupTip) return '';
   return `<section class="card hint backup-tip"><span>${ICON.send}</span><div><b>Keep your progress safe.</b> Create a free account to back it up and sync across devices.
@@ -279,6 +305,7 @@ function home() {
       ${showInstall ? `<section class="card hint"><b>Tip:</b> tap <b>Share</b> → <b>Add to Home Screen</b> to install this like an app. It works offline too.<button class="link" data-action="hide-install">Hide</button></section>` : ''}
       ${todayCard}
       ${storyTeaser()}
+      ${trailCard()}
       ${stages}
     </main>${tabbar()}`;
 }
@@ -492,6 +519,7 @@ function progress() {
         <div><div class="block-kicker">Course</div><div class="hero-num">${tot.learned}<span>/${tot.total}</span></div>
         <div>words &amp; phrases learned · ${tot.solid} in long-term memory</div></div>
       </section>
+      ${trailCard({ full: true })}
       <section class="stats">
         <div class="card stat"><b>${fmtMinutes(wk.secs)}</b><span>${wk.secs < 60 ? '' : 'min '}this week</span></div>
         <div class="card stat"><b>${wk.accuracy == null ? '–' : Math.round(wk.accuracy * 100) + '%'}</b><span>accuracy, 7 days</span></div>
@@ -567,7 +595,7 @@ function startSession(opts) {
   const queue = buildSession(opts);
   if (!queue.length) { toast('Nothing to practice here right now.'); return; }
   sess = { queue, idx: 0, graded: new Set(), stats: { reviewed: 0, learned: 0, right: 0, total: 0 }, ex: null, phase: 'question', fb: null,
-    lastAt: Date.now(), storyBefore: nextChapter()?.status.unlocked };
+    lastAt: Date.now(), storyBefore: nextChapter()?.status.unlocked, stopBefore: position(trailKm()).index };
   nextExercise();
 }
 
@@ -790,6 +818,14 @@ function summary() {
   const acc = s.total ? Math.round(100 * s.right / s.total) : 100;
   const next = nextChapter();
   const newlyUnlocked = next && next.status.unlocked && !sess.storyBefore;
+  const posNow = position(trailKm());
+  const reached = STOPS.slice(sess.stopBefore + 1, posNow.index + 1);
+  const trailNews = reached.length ? `<section class="card trail-news">
+      <div class="section-label">Cesta hrdinov SNP · new ${reached.length === 1 ? 'stop' : 'stops'}</div>
+      <div class="tn-title">🚶‍♀️ ${reached.map((r) => esc(r.sk)).join(' → ')}</div>
+      <p>${esc(reached[reached.length - 1].fact)}</p>
+      <div class="muted small">km ${Math.round(trailKm())} of ${Math.round(TOTAL_KM)}${posNow.next ? ` · next: ${esc(posNow.next.sk)}` : ''}</div>
+    </section>` : '';
   return `<main class="screen summary">
       <div class="summary-mark">${CROSS}</div>
       <h1 class="display" lang="sk">Výborne!</h1>
@@ -799,6 +835,7 @@ function summary() {
         <div class="card stat"><b>${s.reviewed}</b><span>reviewed</span></div>
         <div class="card stat"><b>${acc}%</b><span>first try</span></div>
       </section>
+      ${trailNews}
       ${newlyUnlocked ? `<button class="card teaser ready c-${next.ch.color}" data-action="play-chapter" data-index="${next.index}">
           <div class="teaser-body"><div class="teaser-kicker">New chapter unlocked</div>
           <div class="teaser-title">${esc(next.ch.title)}</div><div class="teaser-line"><span class="go">Play now ${ICON.arrow}</span></div></div>
