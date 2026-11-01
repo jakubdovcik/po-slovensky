@@ -82,6 +82,7 @@ function render() {
   app.innerHTML = screens[view.name]();
   app.dataset.view = view.name;
   afterRender();
+  if (updateReady) setTimeout(reloadIfCalm, 300);
 }
 
 function tabbar() {
@@ -1262,6 +1263,13 @@ function importPackFromLink() {
   }
 }
 
+// --- updates -------------------------------------------------------------------------------
+
+let updateReady = false;
+function reloadIfCalm() {
+  if (updateReady && !['session', 'scene', 'auth'].includes(view.name)) location.reload();
+}
+
 // --- boot ----------------------------------------------------------------------------------
 
 (async function boot() {
@@ -1281,5 +1289,18 @@ function importPackFromLink() {
   });
   cloud.sync();
   const dev = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  if ('serviceWorker' in navigator && !dev) navigator.serviceWorker.register('sw.js').catch(() => {});
+  if ('serviceWorker' in navigator && !dev) {
+    // When a new version has been installed, switch to it: right away if nothing is in progress,
+    // otherwise as soon as she's back on a calm screen (never mid-lesson or mid-scene).
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController) return; // first install, not an update
+      updateReady = true;
+      reloadIfCalm();
+    });
+    navigator.serviceWorker.register('sw.js').then((reg) => {
+      // Check for updates whenever the app comes back to the foreground (iOS often resumes instead of relaunching).
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') reg.update().catch(() => {}); });
+    }).catch(() => {});
+  }
 })();
