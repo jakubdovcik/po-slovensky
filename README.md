@@ -17,6 +17,8 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
 - **Everyday life** (4 units): weather and seasons, the market, daily routine, phone calls and texts.
 - **Gramatika 2** (6 units): genitive (do/z/bez, amounts), instrumental (s, by car), dative (komu, páči sa mi),
   the future and aspect, plurals, comparatives.
+- **Bežný život · Everyday life 2** (5 units): cooking and recipe commands, restaurants (and the Slovak way of
+  tipping), meals at home, traffic and driving, errands (post office, bank, queues).
 - **Kultúra** (4 units): food traditions, folk culture, places and nature, Slovakia today.
 - **História** (4 units): Great Moravia, the Kingdom of Hungary, Czechoslovakia, the Velvet Revolution and independence.
 - **Pictures**: concrete words carry an emoji (`"pic"` in course.json), shown on intro cards, in the phrasebook and in a

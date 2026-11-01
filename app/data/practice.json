@@ -1,199 +1,1049 @@
 {
   "dialogues": [
     {
-      "id": "l1", "title": "Ráno v kancelárii", "en": "Good morning at the office", "requires": ["u1"],
+      "id": "l1",
+      "title": "Ráno v kancelárii",
+      "en": "Good morning at the office",
+      "requires": [
+        "u1"
+      ],
       "lines": [
-        { "v": "A", "sk": "Dobrý deň!", "en": "Hello!" },
-        { "v": "B", "sk": "Dobrý deň. Ako sa máte?", "en": "Hello. How are you?" },
-        { "v": "A", "sk": "Mám sa dobre, ďakujem. A vy?", "en": "I'm well, thank you. And you?" },
-        { "v": "B", "sk": "Aj ja, ďakujem. Dovidenia!", "en": "Me too, thanks. Goodbye!" },
-        { "v": "A", "sk": "Dovidenia!", "en": "Goodbye!" }
+        {
+          "v": "A",
+          "sk": "Dobrý deň!",
+          "en": "Hello!"
+        },
+        {
+          "v": "B",
+          "sk": "Dobrý deň. Ako sa máte?",
+          "en": "Hello. How are you?"
+        },
+        {
+          "v": "A",
+          "sk": "Mám sa dobre, ďakujem. A vy?",
+          "en": "I'm well, thank you. And you?"
+        },
+        {
+          "v": "B",
+          "sk": "Aj ja, ďakujem. Dovidenia!",
+          "en": "Me too, thanks. Goodbye!"
+        },
+        {
+          "v": "A",
+          "sk": "Dovidenia!",
+          "en": "Goodbye!"
+        }
       ],
       "questions": [
-        { "q": "How is the woman doing?", "options": ["Well", "Badly", "She's tired"], "answer": 0 },
-        { "q": "Do they speak formally or informally?", "options": ["Formally (vy)", "Informally (ty)"], "answer": 0 }
+        {
+          "q": "How is the woman doing?",
+          "options": [
+            "Well",
+            "Badly",
+            "She's tired"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Do they speak formally or informally?",
+          "options": [
+            "Formally (vy)",
+            "Informally (ty)"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l2", "title": "Zoznámenie", "en": "Meeting someone", "requires": ["u2"],
+      "id": "l2",
+      "title": "Zoznámenie",
+      "en": "Meeting someone",
+      "requires": [
+        "u2"
+      ],
       "lines": [
-        { "v": "B", "sk": "Ahoj, ja som Marek. Ako sa voláš?", "en": "Hi, I'm Marek. What's your name?" },
-        { "v": "A", "sk": "Ahoj, volám sa Anna. Teší ma.", "en": "Hi, my name is Anna. Nice to meet you." },
-        { "v": "B", "sk": "Aj mňa. Odkiaľ si?", "en": "Likewise. Where are you from?" },
-        { "v": "A", "sk": "Som z Ameriky, ale bývam v Bratislave.", "en": "I'm from America, but I live in Bratislava." },
-        { "v": "B", "sk": "Hovoríš po slovensky?", "en": "Do you speak Slovak?" },
-        { "v": "A", "sk": "Trochu. Učím sa.", "en": "A little. I'm learning." }
+        {
+          "v": "B",
+          "sk": "Ahoj, ja som Marek. Ako sa voláš?",
+          "en": "Hi, I'm Marek. What's your name?"
+        },
+        {
+          "v": "A",
+          "sk": "Ahoj, volám sa Anna. Teší ma.",
+          "en": "Hi, my name is Anna. Nice to meet you."
+        },
+        {
+          "v": "B",
+          "sk": "Aj mňa. Odkiaľ si?",
+          "en": "Likewise. Where are you from?"
+        },
+        {
+          "v": "A",
+          "sk": "Som z Ameriky, ale bývam v Bratislave.",
+          "en": "I'm from America, but I live in Bratislava."
+        },
+        {
+          "v": "B",
+          "sk": "Hovoríš po slovensky?",
+          "en": "Do you speak Slovak?"
+        },
+        {
+          "v": "A",
+          "sk": "Trochu. Učím sa.",
+          "en": "A little. I'm learning."
+        }
       ],
       "questions": [
-        { "q": "Where is Anna from?", "options": ["America", "Slovakia", "France"], "answer": 0 },
-        { "q": "Where does she live now?", "options": ["Bratislava", "Košice", "America"], "answer": 0 }
+        {
+          "q": "Where is Anna from?",
+          "options": [
+            "America",
+            "Slovakia",
+            "France"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Where does she live now?",
+          "options": [
+            "Bratislava",
+            "Košice",
+            "America"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l3", "title": "V kaviarni", "en": "At the café", "requires": ["u4"],
+      "id": "l3",
+      "title": "V kaviarni",
+      "en": "At the café",
+      "requires": [
+        "u4"
+      ],
       "lines": [
-        { "v": "B", "sk": "Dobrý deň, čo si dáte?", "en": "Hello, what will you have?" },
-        { "v": "A", "sk": "Prosím si kávu a vodu.", "en": "A coffee and a water, please." },
-        { "v": "B", "sk": "S mliekom?", "en": "With milk?" },
-        { "v": "A", "sk": "Nie, bez mlieka, ďakujem.", "en": "No, without milk, thank you." },
-        { "v": "B", "sk": "Ešte niečo?", "en": "Anything else?" },
-        { "v": "A", "sk": "Nie, to je všetko.", "en": "No, that's all." }
+        {
+          "v": "B",
+          "sk": "Dobrý deň, čo si dáte?",
+          "en": "Hello, what will you have?"
+        },
+        {
+          "v": "A",
+          "sk": "Prosím si kávu a vodu.",
+          "en": "A coffee and a water, please."
+        },
+        {
+          "v": "B",
+          "sk": "S mliekom?",
+          "en": "With milk?"
+        },
+        {
+          "v": "A",
+          "sk": "Nie, bez mlieka, ďakujem.",
+          "en": "No, without milk, thank you."
+        },
+        {
+          "v": "B",
+          "sk": "Ešte niečo?",
+          "en": "Anything else?"
+        },
+        {
+          "v": "A",
+          "sk": "Nie, to je všetko.",
+          "en": "No, that's all."
+        }
       ],
       "questions": [
-        { "q": "What does she order?", "options": ["Coffee and water", "Tea and water", "A beer"], "answer": 0 },
-        { "q": "Does she want milk?", "options": ["No", "Yes"], "answer": 0 }
+        {
+          "q": "What does she order?",
+          "options": [
+            "Coffee and water",
+            "Tea and water",
+            "A beer"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Does she want milk?",
+          "options": [
+            "No",
+            "Yes"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l4", "title": "Kde je stanica?", "en": "Where's the station?", "requires": ["u9"],
+      "id": "l4",
+      "title": "Kde je stanica?",
+      "en": "Where's the station?",
+      "requires": [
+        "u9"
+      ],
       "lines": [
-        { "v": "A", "sk": "Prepáčte, kde je stanica?", "en": "Excuse me, where is the station?" },
-        { "v": "B", "sk": "Stanica? Choďte rovno a potom vľavo.", "en": "The station? Go straight and then left." },
-        { "v": "A", "sk": "Je to ďaleko?", "en": "Is it far?" },
-        { "v": "B", "sk": "Nie, je to blízko. Päť minút.", "en": "No, it's close. Five minutes." },
-        { "v": "A", "sk": "Ďakujem!", "en": "Thank you!" },
-        { "v": "B", "sk": "Nie je za čo.", "en": "You're welcome." }
+        {
+          "v": "A",
+          "sk": "Prepáčte, kde je stanica?",
+          "en": "Excuse me, where is the station?"
+        },
+        {
+          "v": "B",
+          "sk": "Stanica? Choďte rovno a potom vľavo.",
+          "en": "The station? Go straight and then left."
+        },
+        {
+          "v": "A",
+          "sk": "Je to ďaleko?",
+          "en": "Is it far?"
+        },
+        {
+          "v": "B",
+          "sk": "Nie, je to blízko. Päť minút.",
+          "en": "No, it's close. Five minutes."
+        },
+        {
+          "v": "A",
+          "sk": "Ďakujem!",
+          "en": "Thank you!"
+        },
+        {
+          "v": "B",
+          "sk": "Nie je za čo.",
+          "en": "You're welcome."
+        }
       ],
       "questions": [
-        { "q": "Which way is the station?", "options": ["Straight, then left", "Straight, then right", "Back the way she came"], "answer": 0 },
-        { "q": "How far is it?", "options": ["Five minutes", "Fifteen minutes", "Very far"], "answer": 0 }
+        {
+          "q": "Which way is the station?",
+          "options": [
+            "Straight, then left",
+            "Straight, then right",
+            "Back the way she came"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How far is it?",
+          "options": [
+            "Five minutes",
+            "Fifteen minutes",
+            "Very far"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l5", "title": "Kde je kľúč?", "en": "Where's the key?", "requires": ["u5", "g6"],
+      "id": "l5",
+      "title": "Kde je kľúč?",
+      "en": "Where's the key?",
+      "requires": [
+        "u5",
+        "g6"
+      ],
       "lines": [
-        { "v": "A", "sk": "Nevieš, kde je kľúč?", "en": "Do you know where the key is?" },
-        { "v": "B", "sk": "Nie je na stole?", "en": "Isn't it on the table?" },
-        { "v": "A", "sk": "Nie. Ani v kuchyni.", "en": "No. Not in the kitchen either." },
-        { "v": "B", "sk": "Pozri sa do auta.", "en": "Look in the car." },
-        { "v": "A", "sk": "Áno, je v aute! Ďakujem.", "en": "Yes, it's in the car! Thanks." }
+        {
+          "v": "A",
+          "sk": "Nevieš, kde je kľúč?",
+          "en": "Do you know where the key is?"
+        },
+        {
+          "v": "B",
+          "sk": "Nie je na stole?",
+          "en": "Isn't it on the table?"
+        },
+        {
+          "v": "A",
+          "sk": "Nie. Ani v kuchyni.",
+          "en": "No. Not in the kitchen either."
+        },
+        {
+          "v": "B",
+          "sk": "Pozri sa do auta.",
+          "en": "Look in the car."
+        },
+        {
+          "v": "A",
+          "sk": "Áno, je v aute! Ďakujem.",
+          "en": "Yes, it's in the car! Thanks."
+        }
       ],
       "questions": [
-        { "q": "Where was the key in the end?", "options": ["In the car", "On the table", "In the kitchen"], "answer": 0 }
+        {
+          "q": "Where was the key in the end?",
+          "options": [
+            "In the car",
+            "On the table",
+            "In the kitchen"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l6", "title": "Máš čas?", "en": "Are you free?", "requires": ["u8", "g8"],
+      "id": "l6",
+      "title": "Máš čas?",
+      "en": "Are you free?",
+      "requires": [
+        "u8",
+        "g8"
+      ],
       "lines": [
-        { "v": "B", "sk": "Ahoj! Máš čas zajtra večer?", "en": "Hi! Are you free tomorrow evening?" },
-        { "v": "A", "sk": "Zajtra nemôžem, musím pracovať.", "en": "I can't tomorrow, I have to work." },
-        { "v": "B", "sk": "A v piatok?", "en": "And on Friday?" },
-        { "v": "A", "sk": "V piatok áno. Čo chceš robiť?", "en": "Friday, yes. What do you want to do?" },
-        { "v": "B", "sk": "Môžeme ísť do kina.", "en": "We could go to the cinema." },
-        { "v": "A", "sk": "Super, teším sa.", "en": "Great, I'm looking forward to it." }
+        {
+          "v": "B",
+          "sk": "Ahoj! Máš čas zajtra večer?",
+          "en": "Hi! Are you free tomorrow evening?"
+        },
+        {
+          "v": "A",
+          "sk": "Zajtra nemôžem, musím pracovať.",
+          "en": "I can't tomorrow, I have to work."
+        },
+        {
+          "v": "B",
+          "sk": "A v piatok?",
+          "en": "And on Friday?"
+        },
+        {
+          "v": "A",
+          "sk": "V piatok áno. Čo chceš robiť?",
+          "en": "Friday, yes. What do you want to do?"
+        },
+        {
+          "v": "B",
+          "sk": "Môžeme ísť do kina.",
+          "en": "We could go to the cinema."
+        },
+        {
+          "v": "A",
+          "sk": "Super, teším sa.",
+          "en": "Great, I'm looking forward to it."
+        }
       ],
       "questions": [
-        { "q": "Why can't she go tomorrow?", "options": ["She has to work", "She's ill", "She's visiting her mom"], "answer": 0 },
-        { "q": "When will they meet?", "options": ["Friday", "Saturday", "Tomorrow"], "answer": 0 },
-        { "q": "Where will they go?", "options": ["To the cinema", "To a restaurant", "To the mountains"], "answer": 0 }
+        {
+          "q": "Why can't she go tomorrow?",
+          "options": [
+            "She has to work",
+            "She's ill",
+            "She's visiting her mom"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "When will they meet?",
+          "options": [
+            "Friday",
+            "Saturday",
+            "Tomorrow"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Where will they go?",
+          "options": [
+            "To the cinema",
+            "To a restaurant",
+            "To the mountains"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l7", "title": "U lekára", "en": "At the doctor's", "requires": ["c1"],
+      "id": "l7",
+      "title": "U lekára",
+      "en": "At the doctor's",
+      "requires": [
+        "c1"
+      ],
       "lines": [
-        { "v": "B", "sk": "Dobrý deň, čo vás trápi?", "en": "Hello, what's troubling you?" },
-        { "v": "A", "sk": "Bolí ma hlava a mám horúčku.", "en": "I have a headache and a fever." },
-        { "v": "B", "sk": "Odkedy?", "en": "Since when?" },
-        { "v": "A", "sk": "Od včera.", "en": "Since yesterday." },
-        { "v": "B", "sk": "Kašlete?", "en": "Are you coughing?" },
-        { "v": "A", "sk": "Trochu.", "en": "A little." },
-        { "v": "B", "sk": "Je to chrípka. Musíte ležať doma.", "en": "It's the flu. You need to stay in bed at home." }
+        {
+          "v": "B",
+          "sk": "Dobrý deň, čo vás trápi?",
+          "en": "Hello, what's troubling you?"
+        },
+        {
+          "v": "A",
+          "sk": "Bolí ma hlava a mám horúčku.",
+          "en": "I have a headache and a fever."
+        },
+        {
+          "v": "B",
+          "sk": "Odkedy?",
+          "en": "Since when?"
+        },
+        {
+          "v": "A",
+          "sk": "Od včera.",
+          "en": "Since yesterday."
+        },
+        {
+          "v": "B",
+          "sk": "Kašlete?",
+          "en": "Are you coughing?"
+        },
+        {
+          "v": "A",
+          "sk": "Trochu.",
+          "en": "A little."
+        },
+        {
+          "v": "B",
+          "sk": "Je to chrípka. Musíte ležať doma.",
+          "en": "It's the flu. You need to stay in bed at home."
+        }
       ],
       "questions": [
-        { "q": "What are her symptoms?", "options": ["Headache and fever", "Stomach ache", "Back pain"], "answer": 0 },
-        { "q": "Since when?", "options": ["Since yesterday", "For a week", "Since this morning"], "answer": 0 },
-        { "q": "What's the diagnosis?", "options": ["The flu", "An allergy", "Nothing serious"], "answer": 0 }
+        {
+          "q": "What are her symptoms?",
+          "options": [
+            "Headache and fever",
+            "Stomach ache",
+            "Back pain"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Since when?",
+          "options": [
+            "Since yesterday",
+            "For a week",
+            "Since this morning"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What's the diagnosis?",
+          "options": [
+            "The flu",
+            "An allergy",
+            "Nothing serious"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l8", "title": "V obchode", "en": "In a clothes shop", "requires": ["c2"],
+      "id": "l8",
+      "title": "V obchode",
+      "en": "In a clothes shop",
+      "requires": [
+        "c2"
+      ],
       "lines": [
-        { "v": "B", "sk": "Dobrý deň, môžem vám pomôcť?", "en": "Hello, can I help you?" },
-        { "v": "A", "sk": "Máte tento kabát v inej veľkosti?", "en": "Do you have this coat in another size?" },
-        { "v": "B", "sk": "Áno, akú veľkosť?", "en": "Yes, what size?" },
-        { "v": "A", "sk": "Menšiu, prosím. Je to v zľave?", "en": "A smaller one, please. Is it on sale?" },
-        { "v": "B", "sk": "Áno, dnes je o dvadsať percent lacnejší.", "en": "Yes, today it's twenty percent cheaper." },
-        { "v": "A", "sk": "Beriem to!", "en": "I'll take it!" }
+        {
+          "v": "B",
+          "sk": "Dobrý deň, môžem vám pomôcť?",
+          "en": "Hello, can I help you?"
+        },
+        {
+          "v": "A",
+          "sk": "Máte tento kabát v inej veľkosti?",
+          "en": "Do you have this coat in another size?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, akú veľkosť?",
+          "en": "Yes, what size?"
+        },
+        {
+          "v": "A",
+          "sk": "Menšiu, prosím. Je to v zľave?",
+          "en": "A smaller one, please. Is it on sale?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, dnes je o dvadsať percent lacnejší.",
+          "en": "Yes, today it's twenty percent cheaper."
+        },
+        {
+          "v": "A",
+          "sk": "Beriem to!",
+          "en": "I'll take it!"
+        }
       ],
       "questions": [
-        { "q": "What does she buy?", "options": ["A coat", "Shoes", "A skirt"], "answer": 0 },
-        { "q": "What size does she want?", "options": ["Smaller", "Bigger"], "answer": 0 },
-        { "q": "How big is the discount?", "options": ["20%", "10%", "None"], "answer": 0 }
+        {
+          "q": "What does she buy?",
+          "options": [
+            "A coat",
+            "Shoes",
+            "A skirt"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What size does she want?",
+          "options": [
+            "Smaller",
+            "Bigger"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How big is the discount?",
+          "options": [
+            "20%",
+            "10%",
+            "None"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l9", "title": "Na stanici", "en": "At the station", "requires": ["c3"],
+      "id": "l9",
+      "title": "Na stanici",
+      "en": "At the station",
+      "requires": [
+        "c3"
+      ],
       "lines": [
-        { "v": "A", "sk": "Jeden lístok do Košíc, prosím.", "en": "One ticket to Košice, please." },
-        { "v": "B", "sk": "Jednosmerný alebo spiatočný?", "en": "One-way or return?" },
-        { "v": "A", "sk": "Spiatočný. Kedy odchádza vlak?", "en": "Return. When does the train leave?" },
-        { "v": "B", "sk": "O pol desiatej z tretieho nástupišťa.", "en": "At half past nine, from platform three.", "note": "o pol desiatej = \"at half of ten\", i.e. 9:30" },
-        { "v": "A", "sk": "Ďakujem.", "en": "Thank you." }
+        {
+          "v": "A",
+          "sk": "Jeden lístok do Košíc, prosím.",
+          "en": "One ticket to Košice, please."
+        },
+        {
+          "v": "B",
+          "sk": "Jednosmerný alebo spiatočný?",
+          "en": "One-way or return?"
+        },
+        {
+          "v": "A",
+          "sk": "Spiatočný. Kedy odchádza vlak?",
+          "en": "Return. When does the train leave?"
+        },
+        {
+          "v": "B",
+          "sk": "O pol desiatej z tretieho nástupišťa.",
+          "en": "At half past nine, from platform three.",
+          "note": "o pol desiatej = \"at half of ten\", i.e. 9:30"
+        },
+        {
+          "v": "A",
+          "sk": "Ďakujem.",
+          "en": "Thank you."
+        }
       ],
       "questions": [
-        { "q": "Where is she going?", "options": ["Košice", "Bratislava", "Trenčín"], "answer": 0 },
-        { "q": "What kind of ticket?", "options": ["Return", "One-way"], "answer": 0 },
-        { "q": "Which platform?", "options": ["Three", "Two", "Ten"], "answer": 0 }
+        {
+          "q": "Where is she going?",
+          "options": [
+            "Košice",
+            "Bratislava",
+            "Trenčín"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What kind of ticket?",
+          "options": [
+            "Return",
+            "One-way"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Which platform?",
+          "options": [
+            "Three",
+            "Two",
+            "Ten"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l10", "title": "Počasie", "en": "The weather", "requires": ["d1", "q4"],
+      "id": "l10",
+      "title": "Počasie",
+      "en": "The weather",
+      "requires": [
+        "d1",
+        "q4"
+      ],
       "lines": [
-        { "v": "B", "sk": "Aké bude zajtra počasie?", "en": "What will the weather be like tomorrow?" },
-        { "v": "A", "sk": "Vraj bude pršať.", "en": "Apparently it's going to rain." },
-        { "v": "B", "sk": "Škoda. Chcel som ísť do Tatier.", "en": "Pity. I wanted to go to the Tatras." },
-        { "v": "A", "sk": "Pôjdeme v sobotu. V sobotu bude svietiť slnko.", "en": "We'll go on Saturday. On Saturday the sun will shine." }
+        {
+          "v": "B",
+          "sk": "Aké bude zajtra počasie?",
+          "en": "What will the weather be like tomorrow?"
+        },
+        {
+          "v": "A",
+          "sk": "Vraj bude pršať.",
+          "en": "Apparently it's going to rain."
+        },
+        {
+          "v": "B",
+          "sk": "Škoda. Chcel som ísť do Tatier.",
+          "en": "Pity. I wanted to go to the Tatras."
+        },
+        {
+          "v": "A",
+          "sk": "Pôjdeme v sobotu. V sobotu bude svietiť slnko.",
+          "en": "We'll go on Saturday. On Saturday the sun will shine."
+        }
       ],
       "questions": [
-        { "q": "What's the weather tomorrow?", "options": ["Rain", "Sun", "Snow"], "answer": 0 },
-        { "q": "When will they go to the mountains?", "options": ["Saturday", "Sunday", "Tomorrow"], "answer": 0 }
+        {
+          "q": "What's the weather tomorrow?",
+          "options": [
+            "Rain",
+            "Sun",
+            "Snow"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "When will they go to the mountains?",
+          "options": [
+            "Saturday",
+            "Sunday",
+            "Tomorrow"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l11", "title": "Počula si?", "en": "Did you hear?", "requires": ["k4", "k5"],
+      "id": "l11",
+      "title": "Počula si?",
+      "en": "Did you hear?",
+      "requires": [
+        "k4",
+        "k5"
+      ],
       "lines": [
-        { "v": "A", "sk": "Počul si? Peter a Zuzana sa rozišli!", "en": "Did you hear? Peter and Zuzana broke up!" },
-        { "v": "B", "sk": "Nehovor! Kto ti to povedal?", "en": "No way! Who told you?" },
-        { "v": "A", "sk": "Jej mama. Ale nikomu to nehovor!", "en": "Her mom. But don't tell anyone!" },
-        { "v": "B", "sk": "Ja som nič nepočul.", "en": "I didn't hear a thing." }
+        {
+          "v": "A",
+          "sk": "Počul si? Peter a Zuzana sa rozišli!",
+          "en": "Did you hear? Peter and Zuzana broke up!"
+        },
+        {
+          "v": "B",
+          "sk": "Nehovor! Kto ti to povedal?",
+          "en": "No way! Who told you?"
+        },
+        {
+          "v": "A",
+          "sk": "Jej mama. Ale nikomu to nehovor!",
+          "en": "Her mom. But don't tell anyone!"
+        },
+        {
+          "v": "B",
+          "sk": "Ja som nič nepočul.",
+          "en": "I didn't hear a thing."
+        }
       ],
       "questions": [
-        { "q": "Who broke up?", "options": ["Peter and Zuzana", "Marek and Anna", "Nobody"], "answer": 0 },
-        { "q": "Who spread the news?", "options": ["Zuzana's mom", "Peter", "Zuzana"], "answer": 0 }
+        {
+          "q": "Who broke up?",
+          "options": [
+            "Peter and Zuzana",
+            "Marek and Anna",
+            "Nobody"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Who spread the news?",
+          "options": [
+            "Zuzana's mom",
+            "Peter",
+            "Zuzana"
+          ],
+          "answer": 0
+        }
       ]
     },
     {
-      "id": "l12", "title": "Dnes večer", "en": "Tonight", "requires": ["x2"],
+      "id": "l12",
+      "title": "Dnes večer",
+      "en": "Tonight",
+      "requires": [
+        "x2"
+      ],
       "lines": [
-        { "v": "B", "sk": "Čo by si chcela robiť dnes večer?", "en": "What would you like to do tonight?" },
-        { "v": "A", "sk": "Rada by som zostala doma a pozerala film.", "en": "I'd like to stay home and watch a movie." },
-        { "v": "B", "sk": "To by bolo super. Uvarím večeru.", "en": "That would be great. I'll cook dinner." },
-        { "v": "A", "sk": "Ľúbim ťa.", "en": "I love you." }
+        {
+          "v": "B",
+          "sk": "Čo by si chcela robiť dnes večer?",
+          "en": "What would you like to do tonight?"
+        },
+        {
+          "v": "A",
+          "sk": "Rada by som zostala doma a pozerala film.",
+          "en": "I'd like to stay home and watch a movie."
+        },
+        {
+          "v": "B",
+          "sk": "To by bolo super. Uvarím večeru.",
+          "en": "That would be great. I'll cook dinner."
+        },
+        {
+          "v": "A",
+          "sk": "Ľúbim ťa.",
+          "en": "I love you."
+        }
       ],
       "questions": [
-        { "q": "What would she like to do?", "options": ["Stay home and watch a movie", "Go out with friends", "Go to the cinema"], "answer": 0 },
-        { "q": "What will he do?", "options": ["Cook dinner", "Go shopping", "Work late"], "answer": 0 }
+        {
+          "q": "What would she like to do?",
+          "options": [
+            "Stay home and watch a movie",
+            "Go out with friends",
+            "Go to the cinema"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What will he do?",
+          "options": [
+            "Cook dinner",
+            "Go shopping",
+            "Work late"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l13",
+      "title": "V reštaurácii",
+      "en": "At a restaurant",
+      "requires": [
+        "e2"
+      ],
+      "lines": [
+        {
+          "v": "B",
+          "sk": "Dobrý večer, máte rezerváciu?",
+          "en": "Good evening, do you have a reservation?"
+        },
+        {
+          "v": "A",
+          "sk": "Nie. Máte voľný stôl pre dvoch?",
+          "en": "No. Do you have a free table for two?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, nech sa páči. Čo si dáte?",
+          "en": "Yes, here you are. What will you have?"
+        },
+        {
+          "v": "A",
+          "sk": "Čo nám odporúčate?",
+          "en": "What do you recommend?"
+        },
+        {
+          "v": "B",
+          "sk": "Dnes máme výborné bryndzové halušky.",
+          "en": "Today we have excellent bryndzové halušky."
+        },
+        {
+          "v": "A",
+          "sk": "Tak dvakrát halušky, prosím.",
+          "en": "Then halušky twice, please."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Did they book a table?",
+          "options": [
+            "No",
+            "Yes"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What does the waiter recommend?",
+          "options": [
+            "Bryndzové halušky",
+            "The soup",
+            "Dessert"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What do they order?",
+          "options": [
+            "Two portions of halušky",
+            "One soup",
+            "Nothing yet"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l14",
+      "title": "V zápche",
+      "en": "Stuck in traffic",
+      "requires": [
+        "e4"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Kde si? Večera je hotová.",
+          "en": "Where are you? Dinner's ready."
+        },
+        {
+          "v": "B",
+          "sk": "Prepáč, stojím v zápche na diaľnici.",
+          "en": "Sorry, I'm stuck in a traffic jam on the motorway."
+        },
+        {
+          "v": "A",
+          "sk": "Ako dlho ešte?",
+          "en": "How much longer?"
+        },
+        {
+          "v": "B",
+          "sk": "Asi pol hodiny. Bola nehoda.",
+          "en": "About half an hour. There was an accident."
+        },
+        {
+          "v": "A",
+          "sk": "Tak jazdi opatrne!",
+          "en": "Drive carefully, then!"
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where is he?",
+          "options": [
+            "In a traffic jam on the motorway",
+            "Still at work",
+            "At the shop"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How long will he be?",
+          "options": [
+            "About half an hour",
+            "Five minutes",
+            "Two hours"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Why the traffic jam?",
+          "options": [
+            "There was an accident",
+            "Roadworks",
+            "Snow"
+          ],
+          "answer": 0
+        }
       ]
     }
   ],
   "prompts": [
-    { "id": "sp1", "requires": ["u2"], "q": "Ako sa voláš a odkiaľ si?", "en": "What's your name and where are you from?", "sample": "Volám sa {name} a som z Ameriky.", "sampleEn": "My name is {name} and I'm from America." },
-    { "id": "sp2", "requires": ["u3"], "q": "Aká je tvoja rodina?", "en": "What's your family like?", "sample": "Moja rodina žije v štáte Maine. Mám ich veľmi rada.", "sampleEn": "My family lives in Maine. I love them very much." },
-    { "id": "sp3", "requires": ["u4"], "q": "Čo rada ješ a piješ?", "en": "What do you like to eat and drink?", "sample": "Rada jem polievku a pijem kávu.", "sampleEn": "I like eating soup and drinking coffee." },
-    { "id": "sp4", "requires": ["u7"], "q": "Ako sa dnes cítiš?", "en": "How are you feeling today?", "sample": "Dnes som trochu unavená, ale šťastná.", "sampleEn": "Today I'm a bit tired, but happy." },
-    { "id": "sp5", "requires": ["g5"], "q": "Čo si robila cez víkend?", "en": "What did you do at the weekend?", "sample": "Cez víkend som bola doma a varila som.", "sampleEn": "At the weekend I was at home and cooked." },
-    { "id": "sp6", "requires": ["d3"], "q": "Aký je tvoj typický deň?", "en": "What's your typical day like?", "sample": "Vstávam o siedmej, idem do práce a večer varím večeru.", "sampleEn": "I get up at seven, go to work and cook dinner in the evening." },
-    { "id": "sp7", "requires": ["q4"], "q": "Čo budeš robiť zajtra?", "en": "What will you do tomorrow?", "sample": "Zajtra budem pracovať a večer zavolám mame.", "sampleEn": "Tomorrow I'll work and in the evening I'll call my mom." },
-    { "id": "sp8", "requires": ["x2"], "q": "Čo by si chcela robiť na Slovensku?", "en": "What would you like to do in Slovakia?", "sample": "Rada by som išla do Tatier a ochutnala bryndzové halušky.", "sampleEn": "I'd like to go to the Tatras and taste bryndzové halušky." },
-    { "id": "sp9", "requires": ["x4"], "q": "Prečo sa učíš po slovensky?", "en": "Why are you learning Slovak?", "sample": "Učím sa po slovensky, aby som rozumela tvojej rodine.", "sampleEn": "I'm learning Slovak so I can understand your family." },
-    { "id": "sp10", "requires": ["d1"], "q": "Aké je dnes počasie?", "en": "What's the weather like today?", "sample": "Dnes je zima a prší.", "sampleEn": "Today it's cold and raining." },
-    { "id": "sp11", "requires": ["m2", "m4"], "q": "S čím prichádzate?", "en": "What brings you in? (Play the patient: describe a problem.)", "sample": "Už týždeň nemôžem spať a stále som unavená.", "sampleEn": "I haven't been able to sleep for a week and I'm always tired." },
-    { "id": "sp12", "requires": ["c2", "x1"], "q": "Čo si dnes oblečieš?", "en": "What will you wear today?", "sample": "Oblečiem si modré nohavice a biely kabát.", "sampleEn": "I'll wear blue trousers and a white coat." },
-    { "id": "sp13", "requires": ["c4"], "q": "Aký je tvoj byt?", "en": "What's your apartment like?", "sample": "Môj byt je malý, ale útulný. Má kuchyňu, spálňu a balkón.", "sampleEn": "My apartment is small but cosy. It has a kitchen, a bedroom and a balcony." },
-    { "id": "sp14", "requires": ["k3"], "q": "Opíš niekoho z tvojej rodiny.", "en": "Describe someone in your family.", "sample": "Môj brat je vysoký a veľmi vtipný.", "sampleEn": "My brother is tall and very funny." },
-    { "id": "sp15", "requires": ["o1"], "q": "Ako oslavuješ narodeniny?", "en": "How do you celebrate your birthday?", "sample": "Rada pozývam priateľov na večeru a pečiem tortu.", "sampleEn": "I like inviting friends for dinner and baking a cake." },
-    { "id": "sp16", "requires": ["d3", "q2"], "q": "Čo robíš vo voľnom čase?", "en": "What do you do in your free time?", "sample": "Rada skúšam nové reštaurácie a skladám puzzle s priateľmi.", "sampleEn": "I like trying new restaurants and doing puzzles with friends." },
-    { "id": "sp17", "requires": ["x1"], "q": "Čo si si naposledy kúpila?", "en": "What's the last thing you bought yourself?", "sample": "Kúpila som si nové topánky.", "sampleEn": "I bought myself new shoes." },
-    { "id": "sp18", "requires": ["g8"], "q": "Čo vieš dobre robiť?", "en": "What are you good at?", "sample": "Viem dobre variť a hovorím po francúzsky.", "sampleEn": "I'm good at cooking and I speak French." }
+    {
+      "id": "sp1",
+      "requires": [
+        "u2"
+      ],
+      "q": "Ako sa voláš a odkiaľ si?",
+      "en": "What's your name and where are you from?",
+      "sample": "Volám sa {name} a som z Ameriky.",
+      "sampleEn": "My name is {name} and I'm from America."
+    },
+    {
+      "id": "sp2",
+      "requires": [
+        "u3"
+      ],
+      "q": "Aká je tvoja rodina?",
+      "en": "What's your family like?",
+      "sample": "Moja rodina žije v štáte Maine. Mám ich veľmi rada.",
+      "sampleEn": "My family lives in Maine. I love them very much."
+    },
+    {
+      "id": "sp3",
+      "requires": [
+        "u4"
+      ],
+      "q": "Čo rada ješ a piješ?",
+      "en": "What do you like to eat and drink?",
+      "sample": "Rada jem polievku a pijem kávu.",
+      "sampleEn": "I like eating soup and drinking coffee."
+    },
+    {
+      "id": "sp4",
+      "requires": [
+        "u7"
+      ],
+      "q": "Ako sa dnes cítiš?",
+      "en": "How are you feeling today?",
+      "sample": "Dnes som trochu unavená, ale šťastná.",
+      "sampleEn": "Today I'm a bit tired, but happy."
+    },
+    {
+      "id": "sp5",
+      "requires": [
+        "g5"
+      ],
+      "q": "Čo si robila cez víkend?",
+      "en": "What did you do at the weekend?",
+      "sample": "Cez víkend som bola doma a varila som.",
+      "sampleEn": "At the weekend I was at home and cooked."
+    },
+    {
+      "id": "sp6",
+      "requires": [
+        "d3"
+      ],
+      "q": "Aký je tvoj typický deň?",
+      "en": "What's your typical day like?",
+      "sample": "Vstávam o siedmej, idem do práce a večer varím večeru.",
+      "sampleEn": "I get up at seven, go to work and cook dinner in the evening."
+    },
+    {
+      "id": "sp7",
+      "requires": [
+        "q4"
+      ],
+      "q": "Čo budeš robiť zajtra?",
+      "en": "What will you do tomorrow?",
+      "sample": "Zajtra budem pracovať a večer zavolám mame.",
+      "sampleEn": "Tomorrow I'll work and in the evening I'll call my mom."
+    },
+    {
+      "id": "sp8",
+      "requires": [
+        "x2"
+      ],
+      "q": "Čo by si chcela robiť na Slovensku?",
+      "en": "What would you like to do in Slovakia?",
+      "sample": "Rada by som išla do Tatier a ochutnala bryndzové halušky.",
+      "sampleEn": "I'd like to go to the Tatras and taste bryndzové halušky."
+    },
+    {
+      "id": "sp9",
+      "requires": [
+        "x4"
+      ],
+      "q": "Prečo sa učíš po slovensky?",
+      "en": "Why are you learning Slovak?",
+      "sample": "Učím sa po slovensky, aby som rozumela tvojej rodine.",
+      "sampleEn": "I'm learning Slovak so I can understand your family."
+    },
+    {
+      "id": "sp10",
+      "requires": [
+        "d1"
+      ],
+      "q": "Aké je dnes počasie?",
+      "en": "What's the weather like today?",
+      "sample": "Dnes je zima a prší.",
+      "sampleEn": "Today it's cold and raining."
+    },
+    {
+      "id": "sp11",
+      "requires": [
+        "m2",
+        "m4"
+      ],
+      "q": "S čím prichádzate?",
+      "en": "What brings you in? (Play the patient: describe a problem.)",
+      "sample": "Už týždeň nemôžem spať a stále som unavená.",
+      "sampleEn": "I haven't been able to sleep for a week and I'm always tired."
+    },
+    {
+      "id": "sp12",
+      "requires": [
+        "c2",
+        "x1"
+      ],
+      "q": "Čo si dnes oblečieš?",
+      "en": "What will you wear today?",
+      "sample": "Oblečiem si modré nohavice a biely kabát.",
+      "sampleEn": "I'll wear blue trousers and a white coat."
+    },
+    {
+      "id": "sp13",
+      "requires": [
+        "c4"
+      ],
+      "q": "Aký je tvoj byt?",
+      "en": "What's your apartment like?",
+      "sample": "Môj byt je malý, ale útulný. Má kuchyňu, spálňu a balkón.",
+      "sampleEn": "My apartment is small but cosy. It has a kitchen, a bedroom and a balcony."
+    },
+    {
+      "id": "sp14",
+      "requires": [
+        "k3"
+      ],
+      "q": "Opíš niekoho z tvojej rodiny.",
+      "en": "Describe someone in your family.",
+      "sample": "Môj brat je vysoký a veľmi vtipný.",
+      "sampleEn": "My brother is tall and very funny."
+    },
+    {
+      "id": "sp15",
+      "requires": [
+        "o1"
+      ],
+      "q": "Ako oslavuješ narodeniny?",
+      "en": "How do you celebrate your birthday?",
+      "sample": "Rada pozývam priateľov na večeru a pečiem tortu.",
+      "sampleEn": "I like inviting friends for dinner and baking a cake."
+    },
+    {
+      "id": "sp16",
+      "requires": [
+        "d3",
+        "q2"
+      ],
+      "q": "Čo robíš vo voľnom čase?",
+      "en": "What do you do in your free time?",
+      "sample": "Rada skúšam nové reštaurácie a skladám puzzle s priateľmi.",
+      "sampleEn": "I like trying new restaurants and doing puzzles with friends."
+    },
+    {
+      "id": "sp17",
+      "requires": [
+        "x1"
+      ],
+      "q": "Čo si si naposledy kúpila?",
+      "en": "What's the last thing you bought yourself?",
+      "sample": "Kúpila som si nové topánky.",
+      "sampleEn": "I bought myself new shoes."
+    },
+    {
+      "id": "sp18",
+      "requires": [
+        "g8"
+      ],
+      "q": "Čo vieš dobre robiť?",
+      "en": "What are you good at?",
+      "sample": "Viem dobre variť a hovorím po francúzsky.",
+      "sampleEn": "I'm good at cooking and I speak French."
+    },
+    {
+      "id": "sp19",
+      "requires": [
+        "e1"
+      ],
+      "q": "Čo rada varíš?",
+      "en": "What do you like to cook?",
+      "sample": "Rada varím polievky a cestoviny.",
+      "sampleEn": "I like cooking soups and pasta."
+    },
+    {
+      "id": "sp20",
+      "requires": [
+        "e4"
+      ],
+      "q": "Ako chodíš do práce?",
+      "en": "How do you get to work?",
+      "sample": "Do práce chodím pešo, ale niekedy idem autom.",
+      "sampleEn": "I walk to work, but sometimes I go by car."
+    }
   ]
 }
