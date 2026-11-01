@@ -136,7 +136,8 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
     const distract = [];
     for (const e of [...sameGroup, ...rest]) {
       if (distract.length === 3) break;
-      if (e.sk !== example.sk && !distract.some((d) => d.sk === e.sk || (d.show || d.sk) === (e.show || e.sk))) distract.push(e);
+      const soundsSame = example.same && e.same === example.same; // e.g. í and ý, ä and e
+      if (e.sk !== example.sk && !soundsSame && !distract.some((d) => d.sk === e.sk || (d.show || d.sk) === (e.show || e.sk))) distract.push(e);
     }
     return { type: 'sound_pick', item, target: example.sk, targetEn: example.en, options: shuffle([example, ...distract]) };
   }

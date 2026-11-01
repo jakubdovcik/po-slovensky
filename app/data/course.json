@@ -21,9 +21,9 @@
       "title": "Abeceda · The alphabet",
       "intro": "The Slovak alphabet has <b>46 letters</b>. Tap each one to hear how it's said: that's how Slovaks spell words out loud, for example your name or email on the phone. <b>Vowels</b> (and the long <b>ĺ</b>, <b>ŕ</b>) are simply said as their sound; most <b>consonants</b> have a short name ending in -é (<i>bé, cé</i>) or starting with e- (<i>el, em, es</i>). Because <b>i</b> and <b>y</b> sound the same, when spelling Slovaks say <i>mäkké i</i> (soft i) or <i>tvrdé y</i> (hard y).",
       "items": [
-        {"id":"ab_vowels","kind":"sound","sk":"a e i o u y","en":"the short vowels, said as their sound","examples":[{"show":"A a","sk":"a","en":"a"},{"show":"E e","sk":"e","en":"e"},{"show":"I i","sk":"i","en":"i"},{"show":"O o","sk":"o","en":"o"},{"show":"U u","sk":"u","en":"u"},{"show":"Y y","sk":"ypsilon","en":"ypsilon (sounds like i)"}]},
-        {"id":"ab_long","kind":"sound","sk":"á é í ó ú ý","en":"the long vowels: the same sound, held longer","examples":[{"show":"Á á","sk":"á","en":"long a"},{"show":"É é","sk":"é","en":"long e"},{"show":"Í í","sk":"í","en":"long i"},{"show":"Ó ó","sk":"ó","en":"long o"},{"show":"Ú ú","sk":"ú","en":"long u"},{"show":"Ý ý","sk":"ý","en":"long i, like í"}]},
-        {"id":"ab_special","kind":"sound","sk":"ä ô","en":"the two special vowels","examples":[{"show":"Ä ä","sk":"ä","en":"between a and e"},{"show":"Ô ô","sk":"ô","en":"uo"}]},
+        {"id":"ab_vowels","kind":"sound","sk":"a e i o u y","en":"the short vowels, said as their sound","examples":[{"show":"A a","sk":"a","en":"a"},{"show":"E e","sk":"e","en":"e","same":"e"},{"show":"I i","sk":"i","en":"i"},{"show":"O o","sk":"o","en":"o"},{"show":"U u","sk":"u","en":"u"},{"show":"Y y","sk":"ypsilon","en":"ypsilon (sounds like i)"}]},
+        {"id":"ab_long","kind":"sound","sk":"á é í ó ú ý","en":"the long vowels: the same sound, held longer","examples":[{"show":"Á á","sk":"á","en":"long a"},{"show":"É é","sk":"é","en":"long e"},{"show":"Í í","sk":"í","en":"long i","same":"í"},{"show":"Ó ó","sk":"ó","en":"long o"},{"show":"Ú ú","sk":"ú","en":"long u"},{"show":"Ý ý","sk":"ý","en":"long i, like í","same":"í"}]},
+        {"id":"ab_special","kind":"sound","sk":"ä ô","en":"the two special vowels","examples":[{"show":"Ä ä","sk":"ä","en":"between a and e","same":"e"},{"show":"Ô ô","sk":"ô","en":"uo"}]},
         {"id":"ab_b_h","kind":"sound","sk":"b c č d ď f g h","en":"most consonant names end in -é","examples":[{"show":"B b","sk":"bé","en":"bé"},{"show":"C c","sk":"cé","en":"cé"},{"show":"Č č","sk":"čé","en":"čé"},{"show":"D d","sk":"dé","en":"dé"},{"show":"Ď ď","sk":"ďé","en":"ďé"},{"show":"F f","sk":"ef","en":"ef"},{"show":"G g","sk":"gé","en":"gé"},{"show":"H h","sk":"há","en":"há"}]},
         {"id":"ab_ch_n","kind":"sound","sk":"ch j k l ĺ ľ m n ň","en":"ch counts as a single letter","examples":[{"show":"Ch ch","sk":"chá","en":"chá"},{"show":"J j","sk":"jé","en":"jé"},{"show":"K k","sk":"ká","en":"ká"},{"show":"L l","sk":"el","en":"el"},{"show":"Ĺ ĺ","sk":"ĺ","en":"long l"},{"show":"Ľ ľ","sk":"eľ","en":"eľ (soft l)"},{"show":"M m","sk":"em","en":"em"},{"show":"N n","sk":"en","en":"en"},{"show":"Ň ň","sk":"eň","en":"eň"}]},
         {"id":"ab_p_t","kind":"sound","sk":"p q r ŕ s š t ť","en":"the middle of the alphabet","examples":[{"show":"P p","sk":"pé","en":"pé"},{"show":"Q q","sk":"kvé","en":"kvé"},{"show":"R r","sk":"er","en":"er"},{"show":"Ŕ ŕ","sk":"ŕ","en":"long r"},{"show":"S s","sk":"es","en":"es"},{"show":"Š š","sk":"eš","en":"eš"},{"show":"T t","sk":"té","en":"té"},{"show":"Ť ť","sk":"ťé","en":"ťé"}]},
@@ -58,7 +58,7 @@
       "intro": "The accent mark <b>´</b> (called <i>dĺžeň</i>) means <b>hold the vowel about twice as long</b>. It does not mean stress, and the length can change a word's meaning completely.",
       "items": [
         {"id":"s_long","kind":"sound","sk":"á é í ý ó ú","en":"same vowel, held twice as long","examples":[{"sk":"pán","en":"Mr. / sir"},{"sk":"dobrý","en":"good"},{"sk":"dúha","en":"rainbow"},{"sk":"víno","en":"wine"}]},
-        {"id":"s_lenstress","kind":"sound","sk":"length ≠ stress","en":"a long vowel can sit in an unstressed syllable","explain":"In <b>te</b>-le-<i>fón</i> the stress is still on the first syllable, but the last vowel is held long. Get both right and you'll sound very natural.","examples":[{"sk":"telefón","en":"phone"},{"sk":"banán","en":"banana"},{"sk":"ďakujem","en":"thank you"}]}
+        {"id":"s_lenstress","kind":"sound","sk":"length ≠ stress","en":"a long vowel can sit in an unstressed syllable","explain":"In <b>te</b>-le-<i>fón</i> and <b>ka</b>-ma-<i>rát</i> the stress is still on the first syllable, but the last vowel is held long. Get both right and you'll sound very natural.","examples":[{"sk":"telefón","en":"phone"},{"sk":"banán","en":"banana"},{"sk":"kamarát","en":"friend"}]}
       ],
       "pairs": [
         {"a":"pas","b":"pás","ea":"passport","eb":"belt / waist"},
@@ -76,7 +76,7 @@
       "items": [
         {"id":"s_ae","kind":"sound","sk":"ä","en":"officially 'a' as in 'cat', but most people just say 'e'","examples":[{"sk":"päť","en":"five"},{"sk":"mäso","en":"meat"},{"sk":"deväť","en":"nine"}]},
         {"id":"s_uo","kind":"sound","sk":"ô","en":"a quick 'uo' glide, like 'wo' in 'woah'","examples":[{"sk":"kôň","en":"horse"},{"sk":"stôl","en":"table"},{"sk":"môj","en":"my (m)"}]},
-        {"id":"s_ie","kind":"sound","sk":"ia / ie / iu","en":"start with a 'y' sound: 'ya', 'ye', 'yu'","examples":[{"sk":"piatok","en":"Friday"},{"sk":"mlieko","en":"milk"},{"sk":"viem","en":"I know"}]}
+        {"id":"s_ie","kind":"sound","sk":"ia / ie / iu","en":"start with a 'y' sound: 'ya', 'ye' (and the rare 'yu')","examples":[{"sk":"piatok","en":"Friday"},{"sk":"mlieko","en":"milk"},{"sk":"viem","en":"I know"}]}
       ]
     },
     {
