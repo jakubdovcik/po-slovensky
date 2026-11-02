@@ -839,6 +839,216 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "l15",
+      "title": "Ideme do hôr?",
+      "en": "Off to the mountains?",
+      "requires": [
+        "f1",
+        "f2"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Čo robíš v sobotu?",
+          "en": "What are you doing on Saturday?"
+        },
+        {
+          "v": "B",
+          "sk": "Ešte neviem. Prečo?",
+          "en": "I don't know yet. Why?"
+        },
+        {
+          "v": "A",
+          "sk": "Ideme s Ninou do hôr. Pôjdeš s nami?",
+          "en": "Nina and I are going to the mountains. Will you come with us?"
+        },
+        {
+          "v": "B",
+          "sk": "Rada. O koľkej?",
+          "en": "I'd love to. What time?"
+        },
+        {
+          "v": "A",
+          "sk": "O siedmej ráno, pred domom.",
+          "en": "At seven in the morning, in front of the house."
+        },
+        {
+          "v": "B",
+          "sk": "Tak skoro? No dobre, budem tam.",
+          "en": "That early? Oh well, I'll be there."
+        }
+      ],
+      "questions": [
+        {
+          "q": "When is the trip?",
+          "options": [
+            "On Saturday",
+            "On Sunday",
+            "Tomorrow evening"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Who else is going?",
+          "options": [
+            "Nina",
+            "Filip",
+            "Teta Janka"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What time do they meet?",
+          "options": [
+            "At seven in the morning",
+            "At half past seven",
+            "At nine"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l16",
+      "title": "Ako bolo na dovolenke?",
+      "en": "How was the holiday?",
+      "requires": [
+        "f3",
+        "f4"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Ahoj! Už si späť z dovolenky?",
+          "en": "Hi! Back from your holiday already?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, prišli sme včera večer.",
+          "en": "Yes, we got back last night."
+        },
+        {
+          "v": "A",
+          "sk": "Kde ste boli?",
+          "en": "Where were you?"
+        },
+        {
+          "v": "B",
+          "sk": "Pri mori v Chorvátsku. Bolo tam krásne.",
+          "en": "At the seaside in Croatia. It was beautiful."
+        },
+        {
+          "v": "A",
+          "sk": "A ako je v práci?",
+          "en": "And how is work?"
+        },
+        {
+          "v": "B",
+          "sk": "Mám toho veľa. Zajtra mám poradu o ôsmej.",
+          "en": "I've got a lot on. Tomorrow I have a meeting at eight."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where did they go?",
+          "options": [
+            "To the Croatian seaside",
+            "To the Tatras",
+            "To the family cottage"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "When did they come back?",
+          "options": [
+            "Last night",
+            "This morning",
+            "A week ago"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What is tomorrow?",
+          "options": [
+            "A meeting at eight",
+            "A day off",
+            "A night shift"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l17",
+      "title": "Kde sú kľúče?",
+      "en": "Where are the keys?",
+      "requires": [
+        "y1",
+        "y2"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Nevidel si moje kľúče?",
+          "en": "Have you seen my keys?"
+        },
+        {
+          "v": "B",
+          "sk": "Nie. Kde si ich mala naposledy?",
+          "en": "No. Where did you last have them?"
+        },
+        {
+          "v": "A",
+          "sk": "Ráno som ich mala v taške. Teraz tam nie sú.",
+          "en": "This morning I had them in my bag. Now they're not there."
+        },
+        {
+          "v": "B",
+          "sk": "Pozri sa do kabáta.",
+          "en": "Look in your coat."
+        },
+        {
+          "v": "A",
+          "sk": "Tu sú! Ďakujem.",
+          "en": "Here they are! Thanks."
+        },
+        {
+          "v": "B",
+          "sk": "Nemáš za čo. Ponáhľaj sa, meškáš.",
+          "en": "No problem. Hurry up, you're late."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is she looking for?",
+          "options": [
+            "Her keys",
+            "Her phone",
+            "Her bag"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Where were they?",
+          "options": [
+            "In her coat",
+            "In her bag",
+            "On the table"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Why should she hurry?",
+          "options": [
+            "She's late",
+            "The shop is closing",
+            "It's raining"
+          ],
+          "answer": 0
+        }
+      ]
     }
   ],
   "prompts": [
@@ -1044,6 +1254,56 @@
       "en": "How do you get to work?",
       "sample": "Do práce chodím pešo, ale niekedy idem autom.",
       "sampleEn": "I walk to work, but sometimes I go by car."
+    },
+    {
+      "id": "sp21",
+      "requires": [
+        "f1"
+      ],
+      "q": "Čo rada robíš vo voľnom čase?",
+      "en": "What do you like doing in your free time?",
+      "sample": "Rada čítam a v lete chodím na turistiku.",
+      "sampleEn": "I like reading, and in summer I go hiking."
+    },
+    {
+      "id": "sp22",
+      "requires": [
+        "f2"
+      ],
+      "q": "Kedy máš narodeniny?",
+      "en": "When is your birthday?",
+      "sample": "Narodeniny mám v máji.",
+      "sampleEn": "My birthday is in May."
+    },
+    {
+      "id": "sp23",
+      "requires": [
+        "f3"
+      ],
+      "q": "Ako vyzerá tvoj pracovný deň?",
+      "en": "What does your working day look like?",
+      "sample": "Ráno mám poradu, potom pacientov. Končím o piatej.",
+      "sampleEn": "In the morning I have a meeting, then patients. I finish at five."
+    },
+    {
+      "id": "sp24",
+      "requires": [
+        "f4"
+      ],
+      "q": "Kde si bola naposledy na dovolenke?",
+      "en": "Where did you last go on holiday?",
+      "sample": "Naposledy sme boli pri mori. Bolo tam krásne.",
+      "sampleEn": "Last time we were at the seaside. It was beautiful."
+    },
+    {
+      "id": "sp25",
+      "requires": [
+        "y1"
+      ],
+      "q": "Čo urobíš zajtra?",
+      "en": "What will you get done tomorrow?",
+      "sample": "Zajtra napíšem e-maily a cestou kúpim chlieb.",
+      "sampleEn": "Tomorrow I'll write my emails and buy bread on the way."
     }
   ]
 }
