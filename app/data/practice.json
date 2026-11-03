@@ -115,6 +115,75 @@
       ]
     },
     {
+      "id": "l18",
+      "title": "Na fotke",
+      "en": "In the photo",
+      "requires": [
+        "u3"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Kto je to na fotke?",
+          "en": "Who is that in the photo?"
+        },
+        {
+          "v": "B",
+          "sk": "To je moja mama a môj otec.",
+          "en": "That's my mom and my dad."
+        },
+        {
+          "v": "A",
+          "sk": "A toto?",
+          "en": "And this?"
+        },
+        {
+          "v": "B",
+          "sk": "Toto je môj brat. A toto je babka.",
+          "en": "This is my brother. And this is grandma."
+        },
+        {
+          "v": "A",
+          "sk": "Máš aj sestru?",
+          "en": "Do you have a sister too?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, mám. Volá sa Eva.",
+          "en": "Yes, I do. Her name is Eva."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Who is in the photo first?",
+          "options": [
+            "Mom and dad",
+            "Brother and sister",
+            "Grandma and grandpa"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Who else is there?",
+          "options": [
+            "The brother and grandma",
+            "An aunt",
+            "The dog"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What is the sister called?",
+          "options": [
+            "Eva",
+            "Anna",
+            "Nina"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
       "id": "l3",
       "title": "V kaviarni",
       "en": "At the café",
@@ -168,6 +237,75 @@
           "options": [
             "No",
             "Yes"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l19",
+      "title": "Koľko to stojí?",
+      "en": "How much is it?",
+      "requires": [
+        "u6"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Dobrý deň. Koľko stojí káva?",
+          "en": "Hello. How much is a coffee?"
+        },
+        {
+          "v": "B",
+          "sk": "Dve eurá.",
+          "en": "Two euros."
+        },
+        {
+          "v": "A",
+          "sk": "A čaj?",
+          "en": "And tea?"
+        },
+        {
+          "v": "B",
+          "sk": "Jedno euro.",
+          "en": "One euro."
+        },
+        {
+          "v": "A",
+          "sk": "Prosím si kávu a čaj.",
+          "en": "A coffee and a tea, please."
+        },
+        {
+          "v": "B",
+          "sk": "Spolu tri eurá.",
+          "en": "Three euros altogether."
+        }
+      ],
+      "questions": [
+        {
+          "q": "How much is the coffee?",
+          "options": [
+            "Two euros",
+            "One euro",
+            "Three euros"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How much is the tea?",
+          "options": [
+            "One euro",
+            "Two euros",
+            "Ten euros"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What do they pay altogether?",
+          "options": [
+            "Three euros",
+            "Five euros",
+            "Two euros"
           ],
           "answer": 0
         }

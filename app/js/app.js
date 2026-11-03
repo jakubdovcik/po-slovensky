@@ -366,7 +366,7 @@ function unitScreen() {
       <section class="card intro-note"><p>${unit.intro}</p></section>
       ${unitNotes(unit)}
       <button class="btn primary big" data-action="start" data-unit="${unit.id}">${label} ${ICON.arrow}</button>
-      <h3>${unit.stage === 'sounds' ? 'Sounds' : 'Words & phrases'} <span class="muted small">tap to hear</span></h3>
+      <h3>${items[0].kind === 'sound' ? 'Sounds' : 'Words & phrases'} <span class="muted small">tap to hear</span></h3>
       <div class="${items[0].kind === 'sound' ? 'stack' : 'card list'}">${rows}</div>
       ${pairs}
     </main>${tabbar()}`;
@@ -374,9 +374,9 @@ function unitScreen() {
 
 function phrasebook() {
   const q = stripAccents(normalize(view.q || ''));
-  const groups = course.units.filter((u) => u.stage !== 'sounds').map((u) => {
-    const items = u.items.map((i) => course.items[i.id]).filter((it) =>
-      !q || stripAccents(normalize(it.sk)).includes(q) || normalize(it.en).includes(q));
+  const groups = course.units.filter((u) => u.items.some((i) => !i.examples)).map((u) => {
+    const items = u.items.map((i) => course.items[i.id]).filter((it) => it.kind !== 'sound' && (
+      !q || stripAccents(normalize(it.sk)).includes(q) || normalize(it.en).includes(q)));
     if (!items.length) return '';
     return `<h3>${esc(u.title)}</h3><div class="card list">${items.map(itemRow).join('')}</div>`;
   }).join('');
@@ -620,7 +620,7 @@ function settings() {
         ${toggle('showTranslations', 'Show English in story scenes')}
         ${toggle('listenFirst', 'Story: listen first, then tap to see the text')}
         ${toggle('clinicMix', 'Mix clinic phrases into daily lessons')}
-        <p class="muted small">After the Sounds stage, every third new item comes from "In the clinic".</p>
+        <p class="muted small">After the first eight chapters, every third new item comes from "In the clinic".</p>
       </section>
       <section class="card form">
         <label>Daily reminder</label>

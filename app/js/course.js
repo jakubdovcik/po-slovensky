@@ -23,10 +23,11 @@ export function rebuildCourse() {
   const stages = [...base.stages];
   const units = [...base.units];
   if (custom) {
-    const after = stages.findIndex((s) => s.id === 'survival');
-    stages.splice(after + 1, 0, custom.stage);
-    const lastSurvival = units.map((u) => u.stage).lastIndexOf('survival');
-    units.splice(lastSurvival + 1, 0, ...custom.units.map((u) => ({ ...u, stage: custom.stage.id })));
+    // Private units go right after the first steps.
+    const lastFoundation = stages.findLastIndex((s) => s.foundation);
+    stages.splice(lastFoundation + 1, 0, custom.stage);
+    const lastUnit = units.map((u) => stages[lastFoundation].id === u.stage).lastIndexOf(true);
+    units.splice(lastUnit + 1, 0, ...custom.units.map((u) => ({ ...u, stage: custom.stage.id })));
   }
   course.stages = stages;
   course.units = units;
@@ -230,15 +231,14 @@ export function dueIds(t = today()) {
     .map(([id]) => id);
 }
 
-const FOUNDATION = ['sounds', 'survival', 'grammar'];
-
 export function newIds(unitId = null) {
   const unseen = course.order.filter((id) => !state.cards[id] && (!unitId || course.items[id].unit === unitId));
   if (unitId || !state.settings.clinicMix) return unseen;
-  // Clinic track mixed in once the foundation (sounds, survival, grammar basics) is started:
+  // Clinic track mixed in once the first steps (sounds, survival, grammar basics) are started:
   // from then on every third new item is a clinic one.
   const stageOf = (id) => course.items[id].stage;
-  if (unseen.some((id) => FOUNDATION.includes(stageOf(id)))) return unseen;
+  const foundation = new Set(course.stages.filter((s) => s.foundation).map((s) => s.id));
+  if (unseen.some((id) => foundation.has(stageOf(id)))) return unseen;
   const main = unseen.filter((id) => stageOf(id) !== 'clinic');
   const clinic = unseen.filter((id) => stageOf(id) === 'clinic');
   const out = [];

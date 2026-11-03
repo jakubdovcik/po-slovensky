@@ -75,13 +75,10 @@
       "place": "Letisko Bratislava",
       "color": "blue",
       "requires": [
+        "s0",
         "s1",
         "s2",
-        "s3",
-        "s4",
-        "s5",
-        "s6",
-        "s7"
+        "u1"
       ],
       "beats": [
         {
@@ -189,6 +186,7 @@
       "requires": [
         "u1",
         "u2",
+        "u2b",
         "u3"
       ],
       "beats": [

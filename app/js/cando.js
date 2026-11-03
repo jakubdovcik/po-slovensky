@@ -8,6 +8,7 @@ export const CAN_DO = [
   { text: 'I can read any Slovak word out loud', units: ['s0', 's1', 's2', 's3', 's4', 's5', 's6', 's7'] },
   { text: 'I can greet people and be polite', units: ['u1'] },
   { text: 'I can introduce myself', units: ['u2'] },
+  { text: 'I can say when I don\'t understand, and ask for help', units: ['u2b'] },
   { text: 'I can talk about my family', units: ['u3'] },
   { text: 'I can order food and drinks', units: ['u4'] },
   { text: 'I can count and ask what something costs', units: ['u6'] },

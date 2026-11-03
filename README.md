@@ -5,14 +5,15 @@ There's no build step and no dependencies: plain HTML/CSS/JS in `app/`.
 
 ## How it teaches
 
-- **Sounds first** (7 units): Slovak is spelled the way it sounds, so she learns to read any word aloud.
+- **First steps** (8 short chapters): sounds, survival phrases and grammar basics, interleaved so each chapter
+  has a sound or two, one everyday topic, and the grammar that topic needs right after its words (e.g. *byť* after
+  introducing yourself, the accusative after ordering food, gender and *v/na* after things at home).
 - **Ear training**: quick "which did you hear?" drills on contrasts like *pas / pás*, *byt / byť*, *koza / koža*, using multiple voices.
-- **Survival phrases** (9 units, ~140 items): greetings, family, food, love, numbers, time, getting around.
-- **Grammar basics** (8 units): byť, gender agreement, present tense, accusative, past tense, v/na + locative,
-  negation and questions, modal verbs. Each unit opens with a short lesson, then fill-the-gap practice in real sentences.
+- **A gentle ramp**: new items are first recognised, then built from tiles, then said. Recall from nothing,
+  typing, dictation and "Change it" drills are phased in gradually between ~50 and ~400 known items.
 - **In the clinic** (6 units, psychiatry): hospital vocabulary, opening an interview, mood and emotions, sleep and
   appetite, risk assessment, treatment and medication instructions. Mixed into daily lessons by default
-  (every third new item, after the Sounds stage). This can be turned off in Settings.
+  (every third new item, after the first steps). This can be turned off in Settings.
 - **Celebrations** (3 units): holidays and name days, the wedding, toasts and drinking etiquette.
 - **Everyday life** (4 units): weather and seasons, the market, daily routine, phone calls and texts.
 - **Gramatika 2** (6 units): genitive (do/z/bez, amounts), instrumental (s, by car), dative (komu, páči sa mi),
