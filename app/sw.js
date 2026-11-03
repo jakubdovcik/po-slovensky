@@ -1,7 +1,7 @@
 // Offline support. App files: serve from cache, refresh in the background
 // (so updates arrive on the next launch). Audio and fonts: cache forever once fetched.
 
-const SHELL = 'shell-v25';
+const SHELL = 'shell-v26';
 const MEDIA = 'audio-v1';
 const FONTS = 'fonts-v1';
 const FILES = [

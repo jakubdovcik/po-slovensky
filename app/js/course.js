@@ -121,16 +121,18 @@ function distractors(item, field, n = 3) {
 
 // Recognition first, then production as soon as the memory is stable enough:
 // recall beats recognition, so it's used as soon as possible.
-// For her first couple of hundred items she has no Slovak to lean on yet, so practice is
-// recognise → assemble → say, and recall from nothing waits until an item is well known.
-const GENTLE_UNTIL = 200;
-export const gentlePhase = () => Object.keys(state.cards).length < GENTLE_UNTIL;
+// A beginner has no Slovak to lean on yet, so practice starts as recognise → assemble → say,
+// and the harder kinds (recall from nothing, typing, dictation, decoy tiles) are phased in
+// gradually: none at RAMP_FROM items known, the full mix from RAMP_TO on.
+const RAMP_FROM = 50;
+const RAMP_TO = 400;
+export const steepness = () => Math.min(1, Math.max(0, (Object.keys(state.cards).length - RAMP_FROM) / (RAMP_TO - RAMP_FROM)));
 
 export function makeExercise(id, { easy = false, isNew = false, retry = false } = {}) {
   const item = course.items[id];
   const card = state.cards[id];
   const s = card?.s ?? 0;
-  const gentle = gentlePhase();
+  const gentle = Math.random() >= steepness(); // decided per exercise, so the mix shifts smoothly
 
   if (item.kind === 'sound') {
     const example = pick(item.examples);

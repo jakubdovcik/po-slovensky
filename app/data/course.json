@@ -30,7 +30,8 @@
         {"id":"ab_b_h","kind":"sound","sk":"b c č d ď f g h","en":"b to h","examples":[{"show":"B b","sk":"bé","en":"bé"},{"show":"C c","sk":"cé","en":"cé"},{"show":"Č č","sk":"čé","en":"čé"},{"show":"D d","sk":"dé","en":"dé"},{"show":"Ď ď","sk":"ďé","en":"ďé"},{"show":"F f","sk":"ef","en":"ef"},{"show":"G g","sk":"gé","en":"gé"},{"show":"H h","sk":"há","en":"há"}]},
         {"id":"ab_ch_n","kind":"sound","sk":"ch j k l ĺ ľ m n ň","en":"ch to ň (ch is one letter)","examples":[{"show":"Ch ch","sk":"chá","en":"chá"},{"show":"J j","sk":"jé","en":"jé"},{"show":"K k","sk":"ká","en":"ká"},{"show":"L l","sk":"el","en":"el"},{"show":"Ĺ ĺ","sk":"ĺ","en":"ĺ"},{"show":"Ľ ľ","sk":"eľ","en":"eľ"},{"show":"M m","sk":"em","en":"em"},{"show":"N n","sk":"en","en":"en"},{"show":"Ň ň","sk":"eň","en":"eň"}]},
         {"id":"ab_p_t","kind":"sound","sk":"p q r ŕ s š t ť","en":"p to ť","examples":[{"show":"P p","sk":"pé","en":"pé"},{"show":"Q q","sk":"kvé","en":"kvé"},{"show":"R r","sk":"er","en":"er"},{"show":"Ŕ ŕ","sk":"ŕ","en":"ŕ"},{"show":"S s","sk":"es","en":"es"},{"show":"Š š","sk":"eš","en":"eš"},{"show":"T t","sk":"té","en":"té"},{"show":"Ť ť","sk":"ťé","en":"ťé"}]},
-        {"id":"ab_v_z","kind":"sound","sk":"v w x z ž dz dž","en":"v to dž","examples":[{"show":"V v","sk":"vé","en":"vé"},{"show":"W w","sk":"dvojité vé","en":"dvojité vé"},{"show":"X x","sk":"iks","en":"iks"},{"show":"Z z","sk":"zet","en":"zet"},{"show":"Ž ž","sk":"žet","en":"žet"},{"show":"Dz dz","sk":"dzé","en":"dzé"},{"show":"Dž dž","sk":"džé","en":"džé"}]}
+        {"id":"ab_v_z","kind":"sound","sk":"v w x z ž dz dž","en":"v to dž","examples":[{"show":"V v","sk":"vé","en":"vé"},{"show":"W w","sk":"dvojité vé","en":"dvojité vé"},{"show":"X x","sk":"iks","en":"iks"},{"show":"Z z","sk":"zet","en":"zet"},{"show":"Ž ž","sk":"žet","en":"žet"},{"show":"Dz dz","sk":"dzé","en":"dzé"},{"show":"Dž dž","sk":"džé","en":"džé"}]},
+        {"id":"ab_pise","sk":"Ako sa to píše?","en":"How do you spell that?"}
       ]
     },
     {
@@ -189,8 +190,10 @@
         {"id":"p_zopakovat","sk":"Môžete to zopakovať?","en":"Can you repeat that? (formal)"},
         {"id":"p_pomalsie","sk":"Pomalšie, prosím.","en":"Slower, please."},
         {"id":"p_znamena","sk":"Čo to znamená?","en":"What does that mean?"},
+        {"id":"p_akosapovie","sk":"Ako sa to povie po slovensky?","en":"How do you say that in Slovak?"},
         {"id":"p_neviem","sk":"Neviem.","en":"I don't know."},
-        {"id":"p_baltimore","sk":"Bývam v Baltimore.","en":"I live in Baltimore.","pic":"🏙️"}
+        {"id":"p_baltimore","sk":"Bývam v Baltimore.","en":"I live in Baltimore.","pic":"🏙️"},
+        {"id":"p_francuzsky","sk":"Hovorím po anglicky a po francúzsky.","en":"I speak English and French.","pic":"🇫🇷"}
       ]
     },
     {
@@ -217,7 +220,8 @@
         {"id":"w_ujo","sk":"ujo","en":"uncle","g":"m"},
         {"id":"w_pes","sk":"pes","en":"dog","g":"m","pic":"🐕"},
         {"id":"p_mojamama","sk":"Toto je moja mama.","en":"This is my mom.","variants":[{"en":"This is my sister.","sk":"Toto je moja sestra."},{"en":"This is my father.","sk":"Toto je môj otec."}]},
-        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."}
+        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."},
+        {"id":"p_maine","sk":"Moja rodina žije v štáte Maine.","en":"My family lives in Maine.","pic":"🦞"}
       ]
     },
     {
@@ -687,8 +691,7 @@
         {"id":"k1_odkial","sk":"Odkiaľ ho poznáš?","en":"How do you know him?"},
         {"id":"k1_vysoky","sk":"Ten vysoký pri bare.","en":"The tall one by the bar."},
         {"id":"k1_nenapadne","sk":"Pozri sa nenápadne.","en":"Look, but discreetly."},
-        {"id":"k1_neotacaj","sk":"Neotáčaj sa!","en":"Don't turn around!"},
-        {"id":"p_maine","sk":"Moja rodina žije v štáte Maine.","en":"My family lives in Maine.","pic":"🦞"}
+        {"id":"k1_neotacaj","sk":"Neotáčaj sa!","en":"Don't turn around!"}
       ]
     },
     {
@@ -944,12 +947,10 @@
         {"id":"d4_meskam","sk":"Meškám.","en":"I'm running late.","pic":"⏳"},
         {"id":"d4_vidimesa","sk":"Dobre, vidíme sa.","en":"OK, see you."},
         {"id":"d4_papa","sk":"Pa pa!","en":"Bye-bye!","pic":"👋"},
-        {"id":"ab_pise","sk":"Ako sa to píše?","en":"How do you spell that?"},
         {"id":"ab_makkym","sk":"s mäkkým i","en":"with a soft i (i)"},
         {"id":"ab_tvrdym","sk":"s tvrdým y","en":"with a hard y (y)"},
         {"id":"ab_velke","sk":"veľké písmeno","en":"capital letter"},
-        {"id":"ab_hlaskujte","sk":"Môžete to vyhláskovať?","en":"Could you spell it out? (formal)"},
-        {"id":"p_akosapovie","sk":"Ako sa to povie po slovensky?","en":"How do you say that in Slovak?"}
+        {"id":"ab_hlaskujte","sk":"Môžete to vyhláskovať?","en":"Could you spell it out? (formal)"}
       ]
     },
     {
@@ -1156,8 +1157,7 @@
         {"id":"c3_zmeskala","sk":"Zmeškala som vlak.","en":"I missed the train. (woman)"},
         {"id":"c3_dostanem","sk":"Ako sa dostanem na stanicu?","en":"How do I get to the station?"},
         {"id":"c3_daleko","sk":"Je to ďaleko?","en":"Is it far?"},
-        {"id":"c3_blizko","sk":"Je to blízko.","en":"It's close."},
-        {"id":"p_francuzsky","sk":"Hovorím po anglicky a po francúzsky.","en":"I speak English and French.","pic":"🇫🇷"}
+        {"id":"c3_blizko","sk":"Je to blízko.","en":"It's close."}
       ]
     },
     {
