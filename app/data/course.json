@@ -30,12 +30,7 @@
         {"id":"ab_b_h","kind":"sound","sk":"b c č d ď f g h","en":"b to h","examples":[{"show":"B b","sk":"bé","en":"bé"},{"show":"C c","sk":"cé","en":"cé"},{"show":"Č č","sk":"čé","en":"čé"},{"show":"D d","sk":"dé","en":"dé"},{"show":"Ď ď","sk":"ďé","en":"ďé"},{"show":"F f","sk":"ef","en":"ef"},{"show":"G g","sk":"gé","en":"gé"},{"show":"H h","sk":"há","en":"há"}]},
         {"id":"ab_ch_n","kind":"sound","sk":"ch j k l ĺ ľ m n ň","en":"ch to ň (ch is one letter)","examples":[{"show":"Ch ch","sk":"chá","en":"chá"},{"show":"J j","sk":"jé","en":"jé"},{"show":"K k","sk":"ká","en":"ká"},{"show":"L l","sk":"el","en":"el"},{"show":"Ĺ ĺ","sk":"ĺ","en":"ĺ"},{"show":"Ľ ľ","sk":"eľ","en":"eľ"},{"show":"M m","sk":"em","en":"em"},{"show":"N n","sk":"en","en":"en"},{"show":"Ň ň","sk":"eň","en":"eň"}]},
         {"id":"ab_p_t","kind":"sound","sk":"p q r ŕ s š t ť","en":"p to ť","examples":[{"show":"P p","sk":"pé","en":"pé"},{"show":"Q q","sk":"kvé","en":"kvé"},{"show":"R r","sk":"er","en":"er"},{"show":"Ŕ ŕ","sk":"ŕ","en":"ŕ"},{"show":"S s","sk":"es","en":"es"},{"show":"Š š","sk":"eš","en":"eš"},{"show":"T t","sk":"té","en":"té"},{"show":"Ť ť","sk":"ťé","en":"ťé"}]},
-        {"id":"ab_v_z","kind":"sound","sk":"v w x z ž dz dž","en":"v to dž","examples":[{"show":"V v","sk":"vé","en":"vé"},{"show":"W w","sk":"dvojité vé","en":"dvojité vé"},{"show":"X x","sk":"iks","en":"iks"},{"show":"Z z","sk":"zet","en":"zet"},{"show":"Ž ž","sk":"žet","en":"žet"},{"show":"Dz dz","sk":"dzé","en":"dzé"},{"show":"Dž dž","sk":"džé","en":"džé"}]},
-        {"id":"ab_pise","sk":"Ako sa to píše?","en":"How do you spell that?"},
-        {"id":"ab_makkym","sk":"s mäkkým i","en":"with a soft i (i)"},
-        {"id":"ab_tvrdym","sk":"s tvrdým y","en":"with a hard y (y)"},
-        {"id":"ab_velke","sk":"veľké písmeno","en":"capital letter"},
-        {"id":"ab_hlaskujte","sk":"Môžete to vyhláskovať?","en":"Could you spell it out? (formal)"}
+        {"id":"ab_v_z","kind":"sound","sk":"v w x z ž dz dž","en":"v to dž","examples":[{"show":"V v","sk":"vé","en":"vé"},{"show":"W w","sk":"dvojité vé","en":"dvojité vé"},{"show":"X x","sk":"iks","en":"iks"},{"show":"Z z","sk":"zet","en":"zet"},{"show":"Ž ž","sk":"žet","en":"žet"},{"show":"Dz dz","sk":"dzé","en":"dzé"},{"show":"Dž dž","sk":"džé","en":"džé"}]}
       ]
     },
     {
@@ -193,11 +188,9 @@
         {"id":"p_nerozumiem","sk":"Nerozumiem.","en":"I don't understand."},
         {"id":"p_zopakovat","sk":"Môžete to zopakovať?","en":"Can you repeat that? (formal)"},
         {"id":"p_pomalsie","sk":"Pomalšie, prosím.","en":"Slower, please."},
-        {"id":"p_akosapovie","sk":"Ako sa to povie po slovensky?","en":"How do you say that in Slovak?"},
         {"id":"p_znamena","sk":"Čo to znamená?","en":"What does that mean?"},
         {"id":"p_neviem","sk":"Neviem.","en":"I don't know."},
-        {"id":"p_baltimore","sk":"Bývam v Baltimore.","en":"I live in Baltimore.","pic":"🏙️"},
-        {"id":"p_francuzsky","sk":"Hovorím po anglicky a po francúzsky.","en":"I speak English and French.","pic":"🇫🇷"}
+        {"id":"p_baltimore","sk":"Bývam v Baltimore.","en":"I live in Baltimore.","pic":"🏙️"}
       ]
     },
     {
@@ -224,8 +217,7 @@
         {"id":"w_ujo","sk":"ujo","en":"uncle","g":"m"},
         {"id":"w_pes","sk":"pes","en":"dog","g":"m","pic":"🐕"},
         {"id":"p_mojamama","sk":"Toto je moja mama.","en":"This is my mom.","variants":[{"en":"This is my sister.","sk":"Toto je moja sestra."},{"en":"This is my father.","sk":"Toto je môj otec."}]},
-        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."},
-        {"id":"p_maine","sk":"Moja rodina žije v štáte Maine.","en":"My family lives in Maine.","pic":"🦞"}
+        {"id":"p_mojbrat","sk":"Toto je môj brat.","en":"This is my brother."}
       ]
     },
     {
@@ -253,8 +245,7 @@
         {"id":"p_dobruchut","sk":"Dobrú chuť!","en":"Enjoy your meal!","pic":"🍽️"},
         {"id":"p_nazdravie","sk":"Na zdravie!","en":"Cheers! / Bless you!","pic":"🥂"},
         {"id":"p_kavu","sk":"Prosím si kávu.","en":"A coffee, please.","pic":"☕","variants":[{"en":"A soup, please.","sk":"Prosím si polievku."},{"en":"A tea, please.","sk":"Prosím si čaj."}]},
-        {"id":"p_uznie","sk":"Už nie, ďakujem.","en":"No more, thank you.","note":"Essential at a Slovak grandma's table. (It may not work.)"},
-        {"id":"p_restauracie","sk":"Rada skúšam nové reštaurácie.","en":"I love trying new restaurants.","pic":"🍜"}
+        {"id":"p_uznie","sk":"Už nie, ďakujem.","en":"No more, thank you.","note":"Essential at a Slovak grandma's table. (It may not work.)"}
       ]
     },
     {
@@ -479,8 +470,7 @@
         {"id":"g5_varila","sk":"Mama varila obed.","en":"Mom cooked lunch.","blank":"varila","choices":["varil","varila","varili"]},
         {"id":"g5_boli","sk":"Boli sme v Tatrách.","en":"We were in the Tatras.","blank":"Boli","choices":["Bol","Bola","Boli"]},
         {"id":"g5_zabudla","sk":"Zabudla som.","en":"I forgot. (woman)","blank":"Zabudla","choices":["Zabudol","Zabudla","Zabudli"]},
-        {"id":"g5_jedli","sk":"Jedli ste už?","en":"Have you eaten yet? (formal)","blank":"Jedli","choices":["Jedol","Jedla","Jedli"],"note":"jesť (to eat) is irregular: jedol, jedla, jedli."},
-        {"id":"g5_studovala","sk":"Študovala som neurovedy a francúzštinu.","en":"I studied neuroscience and French. (woman)","blank":"Študovala","choices":["Študoval","Študovala","Študovali"],"pic":"🧠"}
+        {"id":"g5_jedli","sk":"Jedli ste už?","en":"Have you eaten yet? (formal)","blank":"Jedli","choices":["Jedol","Jedla","Jedli"],"note":"jesť (to eat) is irregular: jedol, jedla, jedli."}
       ]
     },
     {
@@ -565,7 +555,8 @@
         {"id":"m1_nechsapaci","sk":"Pani Nováková, nech sa páči.","en":"Mrs. Nováková, please come in.","note":"Nech sa páči: \"please, go ahead / come in / here you are\"."},
         {"id":"m1_posadte","sk":"Posaďte sa, prosím.","en":"Please sit down.","pic":"🪑"},
         {"id":"m1_ucim","sk":"Učím študentov medicíny.","en":"I teach medical students.","pic":"👩‍🏫"},
-        {"id":"m1_forenzna","sk":"Zaujíma ma forenzná psychiatria.","en":"I'm interested in forensic psychiatry.","pic":"⚖️"}
+        {"id":"m1_forenzna","sk":"Zaujíma ma forenzná psychiatria.","en":"I'm interested in forensic psychiatry.","pic":"⚖️"},
+        {"id":"g5_studovala","sk":"Študovala som neurovedy a francúzštinu.","en":"I studied neuroscience and French. (woman)","blank":"Študovala","choices":["Študoval","Študovala","Študovali"],"pic":"🧠"}
       ]
     },
     {
@@ -696,7 +687,8 @@
         {"id":"k1_odkial","sk":"Odkiaľ ho poznáš?","en":"How do you know him?"},
         {"id":"k1_vysoky","sk":"Ten vysoký pri bare.","en":"The tall one by the bar."},
         {"id":"k1_nenapadne","sk":"Pozri sa nenápadne.","en":"Look, but discreetly."},
-        {"id":"k1_neotacaj","sk":"Neotáčaj sa!","en":"Don't turn around!"}
+        {"id":"k1_neotacaj","sk":"Neotáčaj sa!","en":"Don't turn around!"},
+        {"id":"p_maine","sk":"Moja rodina žije v štáte Maine.","en":"My family lives in Maine.","pic":"🦞"}
       ]
     },
     {
@@ -937,8 +929,8 @@
     {
       "id": "d4",
       "stage": "everyday",
-      "title": "Telefón · Calls & texts",
-      "intro": "Slovaks answer the phone with <b>Haló?</b> or just <b>Prosím?</b> and hang up with a quick <b>Pa pa!</b> (bye-bye). <i>Napíš mi</i> means \"write to me\", which these days means \"text me\".",
+      "title": "Telefón · Calls, texts & spelling",
+      "intro": "Slovaks answer the phone with <b>Haló?</b> or just <b>Prosím?</b> and hang up with a quick <b>Pa pa!</b> (bye-bye). <i>Napíš mi</i> means \"write to me\", which these days means \"text me\". On the phone you'll also need to spell things: letters are said the way you learned in the alphabet lesson, and because i and y sound the same, Slovaks say <i>mäkké i</i> (soft i) or <i>tvrdé y</i> (hard y).",
       "items": [
         {"id":"d4_halo","sk":"Haló?","en":"Hello? (on the phone)","pic":"📞"},
         {"id":"d4_ktovola","sk":"Kto volá?","en":"Who's calling?"},
@@ -951,7 +943,13 @@
         {"id":"d4_desat","sk":"Budem tam o desať minút.","en":"I'll be there in ten minutes."},
         {"id":"d4_meskam","sk":"Meškám.","en":"I'm running late.","pic":"⏳"},
         {"id":"d4_vidimesa","sk":"Dobre, vidíme sa.","en":"OK, see you."},
-        {"id":"d4_papa","sk":"Pa pa!","en":"Bye-bye!","pic":"👋"}
+        {"id":"d4_papa","sk":"Pa pa!","en":"Bye-bye!","pic":"👋"},
+        {"id":"ab_pise","sk":"Ako sa to píše?","en":"How do you spell that?"},
+        {"id":"ab_makkym","sk":"s mäkkým i","en":"with a soft i (i)"},
+        {"id":"ab_tvrdym","sk":"s tvrdým y","en":"with a hard y (y)"},
+        {"id":"ab_velke","sk":"veľké písmeno","en":"capital letter"},
+        {"id":"ab_hlaskujte","sk":"Môžete to vyhláskovať?","en":"Could you spell it out? (formal)"},
+        {"id":"p_akosapovie","sk":"Ako sa to povie po slovensky?","en":"How do you say that in Slovak?"}
       ]
     },
     {
@@ -1158,7 +1156,8 @@
         {"id":"c3_zmeskala","sk":"Zmeškala som vlak.","en":"I missed the train. (woman)"},
         {"id":"c3_dostanem","sk":"Ako sa dostanem na stanicu?","en":"How do I get to the station?"},
         {"id":"c3_daleko","sk":"Je to ďaleko?","en":"Is it far?"},
-        {"id":"c3_blizko","sk":"Je to blízko.","en":"It's close."}
+        {"id":"c3_blizko","sk":"Je to blízko.","en":"It's close."},
+        {"id":"p_francuzsky","sk":"Hovorím po anglicky a po francúzsky.","en":"I speak English and French.","pic":"🇫🇷"}
       ]
     },
     {
@@ -1315,7 +1314,8 @@
         {"id":"e2_zaplatit","sk":"Môžeme zaplatiť?","en":"Can we pay?","pic":"🧾"},
         {"id":"e2_spolu","sk":"Spolu alebo zvlášť?","en":"Together or separately?"},
         {"id":"e2_zvlast","sk":"Zvlášť, prosím.","en":"Separately, please."},
-        {"id":"e2_ztoho","sk":"Dajte mi z toho tridsať.","en":"Make it thirty. (paying, with a tip)","pic":"💶"}
+        {"id":"e2_ztoho","sk":"Dajte mi z toho tridsať.","en":"Make it thirty. (paying, with a tip)","pic":"💶"},
+        {"id":"p_restauracie","sk":"Rada skúšam nové reštaurácie.","en":"I love trying new restaurants.","pic":"🍜"}
       ]
     },
     {

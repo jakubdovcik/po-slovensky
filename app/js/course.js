@@ -121,14 +121,20 @@ function distractors(item, field, n = 3) {
 
 // Recognition first, then production as soon as the memory is stable enough:
 // recall beats recognition, so it's used as soon as possible.
+// For her first couple of hundred items she has no Slovak to lean on yet, so practice is
+// recognise → assemble → say, and recall from nothing waits until an item is well known.
+const GENTLE_UNTIL = 200;
+export const gentlePhase = () => Object.keys(state.cards).length < GENTLE_UNTIL;
+
 export function makeExercise(id, { easy = false, isNew = false, retry = false } = {}) {
   const item = course.items[id];
   const card = state.cards[id];
   const s = card?.s ?? 0;
+  const gentle = gentlePhase();
 
   if (item.kind === 'sound') {
     const example = pick(item.examples);
-    if (!easy && !isNew && s >= 5 && !example.show) return { type: 'dictation', item, target: example.sk, targetEn: example.en };
+    if (!gentle && !easy && !isNew && s >= 5 && !example.show) return { type: 'dictation', item, target: example.sk, targetEn: example.en };
     // The right answer is always among the options: pick it first, then add three others
     // (from the same group first, then the rest of the unit), never cutting it out.
     const sameGroup = shuffle(item.examples.filter((e) => e.sk !== example.sk));
@@ -146,23 +152,23 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
   let type;
 
   // Mistake retries ask for recall again (say it or type it), now that the right answer was just shown.
-  if (retry) return { type: 'say', item, retry: true };
+  if (retry && !gentle) return { type: 'say', item, retry: true };
 
   // "Change it": once a sentence is known, ask for a variation of it (new word, new ending).
-  if (item.variants?.length && !isNew && !easy && s >= 3 && Math.random() < 0.35) {
+  if (item.variants?.length && !gentle && !isNew && !easy && s >= 3 && Math.random() < 0.35) {
     return { type: 'vary', item, variant: pick(item.variants) };
   }
 
   if (item.blank) {
     // Grammar items: fill-the-gap trains the pattern; then produce the whole sentence.
-    if (isNew || easy) type = 'cloze';
+    if (isNew || easy || (gentle && s < 6)) type = 'cloze';
     else if (s < 2) type = pick(['cloze', 'cloze', 'say']);
     else if (s < 6) type = pick(['cloze', 'say', words >= 3 ? 'build' : 'type']);
     else type = pick(['say', 'say', 'type', 'cloze']);
     if (type === 'cloze') return { type, item, options: shuffle(item.choices) };
     if (type === 'say') return { type, item };
   }
-  if (item.pic && !easy && !isNew && s < 6 && Math.random() < 0.25) {
+  if (item.pic && !easy && !isNew && !retry && s < 6 && Math.random() < 0.25) {
     // Picture → word: pairing a word with an image helps it stick.
     const ds = shuffle(course.order.map((id) => course.items[id])
       .filter((o) => o.pic && o.id !== item.id && o.pic !== item.pic && o.sk !== item.sk && o.kind === item.kind))
@@ -172,6 +178,10 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
   // Recognition only at first exposure; after that mostly production (say it, type it, build it).
   if (isNew) type = item.pic && Math.random() < 0.5 ? 'pic_new' : 'listen_choose';
   else if (easy) type = 'read_choose';
+  else if (gentle && retry) type = words >= 2 ? 'build' : 'read_choose';
+  else if (gentle && s < 2) type = pick(words >= 2 ? ['read_choose', 'listen_choose', 'build'] : ['read_choose', 'listen_choose']);
+  else if (gentle && s < 6) type = pick(words >= 2 ? ['build', 'build', 'listen_choose', 'say'] : ['say', 'read_choose', 'listen_choose']);
+  else if (gentle) type = words <= 2 ? pick(['say', 'type']) : pick(['say', 'build', 'type']);
   else if (s < 2) type = pick(['say', 'say', 'read_choose', 'listen_choose']);
   else if (s < 6) type = words >= 3 ? pick(['say', 'say', 'build', 'type']) : pick(['say', 'type', 'type', 'dictation']);
   else type = words <= 4 ? pick(['say', 'type', 'dictation']) : pick(['say', 'say', 'type', 'build']);
@@ -196,7 +206,7 @@ export function makeExercise(id, { easy = false, isNew = false, retry = false } 
   if (type === 'build') {
     const own = tokens(item.sk);
     const extra = shuffle(distractors(item, 'sk', 4).flatMap((o) => tokens(o.sk)))
-      .filter((t) => !own.some((w) => normalize(w) === normalize(t))).slice(0, 2);
+      .filter((t) => !own.some((w) => normalize(w) === normalize(t))).slice(0, gentle ? 0 : 2);
     return { type, item, bank: shuffle([...own, ...extra]).map((t, i) => ({ t, i })), chosen: [] };
   }
   return { type, item, target: item.sk, targets: [item.sk, ...(item.alt || [])] };
@@ -218,12 +228,15 @@ export function dueIds(t = today()) {
     .map(([id]) => id);
 }
 
+const FOUNDATION = ['sounds', 'survival', 'grammar'];
+
 export function newIds(unitId = null) {
   const unseen = course.order.filter((id) => !state.cards[id] && (!unitId || course.items[id].unit === unitId));
   if (unitId || !state.settings.clinicMix) return unseen;
-  // Clinic track mixed in: after the sounds stage, every third new item is a clinic one.
+  // Clinic track mixed in once the foundation (sounds, survival, grammar basics) is started:
+  // from then on every third new item is a clinic one.
   const stageOf = (id) => course.items[id].stage;
-  if (unseen.some((id) => stageOf(id) === 'sounds')) return unseen;
+  if (unseen.some((id) => FOUNDATION.includes(stageOf(id)))) return unseen;
   const main = unseen.filter((id) => stageOf(id) !== 'clinic');
   const clinic = unseen.filter((id) => stageOf(id) === 'clinic');
   const out = [];
