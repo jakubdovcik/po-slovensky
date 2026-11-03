@@ -938,7 +938,7 @@ function exerciseBody() {
         ${optionButtons(['a', 'b'], (k) => ex.pair[k], (k) => k, 'sk')}
         <div class="pair-hints muted small"><span>${esc(ex.pair.a)} = ${esc(ex.pair.ea)}</span><span>${esc(ex.pair.b)} = ${esc(ex.pair.eb)}</span></div>`;
     case 'sound_pick':
-      return `<div class="label">Listen: which word is it?</div><div class="muted center">Practising <b lang="sk">${esc(it.sk)}</b></div>${listenBlock()}
+      return `<div class="label">Listen: which ${ex.options[0]?.show ? "letter" : "word"} is it?</div><div class="muted center">Practising <b lang="sk">${esc(it.sk)}</b></div>${listenBlock()}
         ${optionButtons(ex.options, (o) => o.show || o.sk, (o) => o.sk, 'sk')}`;
     case 'listen_choose':
       return `<div class="label">What does this mean?</div>${listenBlock()}

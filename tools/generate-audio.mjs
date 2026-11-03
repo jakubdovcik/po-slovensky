@@ -30,7 +30,11 @@ function fnv1a(str) {
   return h.toString(16).padStart(8, '0');
 }
 
-const xmlEscape = (s) => s.replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[c]));
+// What the voice actually says for a text. Azure reads a lone "y" as its name, "ypsilon";
+// in spelling talk ("s tvrdým y") Slovaks just say the sound, which is the same as i.
+const spoken = (text) => text.replace(/(^|\s)y(?=$|[\s.,!?])/g, '$1i');
+
+const xmlEscape =(s) => s.replace(/[<>&'"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[c]));
 const exists = (p) => access(p).then(() => true, () => false);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -104,9 +108,9 @@ const todo = [];
 for (const v of voiceKeys) {
   manifest.voices[v] = VOICES[v];
   for (const text of texts) {
-    const rel = `${v}/${fnv1a(text)}.mp3`;
+    const rel = `${v}/${fnv1a(spoken(text))}.mp3`;
     (manifest.files[text] ||= {})[v] = rel;
-    if (!(await exists(join(ROOT, 'audio', rel)))) todo.push({ text, v, rel });
+    if (!(await exists(join(ROOT, 'audio', rel))) && !todo.some((t) => t.rel === rel)) todo.push({ text: spoken(text), v, rel });
   }
 }
 const chars = todo.reduce((n, t) => n + t.text.length, 0);
