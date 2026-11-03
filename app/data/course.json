@@ -19,6 +19,8 @@
     {"id":"life","title":"Bežný život · Everyday life 2","subtitle":"Cooking, restaurants, traffic, errands"},
     {"id":"leisure","title":"Voľný čas · Free time & work","subtitle":"Hobbies, the clock, work, holidays"},
     {"id":"grammar4","title":"Gramatika 4 · A2 core","subtitle":"Doing vs done, him and her, whose, which"},
+    {"id":"stories","title":"Príbehy · Stories & invitations","subtitle":"Childhood, nature, invitations, tech trouble"},
+    {"id":"grammar5","title":"Gramatika 5 · Telling it well","subtitle":"How much, first and then, nobody and never, polite requests"},
     {"id":"culture","title":"Kultúra · Slovak culture","subtitle":"Food, folk traditions, places, Slovakia today"},
     {"id":"history","title":"História · Slovak history","subtitle":"From Great Moravia to independence"}
   ],
@@ -1590,6 +1592,182 @@
         {"id":"y4_kde","sk":"Neviem, kde býva.","en":"I don't know where he lives.","pic":"🤷"},
         {"id":"y4_kedy","sk":"Pamätáš si, kedy sme sa stretli?","en":"Do you remember when we met?","pic":"💑"},
         {"id":"y4_preco","sk":"Nerozumiem, prečo to urobil.","en":"I don't understand why he did it.","pic":"❓"}
+      ]
+    },
+    {
+      "id": "a1",
+      "stage": "stories",
+      "title": "Detstvo · Childhood",
+      "intro": "A2 means you can talk about your past: where you grew up, what you used to do. Slovaks love asking <i>Kde si vyrastala?</i>",
+      "logic": "Habits in the past use the ongoing verb: <i>Každé leto <b>sme chodili</b> k babke</i>, \"every summer we used to go to granny's\". Slovak has no separate \"used to\": the ongoing verb does that job.",
+      "fr": "That's the French <i>imparfait</i>: <i>chodili sme</i> = <i>nous allions</i>. And <i>keď som bola malá</i> = <i>quand j'étais petite</i>.",
+      "items": [
+        {"id":"a1_detstvo","sk":"detstvo","en":"childhood","g":"n","pic":"👶"},
+        {"id":"a1_hracka","sk":"hračka","en":"toy","g":"f","pic":"🧸"},
+        {"id":"a1_dedina","sk":"dedina","en":"village","g":"f","pic":"🏘️"},
+        {"id":"a1_ucitelka","sk":"učiteľka","en":"teacher (woman)","g":"f","pic":"👩‍🏫","note":"A man teacher is <i>učiteľ</i>."},
+        {"id":"a1_vyrastala","sk":"Kde si vyrastala?","en":"Where did you grow up? (to a woman)","pic":"🏡"},
+        {"id":"a1_pri_mori","sk":"Vyrastala som pri mori.","en":"I grew up by the sea. (she says)","pic":"🌊"},
+        {"id":"a1_mala","sk":"Keď som bola malá, mala som psa.","en":"When I was little, I had a dog. (she says)","pic":"🐕"},
+        {"id":"a1_chodili","sk":"Každé leto sme chodili k babke.","en":"Every summer we used to go to granny's.","pic":"☀️"},
+        {"id":"a1_hrali","sk":"Hrali sme sa vonku.","en":"We played outside.","pic":"⚽","note":"<i>hrať sa</i> is playing as children do; <i>hrať</i> is playing a game or an instrument."},
+        {"id":"a1_pesko","sk":"Do školy som chodila pešo.","en":"I walked to school. (she says)","pic":"🎒"},
+        {"id":"a1_kamaratka","sk":"Moja najlepšia kamarátka bývala vedľa.","en":"My best friend lived next door.","pic":"👭"},
+        {"id":"a1_tma","sk":"Bála som sa tmy.","en":"I was afraid of the dark. (she says)","pic":"🌑","note":"Fear takes the \"of\" form: <i>tma → bojím sa tmy</i>."},
+        {"id":"a1_spominam","sk":"Rada na to spomínam.","en":"I have fond memories of it. (she says)","pic":"💭"}
+      ]
+    },
+    {
+      "id": "a2",
+      "stage": "stories",
+      "title": "Príroda · Nature & animals",
+      "intro": "About two-fifths of Slovakia is forest. A free weekend often means <i>ísť do prírody</i>, \"going out into nature\".",
+      "logic": "Baby animals get a cute ending, <i>-iatko</i> or <i>-ätko</i>, and are always neuter: <i>mačka → mačiatko</i>, <i>pes → šteniatko</i>, <i>kôň → žriebätko</i>.",
+      "fr": "<i>príroda</i> = <i>la nature</i>, and <i>ísť do prírody</i> ≈ <i>partir au vert</i>.",
+      "items": [
+        {"id":"a2_priroda","sk":"príroda","en":"nature","g":"f","pic":"🌳"},
+        {"id":"a2_jazero","sk":"jazero","en":"lake","g":"n","pic":"🏞️"},
+        {"id":"a2_strom","sk":"strom","en":"tree","g":"m","pic":"🌲"},
+        {"id":"a2_kvet","sk":"kvet","en":"flower","g":"m","pic":"🌼"},
+        {"id":"a2_macka","sk":"mačka","en":"cat","g":"f","pic":"🐈"},
+        {"id":"a2_maciatko","sk":"mačiatko","en":"kitten","g":"n","pic":"🐱"},
+        {"id":"a2_vtak","sk":"vták","en":"bird","g":"m","pic":"🐦"},
+        {"id":"a2_medved","sk":"medveď","en":"bear","g":"m","pic":"🐻","note":"Slovakia has over a thousand brown bears; in the mountains you'll see warning signs."},
+        {"id":"a2_ideme","sk":"Ideme do prírody.","en":"We're going out into nature.","pic":"🥾"},
+        {"id":"a2_les","sk":"Prechádzali sme sa v lese.","en":"We went for a walk in the forest.","pic":"🌲"},
+        {"id":"a2_srnka","sk":"Pozri, srnka!","en":"Look, a deer!","pic":"🦌"},
+        {"id":"a2_nehryzie","sk":"Neboj sa, nehryzie.","en":"Don't worry, it doesn't bite.","pic":"🐕"},
+        {"id":"a2_ticho","sk":"Je tu krásne ticho.","en":"It's lovely and quiet here.","pic":"🤫"}
+      ]
+    },
+    {
+      "id": "a3",
+      "stage": "stories",
+      "title": "Pozvánky · Invitations & messages",
+      "intro": "Inviting, accepting, saying no nicely, and signing off a card or a message.",
+      "logic": "Invite with <i>pozývam ťa na</i> + the \"thing you want\" form: <i>na kávu, na večeru, na oslavu</i>. To say no nicely: <i>Žiaľ, nemôžem</i>, then a reason with <i>lebo</i>.",
+      "fr": "<i>S pozdravom</i> = <i>Cordialement</i>, <i>Drahá teta</i> = <i>Chère tante</i>, and <i>Bozkávam</i> = <i>Bisous</i>.",
+      "items": [
+        {"id":"a3_pozyvam","sk":"Pozývam ťa na kávu.","en":"Let me take you out for a coffee.","pic":"☕","variants":[{"en":"I'm inviting you to dinner.","sk":"Pozývam ťa na večeru."},{"en":"I'm inviting you to a party.","sk":"Pozývam ťa na oslavu."}]},
+        {"id":"a3_prides","sk":"Prídeš v sobotu?","en":"Will you come on Saturday?","pic":"📅"},
+        {"id":"a3_rada","sk":"Rada prídem.","en":"I'd love to come. (she says)","pic":"😊"},
+        {"id":"a3_zial","sk":"Žiaľ, nemôžem.","en":"Unfortunately, I can't.","pic":"😔"},
+        {"id":"a3_pozvanie","sk":"Ďakujem za pozvanie.","en":"Thank you for the invitation.","pic":"💌"},
+        {"id":"a3_hodi_sa","sk":"Kedy sa ti to hodí?","en":"When suits you?","pic":"🗓️"},
+        {"id":"a3_hodi","sk":"To sa mi hodí.","en":"That works for me.","pic":"👍"},
+        {"id":"a3_doniest","sk":"Mám niečo doniesť?","en":"Should I bring something?","pic":"🍰"},
+        {"id":"a3_uvidime","sk":"Uvidíme sa v sobotu.","en":"See you on Saturday.","pic":"👋"},
+        {"id":"a3_ozvi","sk":"Ozvi sa.","en":"Let me know. / Get in touch.","pic":"📱"},
+        {"id":"a3_draha","sk":"Drahá teta Janka","en":"Dear Aunt Janka (starting a card)","pic":"✉️"},
+        {"id":"a3_pozdrav","sk":"S pozdravom","en":"Kind regards","pic":"🖋️","note":"For colleagues and strangers. Family gets <i>Bozkávam</i>."},
+        {"id":"a3_bozkavam","sk":"Bozkávam","en":"Kisses (signing off to family)","pic":"😘"}
+      ]
+    },
+    {
+      "id": "a4",
+      "stage": "stories",
+      "title": "Technika · Tech trouble",
+      "intro": "Phones, wifi, and things that stop working: everyday tech talk.",
+      "logic": "<i>Pokazil sa mi telefón</i>: in Slovak the phone \"broke itself\", and <i>mi</i> says who it happened to. Same pattern: <i>vybila sa mi baterka</i>, my battery died on me.",
+      "fr": "<i>Nefunguje to</i> = <i>ça ne marche pas</i>. And the <i>mi</i> is the French <i>me</i> in <i>mon téléphone m'a lâché</i>.",
+      "items": [
+        {"id":"a4_heslo","sk":"heslo","en":"password","g":"n","pic":"🔐"},
+        {"id":"a4_nabijacka","sk":"nabíjačka","en":"charger","g":"f","pic":"🔌"},
+        {"id":"a4_wifi","sk":"Aké je heslo na wifi?","en":"What's the wifi password?","pic":"📶"},
+        {"id":"a4_nefunguje","sk":"Nefunguje to.","en":"It doesn't work.","pic":"❌"},
+        {"id":"a4_baterka","sk":"Vybila sa mi baterka.","en":"My battery died.","pic":"🪫"},
+        {"id":"a4_pokazil","sk":"Pokazil sa mi telefón.","en":"My phone broke.","pic":"📱"},
+        {"id":"a4_restart","sk":"Skús to reštartovať.","en":"Try restarting it.","pic":"🔄"},
+        {"id":"a4_stiahni","sk":"Stiahni si tú aplikáciu.","en":"Download that app.","pic":"⬇️"},
+        {"id":"a4_posli","sk":"Pošli mi tú fotku.","en":"Send me that photo.","pic":"📸"},
+        {"id":"a4_sprava","sk":"Nevidím tvoju správu.","en":"I can't see your message.","pic":"💬"},
+        {"id":"a4_zamrzol","sk":"Počítač zamrzol.","en":"The computer froze.","pic":"🥶"},
+        {"id":"a4_spojenie","sk":"Máme zlé spojenie.","en":"We've got a bad connection.","pic":"📡"}
+      ]
+    },
+    {
+      "id": "z1",
+      "stage": "grammar5",
+      "title": "Koľko? · How much, how many",
+      "intro": "After amounts, Slovak switches to the \"of\" form: a bottle <i>of wine</i>, a lot <i>of people</i>.",
+      "logic": "After <i>veľa, málo, trochu, kilo, fľaša</i> the noun takes the \"of\" form: <i>fľaša <b>vína</b></i>, <i>trochu <b>cukru</b></i>. Numbers: 2–4 keep the normal plural (<i>tri deti</i>), from 5 up it's the \"of\" form (<i>päť <b>detí</b></i>, <i>desať <b>eur</b></i>). In the plural it often just loses its ending: <i>žena → päť žien</i>.",
+      "fr": "It's the French <i>de</i> after quantities: <i>beaucoup de gens</i> = <i>veľa ľudí</i>, <i>une bouteille de vin</i> = <i>fľaša vína</i>. Slovak puts the \"of\" into the ending.",
+      "items": [
+        {"id":"z1_flasa","sk":"fľaša vína","en":"a bottle of wine","pic":"🍷"},
+        {"id":"z1_salka","sk":"šálka kávy","en":"a cup of coffee","pic":"☕"},
+        {"id":"z1_pohar","sk":"pohár vody","en":"a glass of water","pic":"🥛"},
+        {"id":"z1_trochu","sk":"trochu cukru","en":"a little sugar","pic":"🍬"},
+        {"id":"z1_vela","sk":"Bolo tam veľa ľudí.","en":"There were a lot of people there.","pic":"👥"},
+        {"id":"z1_malo","sk":"Mám málo času.","en":"I don't have much time.","pic":"⏳"},
+        {"id":"z1_eur","sk":"Stojí to desať eur.","en":"It costs ten euros.","pic":"💶","blank":"eur","choices":["eurá","eur","euro"]},
+        {"id":"z1_tri","sk":"Majú tri deti.","en":"They have three children.","pic":"👧"},
+        {"id":"z1_pat","sk":"Majú päť detí.","en":"They have five children.","pic":"👨‍👩‍👧‍👦","blank":"detí","choices":["deti","detí","dieťa"]},
+        {"id":"z1_kolko","sk":"Koľko ľudí príde?","en":"How many people are coming?","pic":"❓"},
+        {"id":"z1_ziadne","sk":"Nemám žiadne peniaze.","en":"I don't have any money.","pic":"💸"},
+        {"id":"z1_kusok","sk":"Daj si kúsok koláča.","en":"Have a piece of cake.","pic":"🍰"}
+      ]
+    },
+    {
+      "id": "z2",
+      "stage": "grammar5",
+      "title": "Najprv, potom · Telling a story",
+      "intro": "Small words that turn separate sentences into a story.",
+      "logic": "Put the sequence word first; the little words <i>sme</i>, <i>som</i>, <i>sa</i> still come second: <i>Najprv <b>sme</b> išli na obed. Potom <b>sme sa</b> prechádzali.</i>",
+      "fr": "<i>najprv</i> = <i>d'abord</i>, <i>potom</i> = <i>ensuite</i>, <i>nakoniec</i> = <i>finalement</i>, <i>zrazu</i> = <i>tout à coup</i>, <i>kým</i> = <i>pendant que</i>.",
+      "items": [
+        {"id":"z2_najprv","sk":"najprv","en":"first (of all)","pic":"1️⃣"},
+        {"id":"z2_potom","sk":"potom","en":"then / afterwards","pic":"➡️"},
+        {"id":"z2_nakoniec","sk":"nakoniec","en":"in the end","pic":"🏁"},
+        {"id":"z2_zrazu","sk":"zrazu","en":"suddenly","pic":"⚡"},
+        {"id":"z2_obed","sk":"Najprv sme išli na obed.","en":"First we went for lunch.","pic":"🍽️"},
+        {"id":"z2_prechadzali","sk":"Potom sme sa prechádzali.","en":"Then we went for a walk.","pic":"🚶"},
+        {"id":"z2_prsat","sk":"Zrazu začalo pršať.","en":"Suddenly it started to rain.","pic":"🌧️"},
+        {"id":"z2_taxik","sk":"Nakoniec sme išli domov taxíkom.","en":"In the end we took a taxi home.","pic":"🚕"},
+        {"id":"z2_kym","sk":"Kým som varila, Jakub upratoval.","en":"While I was cooking, Jakub was tidying up.","pic":"🧹"},
+        {"id":"z2_pocas","sk":"Počas dovolenky som veľa čítala.","en":"During the holiday I read a lot. (she says)","pic":"📖"},
+        {"id":"z2_odvtedy","sk":"Odvtedy sa poznáme.","en":"We've known each other since then.","pic":"💑"}
+      ]
+    },
+    {
+      "id": "z3",
+      "stage": "grammar5",
+      "title": "Nikto, nič, nikdy · Nobody, nothing, never",
+      "intro": "The some- and no- words: <i>niekto / nikto</i>, <i>niečo / nič</i>, <i>niekde / nikde</i>, <i>niekedy / nikdy</i>.",
+      "logic": "Slovak doubles the negative, and it's correct: <i><b>Nikto nič ne</b>vie</i>, \"nobody knows anything\", literally \"nobody nothing doesn't know\". Every <i>ni-</i> word needs <i>ne-</i> on the verb.",
+      "fr": "Like French <i>ne… personne</i>, <i>ne… rien</i>, <i>ne… jamais</i>, but Slovak can stack as many as it likes: <i>Nikdy nikomu nič nehovorím.</i>",
+      "items": [
+        {"id":"z3_niekto","sk":"Je tu niekto?","en":"Is anybody here?","pic":"🙋"},
+        {"id":"z3_nikto","sk":"Nikto tu nie je.","en":"Nobody's here.","pic":"🪑"},
+        {"id":"z3_nevie","sk":"Nikto nič nevie.","en":"Nobody knows anything.","pic":"🤷"},
+        {"id":"z3_nestalo","sk":"Nič sa nestalo.","en":"No harm done. / It's fine.","pic":"👌","note":"The kind reply when someone apologises to you."},
+        {"id":"z3_nikdy","sk":"Nikdy som tam nebola.","en":"I've never been there. (she says)","pic":"🗺️","blank":"nebola","choices":["bola","nebola"]},
+        {"id":"z3_niekedy","sk":"Niekedy varím ja.","en":"Sometimes I'm the one who cooks.","pic":"🍳"},
+        {"id":"z3_nikde","sk":"Nikde ho nevidím.","en":"I can't see it anywhere.","pic":"🔍"},
+        {"id":"z3_niekde","sk":"Niekde som to už počula.","en":"I've heard that somewhere before. (she says)","pic":"👂"},
+        {"id":"z3_ani","sk":"Ani ja nie.","en":"Me neither.","pic":"🙅"},
+        {"id":"z3_este","sk":"Ešte nie.","en":"Not yet.","pic":"⏳"},
+        {"id":"z3_nikomu","sk":"Nikomu to nehovor!","en":"Don't tell anyone!","pic":"🤫"}
+      ]
+    },
+    {
+      "id": "z4",
+      "stage": "grammar5",
+      "title": "Prosím vás · Polite instructions",
+      "intro": "Instructions for strangers, patients, and anyone you call <i>vy</i>.",
+      "logic": "Take the <i>ty</i> command and add <b>-te</b>: <i>počkaj → počkaj<b>te</b></i>, <i>povedz → povedz<b>te</b></i>, <i>sadni si → sadni<b>te</b> si</i>. For \"don't\", put <i>ne-</i> in front: <i><b>ne</b>bojte sa</i>.",
+      "fr": "Just like <i>attends → attendez</i>: <i>počkaj → počkajte</i>. Even the ending sounds alike.",
+      "items": [
+        {"id":"z4_pockajte","sk":"Počkajte chvíľu, prosím.","en":"Wait a moment, please.","pic":"⏳"},
+        {"id":"z4_povedzte","sk":"Povedzte mi viac.","en":"Tell me more.","pic":"🗣️"},
+        {"id":"z4_ukazte","sk":"Ukážte mi, kde to bolí.","en":"Show me where it hurts.","pic":"👉"},
+        {"id":"z4_nebojte","sk":"Nebojte sa.","en":"Don't worry. / Don't be afraid.","pic":"🤗"},
+        {"id":"z4_nezabudnite","sk":"Nezabudnite si lieky.","en":"Don't forget your medication.","pic":"💊"},
+        {"id":"z4_zatvorte","sk":"Zatvorte oči.","en":"Close your eyes.","pic":"😌"},
+        {"id":"z4_dychajte","sk":"Dýchajte zhlboka.","en":"Breathe deeply.","pic":"🌬️"},
+        {"id":"z4_zavolajte","sk":"Zavolajte mi zajtra.","en":"Call me tomorrow.","pic":"📞"},
+        {"id":"z4_pridte","sk":"Príďte o týždeň.","en":"Come back in a week.","pic":"📅"},
+        {"id":"z4_napiste","sk":"Napíšte mi e-mail.","en":"Write me an email.","pic":"📧"},
+        {"id":"z4_sadnite","sk":"Sadnite si, kde chcete.","en":"Sit wherever you like.","pic":"🪑"}
       ]
     },
     {

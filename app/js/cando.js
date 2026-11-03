@@ -30,6 +30,11 @@ export const CAN_DO = [
   { text: 'I can talk about my work and my holidays', units: ['f3', 'f4'] },
   { text: 'I can say whether something is done or still going on', units: ['y1'] },
   { text: 'I can say who owns what, and point things out', units: ['y2', 'y3', 'y4'] },
+  { text: 'I can talk about my childhood', units: ['a1'] },
+  { text: 'I can invite someone, accept, or say no nicely', units: ['a3'] },
+  { text: 'I can say how much or how many', units: ['z1'] },
+  { text: 'I can tell a story in order: first, then, in the end', units: ['z2', 'z3'] },
+  { text: 'I can give a patient polite instructions', units: ['z4'] },
 ];
 
 // An item counts as retained once its memory is stable for about a week (FSRS stability ≥ 7 days).

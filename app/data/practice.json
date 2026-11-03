@@ -1187,6 +1187,214 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "l20",
+      "title": "Kde si vyrastala?",
+      "en": "Where did you grow up?",
+      "requires": [
+        "a1",
+        "z2"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Kde si vyrastala?",
+          "en": "Where did you grow up?"
+        },
+        {
+          "v": "B",
+          "sk": "V malom meste pri mori.",
+          "en": "In a small town by the sea."
+        },
+        {
+          "v": "A",
+          "sk": "A čo ste robili v lete?",
+          "en": "And what did you do in summer?"
+        },
+        {
+          "v": "B",
+          "sk": "Každé leto sme chodili k babke. Mala psa a veľkú záhradu.",
+          "en": "Every summer we used to go to granny's. She had a dog and a big garden."
+        },
+        {
+          "v": "A",
+          "sk": "To znie krásne.",
+          "en": "That sounds lovely."
+        },
+        {
+          "v": "B",
+          "sk": "Bolo to krásne. Rada na to spomínam.",
+          "en": "It was lovely. I have fond memories of it."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Where did she grow up?",
+          "options": [
+            "In a small town by the sea",
+            "In the mountains",
+            "In a big city"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Where did they go every summer?",
+          "options": [
+            "To granny's",
+            "To the lake",
+            "To a cottage"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What did granny have?",
+          "options": [
+            "A dog and a big garden",
+            "A cat and a horse",
+            "A house by the lake"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l21",
+      "title": "Pozvánka",
+      "en": "An invitation",
+      "requires": [
+        "a3"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Ahoj! V sobotu mám narodeniny. Pozývam ťa na oslavu.",
+          "en": "Hi! It's my birthday on Saturday. I'm inviting you to the party."
+        },
+        {
+          "v": "B",
+          "sk": "Ďakujem za pozvanie! O koľkej?",
+          "en": "Thanks for the invitation! What time?"
+        },
+        {
+          "v": "A",
+          "sk": "O siedmej, u nás doma.",
+          "en": "At seven, at our place."
+        },
+        {
+          "v": "B",
+          "sk": "Rada prídem. Mám niečo doniesť?",
+          "en": "I'd love to come. Should I bring something?"
+        },
+        {
+          "v": "A",
+          "sk": "Nič, len dobrú náladu.",
+          "en": "Nothing, just a good mood."
+        },
+        {
+          "v": "B",
+          "sk": "Dobre, tak v sobotu!",
+          "en": "Great, see you Saturday then!"
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is the party for?",
+          "options": [
+            "A birthday",
+            "A name day",
+            "A wedding"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "When and where?",
+          "options": [
+            "At seven, at their place",
+            "At six, in a restaurant",
+            "At eight, at a bar"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What should she bring?",
+          "options": [
+            "Nothing, just a good mood",
+            "Wine",
+            "A cake"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l22",
+      "title": "Nefunguje to",
+      "en": "It doesn't work",
+      "requires": [
+        "a4"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Jakub, nefunguje mi wifi.",
+          "en": "Jakub, my wifi isn't working."
+        },
+        {
+          "v": "B",
+          "sk": "Skús to reštartovať.",
+          "en": "Try restarting it."
+        },
+        {
+          "v": "A",
+          "sk": "Už som to skúsila. Stále nič.",
+          "en": "I've tried that already. Still nothing."
+        },
+        {
+          "v": "B",
+          "sk": "Počkaj, pozriem sa na to.",
+          "en": "Hang on, I'll have a look."
+        },
+        {
+          "v": "A",
+          "sk": "A aké je vlastne heslo?",
+          "en": "And what is the password, anyway?"
+        },
+        {
+          "v": "B",
+          "sk": "Heslo je na krabici pod televízorom.",
+          "en": "The password is on the box under the TV."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What isn't working?",
+          "options": [
+            "The wifi",
+            "Her phone",
+            "The computer"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What does he suggest first?",
+          "options": [
+            "Restarting it",
+            "Buying a new one",
+            "Calling someone"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Where is the password?",
+          "options": [
+            "On the box under the TV",
+            "In his phone",
+            "On the fridge"
+          ],
+          "answer": 0
+        }
+      ]
     }
   ],
   "prompts": [
@@ -1442,6 +1650,46 @@
       "en": "What will you get done tomorrow?",
       "sample": "Zajtra napíšem e-maily a cestou kúpim chlieb.",
       "sampleEn": "Tomorrow I'll write my emails and buy bread on the way."
+    },
+    {
+      "id": "sp26",
+      "requires": [
+        "a1"
+      ],
+      "q": "Kde si vyrastala?",
+      "en": "Where did you grow up?",
+      "sample": "Vyrastala som v malom meste. Každé leto sme chodili k moru.",
+      "sampleEn": "I grew up in a small town. Every summer we used to go to the sea."
+    },
+    {
+      "id": "sp27",
+      "requires": [
+        "z2"
+      ],
+      "q": "Čo si robila minulý víkend?",
+      "en": "What did you do last weekend?",
+      "sample": "Najprv som upratovala, potom sme išli na obed a večer sme pozerali film.",
+      "sampleEn": "First I tidied up, then we went for lunch, and in the evening we watched a film."
+    },
+    {
+      "id": "sp28",
+      "requires": [
+        "a3"
+      ],
+      "q": "Pozvi kamarátku na kávu.",
+      "en": "Invite a friend for a coffee.",
+      "sample": "Ahoj! Pozývam ťa na kávu. Hodí sa ti to v piatok?",
+      "sampleEn": "Hi! Let me take you for a coffee. Does Friday suit you?"
+    },
+    {
+      "id": "sp29",
+      "requires": [
+        "a2"
+      ],
+      "q": "Máš rada prírodu?",
+      "en": "Do you like nature?",
+      "sample": "Áno, rada chodím do lesa a k jazeru.",
+      "sampleEn": "Yes, I like going to the forest and to the lake."
     }
   ]
 }
