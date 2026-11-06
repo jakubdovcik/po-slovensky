@@ -1395,6 +1395,215 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "l23",
+      "title": "V lekárni",
+      "en": "At the pharmacy",
+      "requires": [
+        "b3"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Dobrý deň, máte niečo na kašeľ?",
+          "en": "Hello, do you have something for a cough?"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, tento sirup je bez receptu.",
+          "en": "Yes, this syrup doesn't need a prescription."
+        },
+        {
+          "v": "A",
+          "sk": "Ako často ho mám užívať?",
+          "en": "How often should I take it?"
+        },
+        {
+          "v": "B",
+          "sk": "Trikrát denne po jedle. Ste alergická na niečo?",
+          "en": "Three times a day after meals. Are you allergic to anything?"
+        },
+        {
+          "v": "A",
+          "sk": "Nie, nie som.",
+          "en": "No, I'm not."
+        },
+        {
+          "v": "B",
+          "sk": "Tak nech sa páči. Rýchlo sa uzdravte!",
+          "en": "Here you are, then. Get well soon!"
+        }
+      ],
+      "questions": [
+        {
+          "q": "What does she need?",
+          "options": [
+            "Something for a cough",
+            "Plasters",
+            "A thermometer"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How often should she take it?",
+          "options": [
+            "Three times a day after meals",
+            "Once a day",
+            "Twice a day before meals"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "Is she allergic to anything?",
+          "options": [
+            "No",
+            "Yes, to penicillin",
+            "She doesn't know"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l24",
+      "title": "Zápas",
+      "en": "The match",
+      "requires": [
+        "b4",
+        "b5"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Pozeráš hokej? Aký je stav?",
+          "en": "Are you watching the hockey? What's the score?"
+        },
+        {
+          "v": "B",
+          "sk": "Dva jedna pre nás!",
+          "en": "Two-one to us!"
+        },
+        {
+          "v": "A",
+          "sk": "Vážne? To je super!",
+          "en": "Seriously? That's great!"
+        },
+        {
+          "v": "B",
+          "sk": "Ešte desať minút. Držím palce.",
+          "en": "Ten more minutes. Fingers crossed."
+        },
+        {
+          "v": "A",
+          "sk": "Koniec! Vyhrali sme!",
+          "en": "It's over! We won!"
+        },
+        {
+          "v": "B",
+          "sk": "No vidíš!",
+          "en": "There you go!"
+        }
+      ],
+      "questions": [
+        {
+          "q": "What are they watching?",
+          "options": [
+            "Ice hockey",
+            "Football",
+            "Tennis"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What is the score?",
+          "options": [
+            "Two-one to their team",
+            "One-one",
+            "Two-one to the other team"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How does it end?",
+          "options": [
+            "They win",
+            "They lose",
+            "A draw"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l25",
+      "title": "Dobrá rada",
+      "en": "Good advice",
+      "requires": [
+        "w1",
+        "w4"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Vyzeráš unavená.",
+          "en": "You look tired."
+        },
+        {
+          "v": "B",
+          "sk": "Pracujem už dva týždne bez voľna.",
+          "en": "I've been working for two weeks without a day off."
+        },
+        {
+          "v": "A",
+          "sk": "Mala by si viac spať. A cez víkend radšej zostaň doma.",
+          "en": "You should sleep more. And at the weekend, better stay at home."
+        },
+        {
+          "v": "B",
+          "sk": "Asi máš pravdu.",
+          "en": "You're probably right."
+        },
+        {
+          "v": "A",
+          "sk": "A treba piť veľa vody!",
+          "en": "And you need to drink plenty of water!"
+        },
+        {
+          "v": "B",
+          "sk": "Áno, pani doktorka.",
+          "en": "Yes, doctor."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Why is she tired?",
+          "options": [
+            "Two weeks of work without a day off",
+            "She was ill",
+            "She was travelling"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What is the advice for the weekend?",
+          "options": [
+            "Stay at home",
+            "Go to the mountains",
+            "Go to the doctor"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "How does she answer at the end?",
+          "options": [
+            "Jokingly: \"Yes, doctor\"",
+            "Angrily",
+            "She disagrees"
+          ],
+          "answer": 0
+        }
+      ]
     }
   ],
   "prompts": [
@@ -1690,6 +1899,46 @@
       "en": "Do you like nature?",
       "sample": "Áno, rada chodím do lesa a k jazeru.",
       "sampleEn": "Yes, I like going to the forest and to the lake."
+    },
+    {
+      "id": "sp30",
+      "requires": [
+        "b2"
+      ],
+      "q": "Čo robíš v práci?",
+      "en": "What do you do at work?",
+      "sample": "Som psychiatrička. Rozprávam sa s pacientmi a učím študentov.",
+      "sampleEn": "I'm a psychiatrist. I talk with patients and teach students."
+    },
+    {
+      "id": "sp31",
+      "requires": [
+        "b1"
+      ],
+      "q": "Akými jazykmi hovoríš?",
+      "en": "Which languages do you speak?",
+      "sample": "Hovorím po anglicky a po francúzsky a učím sa po slovensky.",
+      "sampleEn": "I speak English and French, and I'm learning Slovak."
+    },
+    {
+      "id": "sp32",
+      "requires": [
+        "w4"
+      ],
+      "q": "Kamarátka je stále unavená. Čo jej poradíš?",
+      "en": "Your friend is always tired. What do you advise her?",
+      "sample": "Mala by si viac spať a radšej menej pracovať.",
+      "sampleEn": "You should sleep more, and better work less."
+    },
+    {
+      "id": "sp33",
+      "requires": [
+        "w1"
+      ],
+      "q": "Ako dlho sa učíš po slovensky?",
+      "en": "How long have you been learning Slovak?",
+      "sample": "Učím sa po slovensky už pár mesiacov.",
+      "sampleEn": "I've been learning Slovak for a few months now."
     }
   ]
 }
