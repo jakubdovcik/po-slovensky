@@ -1604,6 +1604,145 @@
           "answer": 0
         }
       ]
+    },
+    {
+      "id": "l26",
+      "title": "Reklamácia",
+      "en": "Returning something",
+      "requires": [
+        "n3"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Dobrý deň, chcela by som to vrátiť.",
+          "en": "Hello, I'd like to return this."
+        },
+        {
+          "v": "B",
+          "sk": "Čo sa stalo?",
+          "en": "What happened?"
+        },
+        {
+          "v": "A",
+          "sk": "Po týždni to prestalo fungovať.",
+          "en": "It stopped working after a week."
+        },
+        {
+          "v": "B",
+          "sk": "Máte pokladničný blok?",
+          "en": "Do you have the receipt?"
+        },
+        {
+          "v": "A",
+          "sk": "Áno, tu je. Môžete mi to vymeniť?",
+          "en": "Yes, here it is. Can you exchange it for me?"
+        },
+        {
+          "v": "B",
+          "sk": "Samozrejme. Ospravedlňujeme sa.",
+          "en": "Of course. We apologise."
+        }
+      ],
+      "questions": [
+        {
+          "q": "What is the problem?",
+          "options": [
+            "It stopped working after a week",
+            "It's the wrong size",
+            "It was too expensive"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What does the shop ask for?",
+          "options": [
+            "The receipt",
+            "Her ID",
+            "Her phone number"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What happens in the end?",
+          "options": [
+            "They exchange it",
+            "She gets her money back",
+            "Nothing"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "l27",
+      "title": "Odkaz od Niny",
+      "en": "A message from Nina",
+      "requires": [
+        "v1",
+        "v2"
+      ],
+      "lines": [
+        {
+          "v": "A",
+          "sk": "Volala Nina. Povedala, že príde neskôr.",
+          "en": "Nina called. She said she'd come later."
+        },
+        {
+          "v": "B",
+          "sk": "Prečo?",
+          "en": "Why?"
+        },
+        {
+          "v": "A",
+          "sk": "Vraj má ešte skúšku. Pýtala sa, či na ňu počkáme s večerou.",
+          "en": "Apparently she still has an exam. She asked whether we'd wait for her with dinner."
+        },
+        {
+          "v": "B",
+          "sk": "Keby som to vedela, varila by som neskôr.",
+          "en": "If I'd known, I'd have cooked later."
+        },
+        {
+          "v": "A",
+          "sk": "Povedala, aby sme nečakali, ak bude hlad.",
+          "en": "She said we shouldn't wait if we get hungry."
+        },
+        {
+          "v": "B",
+          "sk": "Tak jej odlož tanier.",
+          "en": "Then put a plate aside for her."
+        }
+      ],
+      "questions": [
+        {
+          "q": "Why is Nina late?",
+          "options": [
+            "She has an exam",
+            "She missed the bus",
+            "She's at work"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What did Nina ask?",
+          "options": [
+            "Whether they'd wait with dinner",
+            "Whether to bring wine",
+            "Where they live"
+          ],
+          "answer": 0
+        },
+        {
+          "q": "What do they decide?",
+          "options": [
+            "To put a plate aside for her",
+            "To wait",
+            "To go out"
+          ],
+          "answer": 0
+        }
+      ]
     }
   ],
   "prompts": [
@@ -1939,6 +2078,36 @@
       "en": "How long have you been learning Slovak?",
       "sample": "Učím sa po slovensky už pár mesiacov.",
       "sampleEn": "I've been learning Slovak for a few months now."
+    },
+    {
+      "id": "sp34",
+      "requires": [
+        "n1"
+      ],
+      "q": "Na čo si hrdá?",
+      "en": "What are you proud of?",
+      "sample": "Som hrdá na to, že sa učím po slovensky.",
+      "sampleEn": "I'm proud that I'm learning Slovak."
+    },
+    {
+      "id": "sp35",
+      "requires": [
+        "v1"
+      ],
+      "q": "Čo by si robila, keby si mala celý týždeň voľno?",
+      "en": "What would you do with a whole week off?",
+      "sample": "Keby som mala celý týždeň voľno, išla by som do hôr a veľa by som čítala.",
+      "sampleEn": "If I had a whole week off, I'd go to the mountains and read a lot."
+    },
+    {
+      "id": "sp36",
+      "requires": [
+        "v4"
+      ],
+      "q": "Čo sa u vás je na Vianoce?",
+      "en": "What do people eat at Christmas where you're from?",
+      "sample": "U nás sa na Vianoce je morka a koláče.",
+      "sampleEn": "At home we eat turkey and pies at Christmas."
     }
   ]
 }

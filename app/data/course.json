@@ -23,6 +23,8 @@
     {"id":"grammar5","title":"Gramatika 5 · Telling it well","subtitle":"How much, first and then, nobody and never, polite requests"},
     {"id":"world","title":"Svet okolo nás · People & the world","subtitle":"Countries, jobs, the pharmacy, reactions, sport"},
     {"id":"grammar6","title":"Gramatika 6 · The A2 finish","subtitle":"When, how, which way, and what you should do"},
+    {"id":"b1road","title":"Na ceste k B1 · Toward B1","subtitle":"Feelings, the news, complaints, the environment"},
+    {"id":"grammar7","title":"Gramatika 7 · Linking ideas","subtitle":"If, said that, which one, it is done"},
     {"id":"culture","title":"Kultúra · Slovak culture","subtitle":"Food, folk traditions, places, Slovakia today"},
     {"id":"history","title":"História · Slovak history","subtitle":"From Great Moravia to independence"}
   ],
@@ -1988,6 +1990,175 @@
         {"id":"w4_bat","sk":"Netreba sa báť.","en":"There's no need to be afraid.","pic":"🤗"},
         {"id":"w4_hned","sk":"Nemusíš to robiť hneď.","en":"You don't have to do it right away.","pic":"🕊️"},
         {"id":"w4_ak","sk":"Ak chceš, pomôžem ti.","en":"If you like, I'll help you.","pic":"🙌"}
+      ]
+    },
+    {
+      "id": "n1",
+      "stage": "b1road",
+      "title": "Pocity · Feelings in depth",
+      "intro": "Beyond happy and sad: proud, relieved, disappointed, annoyed. B1 means you can say how something made you feel, and why.",
+      "logic": "Many feelings are adjectives that change with the speaker: <i>som hrdá / hrdý</i>, <i>som sklamaná / sklamaný</i>. The cause comes with <i>na</i> (proud of, angry at) or <i>z</i> (disappointed by, happy about): <i>Som hrdá <b>na</b> teba. Som sklamaná <b>z</b> toho.</i>",
+      "fr": "<i>Som hrdá na teba</i> = <i>je suis fière de toi</i>; <i>uľavilo sa mi</i> = <i>ça m'a soulagée</i>, with the same \"to me\" shape.",
+      "items": [
+        {"id":"n1_hrda","sk":"Som na teba hrdá.","en":"I'm proud of you. (she says)","pic":"🥹"},
+        {"id":"n1_sklamana","sk":"Som z toho sklamaná.","en":"I'm disappointed by it. (she says)","pic":"😞"},
+        {"id":"n1_nahnevana","sk":"Nehnevaj sa na mňa.","en":"Don't be angry with me.","pic":"😠"},
+        {"id":"n1_ulavilo","sk":"Uľavilo sa mi.","en":"What a relief. / I feel relieved.","pic":"😮‍💨"},
+        {"id":"n1_nervozna","sk":"Som z toho nervózna.","en":"It makes me nervous. (she says)","pic":"😬"},
+        {"id":"n1_stve","sk":"Štve ma to.","en":"It annoys me.","pic":"😤","note":"Like <i>baví ma to</i>: the thing is the subject, you're the object."},
+        {"id":"n1_chyba","sk":"Chýba mi domov.","en":"I miss home.","pic":"🏠","note":"Literally \"home is missing to me\"."},
+        {"id":"n1_bojim","sk":"Bojím sa, že to nestihneme.","en":"I'm afraid we won't make it.","pic":"⏰"},
+        {"id":"n1_tesim","sk":"Veľmi sa teším, že ste tu.","en":"I'm so glad you're here.","pic":"🤗"},
+        {"id":"n1_hanbim","sk":"Hanbím sa.","en":"I'm embarrassed.","pic":"🙈"},
+        {"id":"n1_prekvapena","sk":"Bola som prekvapená.","en":"I was surprised. (she says)","pic":"😲"},
+        {"id":"n1_dojata","sk":"Bola som dojatá.","en":"I was moved (to tears). (she says)","pic":"🥲"}
+      ]
+    },
+    {
+      "id": "n2",
+      "stage": "b1road",
+      "title": "Správy · The news",
+      "intro": "What's in the news, who's in government, and how to talk about it without starting a family fight at Sunday lunch.",
+      "logic": "News talk loves <i>vraj</i>, \"supposedly, they say\": <i>Vraj bude štrajk</i>, \"apparently there'll be a strike\". One small word, and you're no longer claiming it yourself.",
+      "fr": "<i>vraj</i> does the job of the French conditional of hearsay: <i>il y aurait une grève</i>. <i>Voľby</i> = <i>les élections</i>, <i>vláda</i> = <i>le gouvernement</i>.",
+      "items": [
+        {"id":"n2_spravy","sk":"správy","en":"the news","pic":"📰"},
+        {"id":"n2_vlada","sk":"vláda","en":"government","g":"f","pic":"🏛️"},
+        {"id":"n2_volby","sk":"voľby","en":"elections","pic":"🗳️"},
+        {"id":"n2_strajk","sk":"štrajk","en":"strike","g":"m","pic":"🪧"},
+        {"id":"n2_pocula","sk":"Počula si, čo sa stalo?","en":"Did you hear what happened? (to a woman)","pic":"👂"},
+        {"id":"n2_citala","sk":"Čítala som to na internete.","en":"I read it online. (she says)","pic":"💻"},
+        {"id":"n2_vraj","sk":"Vraj bude štrajk.","en":"Apparently there'll be a strike.","pic":"🤷"},
+        {"id":"n2_ceny","sk":"Ceny stále stúpajú.","en":"Prices keep going up.","pic":"📈"},
+        {"id":"n2_politika","sk":"O politike sa radšej nebavme.","en":"Let's not talk about politics.","pic":"🙊"},
+        {"id":"n2_pravda","sk":"Neviem, či je to pravda.","en":"I don't know whether it's true.","pic":"❓"},
+        {"id":"n2_volit","sk":"Pôjdeš voliť?","en":"Are you going to vote?","pic":"🗳️"},
+        {"id":"n2_zaujima","sk":"Zaujíma ma, čo si o tom myslíš.","en":"I'm interested in what you think about it.","pic":"💭"}
+      ]
+    },
+    {
+      "id": "n3",
+      "stage": "b1road",
+      "title": "Sťažnosti · Problems & complaints",
+      "intro": "Returning things, complaining politely, and getting a problem fixed. Slovaks call returning faulty goods a <i>reklamácia</i>.",
+      "logic": "Polite but firm: <i>Chcela by som…</i> (I would like) + a reason with <i>pretože</i>. The conditional softens the demand without weakening it.",
+      "fr": "<i>reklamácia</i> = <i>une réclamation</i>, and <i>Chcela by som to vrátiť</i> = <i>Je voudrais le rendre</i>.",
+      "items": [
+        {"id":"n3_reklamacia","sk":"reklamácia","en":"complaint / return of faulty goods","g":"f","pic":"🧾"},
+        {"id":"n3_blok","sk":"pokladničný blok","en":"receipt","pic":"🧾"},
+        {"id":"n3_vratit","sk":"Chcela by som to vrátiť.","en":"I'd like to return this. (she says)","pic":"↩️"},
+        {"id":"n3_pokazene","sk":"Je to pokazené.","en":"It's broken.","pic":"💔"},
+        {"id":"n3_nefunguje","sk":"Po týždni to prestalo fungovať.","en":"It stopped working after a week.","pic":"📉"},
+        {"id":"n3_vymenit","sk":"Môžete mi to vymeniť?","en":"Can you exchange it for me?","pic":"🔄"},
+        {"id":"n3_peniaze","sk":"Chcem späť peniaze.","en":"I want my money back.","pic":"💶"},
+        {"id":"n3_veduci","sk":"Môžem hovoriť s vedúcim?","en":"Can I speak to the manager?","pic":"🧑‍💼"},
+        {"id":"n3_cakam","sk":"Čakám už pol hodiny.","en":"I've been waiting for half an hour.","pic":"⏳"},
+        {"id":"n3_omyl","sk":"To musí byť omyl.","en":"There must be some mistake.","pic":"🤔"},
+        {"id":"n3_ospravedlnenie","sk":"Ospravedlňujeme sa.","en":"We apologise. (formal)","pic":"🙇"},
+        {"id":"n3_vybavene","sk":"Je to vybavené.","en":"It's sorted.","pic":"✅"}
+      ]
+    },
+    {
+      "id": "n4",
+      "stage": "b1road",
+      "title": "Príroda v ohrození · The environment",
+      "intro": "Sorting rubbish is taken seriously in Slovakia: yellow bins for plastic, blue for paper, green for glass.",
+      "logic": "Rules with <i>treba</i> and <i>sa</i>: <i>Plasty <b>sa</b> hádžu do žltého kontajnera</i>, \"plastic goes in the yellow bin\", literally \"plastics throw themselves\". Slovak often says how things are done without saying who does them.",
+      "fr": "That <i>sa</i> is the French <i>se</i> in <i>ça se jette</i>, <i>ça se recycle</i>.",
+      "items": [
+        {"id":"n4_odpad","sk":"odpad","en":"waste / rubbish","g":"m","pic":"🗑️"},
+        {"id":"n4_plasty","sk":"plasty","en":"plastics","pic":"🧴"},
+        {"id":"n4_sklo","sk":"sklo","en":"glass","g":"n","pic":"🍾"},
+        {"id":"n4_papier","sk":"papier","en":"paper","g":"m","pic":"📄"},
+        {"id":"n4_triedime","sk":"Triedime odpad.","en":"We sort our rubbish.","pic":"♻️"},
+        {"id":"n4_zlty","sk":"Plasty sa hádžu do žltého kontajnera.","en":"Plastic goes in the yellow bin.","pic":"🟨"},
+        {"id":"n4_klima","sk":"Klíma sa mení.","en":"The climate is changing.","pic":"🌍"},
+        {"id":"n4_teplo","sk":"Leta sú čoraz teplejšie.","en":"Summers are getting hotter and hotter.","pic":"🥵"},
+        {"id":"n4_sucho","sk":"Dlho nepršalo, je sucho.","en":"It hasn't rained for a long time; there's a drought.","pic":"🏜️"},
+        {"id":"n4_setrit","sk":"Snažím sa šetriť vodou.","en":"I try to save water.","pic":"🚰"},
+        {"id":"n4_autom","sk":"Do mesta nechodím autom.","en":"I don't drive into town.","pic":"🚲"},
+        {"id":"n4_taska","sk":"Nosím si vlastnú tašku.","en":"I bring my own bag.","pic":"👜"}
+      ]
+    },
+    {
+      "id": "v1",
+      "stage": "grammar7",
+      "title": "Keby · If only",
+      "intro": "Imagining: if I had time, if you were here, if it hadn't rained.",
+      "logic": "<i>Keby</i> + past form, then <i>by</i> + past form: <i><b>Keby</b> som mala čas, <b>išla by</b> som.</i> \"If I had time, I'd go.\" The person ending sticks to <i>keby</i>: <i>keby som, keby si, keby sme</i>. Real conditions (likely to happen) use <i>ak</i> + future: <i>Ak bude pršať, zostaneme doma.</i>",
+      "fr": "<i>Keby som mala čas, išla by som</i> = <i>si j'avais le temps, j'irais</i>. And <i>ak</i> = the plain <i>si</i> with the present or future.",
+      "items": [
+        {"id":"v1_vyhrala","sk":"Keby som vyhrala v lotérii, kúpila by som chatu.","en":"If I won the lottery, I'd buy a cottage. (she says)","pic":"🎰"},
+        {"id":"v1_tu","sk":"Keby si bol tu, bolo by to krajšie.","en":"If you were here, it would be nicer. (to a man)","pic":"💞"},
+        {"id":"v1_vedela","sk":"Keby som to vedela, prišla by som skôr.","en":"If I'd known, I'd have come earlier. (she says)","pic":"⏰"},
+        {"id":"v1_pomohol","sk":"Keby si mi pomohol, bolo by to rýchlejšie.","en":"If you helped me, it'd be quicker. (to a man)","pic":"🙌"},
+        {"id":"v1_neprsalo","sk":"Keby nepršalo, išli by sme von.","en":"If it weren't raining, we'd go out.","pic":"🌧️","blank":"Keby","choices":["Keby","Ak","Že"]},
+        {"id":"v1_byt","sk":"Keby som bola tebou, zavolala by som mu.","en":"If I were you, I'd call him. (she says)","pic":"📞"},
+        {"id":"v1_ak","sk":"Ak bude pršať, zostaneme doma.","en":"If it rains, we'll stay at home.","pic":"🏠","blank":"Ak","choices":["Ak","Keby"]},
+        {"id":"v1_ak2","sk":"Ak budeš mať čas, zavolaj mi.","en":"If you have time, call me.","pic":"📱"},
+        {"id":"v1_aspon","sk":"Keby aspoň nebolo tak teplo!","en":"If only it weren't so hot!","pic":"🥵"},
+        {"id":"v1_rada","sk":"Rada by som sa naučila po slovensky lepšie.","en":"I'd love to learn Slovak better. (she says)","pic":"📚"}
+      ]
+    },
+    {
+      "id": "v2",
+      "stage": "grammar7",
+      "title": "Povedala, že… · Reported speech",
+      "intro": "Passing on what someone said, asked, or wanted.",
+      "logic": "Slovak keeps the original tense: <i>\"Prídem.\" → Povedala, že <b>príde</b>.</i> (English shifts to \"would come\"; Slovak doesn't.) Questions: <i>či</i> for yes/no (<i>Pýtal sa, či prídeš</i>), the question word otherwise (<i>Pýtal sa, kedy prídeš</i>). Requests: <i>aby</i> + past form: <i>Povedala, aby si zavolal.</i>",
+      "fr": "Like French <i>elle a dit qu'elle viendra</i> without the shift. <i>či</i> = <i>si</i> (whether), <i>aby</i> = <i>que</i> + subjunctive: <i>elle a dit que tu appelles</i>.",
+      "items": [
+        {"id":"v2_pride","sk":"Povedala, že príde neskôr.","en":"She said she'd come later.","pic":"🗣️"},
+        {"id":"v2_nevie","sk":"Povedal, že nič nevie.","en":"He said he didn't know anything.","pic":"🤷‍♂️"},
+        {"id":"v2_ci","sk":"Pýtal sa, či prídeš.","en":"He asked whether you're coming.","pic":"❓","blank":"či","choices":["či","že","aby"]},
+        {"id":"v2_kedy","sk":"Pýtala sa, kedy sa vrátime.","en":"She asked when we'd be back.","pic":"🕰️"},
+        {"id":"v2_aby","sk":"Mama povedala, aby si jej zavolal.","en":"Mom said you should call her. (to a man)","pic":"📞","blank":"aby","choices":["aby","že","či"]},
+        {"id":"v2_pozdravuje","sk":"Babka ťa pozdravuje.","en":"Granny says hi.","pic":"👵"},
+        {"id":"v2_odkazuje","sk":"Nina odkazuje, že mešká.","en":"Nina sends word that she's running late.","pic":"✉️"},
+        {"id":"v2_tvrdi","sk":"Tvrdí, že to nebola jeho chyba.","en":"He claims it wasn't his fault.","pic":"🙄"},
+        {"id":"v2_spytaj","sk":"Spýtaj sa ho, či chce kávu.","en":"Ask him if he wants coffee.","pic":"☕"},
+        {"id":"v2_povedz","sk":"Povedz jej, že ju pozdravujem.","en":"Tell her I say hi.","pic":"👋"}
+      ]
+    },
+    {
+      "id": "v3",
+      "stage": "grammar7",
+      "title": "O ktorom · Which one, in every case",
+      "intro": "<i>ktorý</i> changes its ending to fit its role in the second half of the sentence: the man <i>about whom</i>, the woman <i>with whom</i>.",
+      "logic": "<i>ktorý</i> takes the gender of the noun it points back to, but its case comes from its own clause: <i>žena, <b>s ktorou</b> pracujem</i> (with = instrumental), <i>film, <b>o ktorom</b> som ti hovorila</i> (about = locative), <i>muž, <b>ktorého</b> som videla</i> (the one I saw = accusative).",
+      "fr": "Exactly <i>lequel / laquelle</i> after prepositions: <i>s ktorou</i> = <i>avec laquelle</i>, <i>o ktorom</i> = <i>dont / duquel</i>.",
+      "items": [
+        {"id":"v3_ktorom","sk":"To je ten film, o ktorom som ti hovorila.","en":"That's the film I told you about. (she says)","pic":"🎬"},
+        {"id":"v3_ktorou","sk":"To je kolegyňa, s ktorou pracujem.","en":"That's the colleague I work with.","pic":"👩‍⚕️","blank":"ktorou","choices":["ktorá","ktorú","ktorou"]},
+        {"id":"v3_ktoreho","sk":"To je ten muž, ktorého som videla.","en":"That's the man I saw. (she says)","pic":"👀"},
+        {"id":"v3_ktoru","sk":"Kniha, ktorú čítam, je veľmi dobrá.","en":"The book I'm reading is very good.","pic":"📖","blank":"ktorú","choices":["ktorá","ktorú","ktorou"]},
+        {"id":"v3_ktorej","sk":"Žena, ktorej som pomohla, mi poďakovala.","en":"The woman I helped thanked me. (she says)","pic":"🙏"},
+        {"id":"v3_ktorych","sk":"Ľudia, ktorých poznám, sú milí.","en":"The people I know are nice.","pic":"👥"},
+        {"id":"v3_kde","sk":"Mesto, kde som vyrastala, je pri mori.","en":"The town where I grew up is by the sea. (she says)","pic":"🌊"},
+        {"id":"v3_kvoli","sk":"To je dôvod, kvôli ktorému som prišla.","en":"That's the reason I came. (she says)","pic":"💡"},
+        {"id":"v3_niekto","sk":"Hľadám niekoho, kto hovorí po anglicky.","en":"I'm looking for someone who speaks English.","pic":"🔎"},
+        {"id":"v3_vsetci","sk":"Všetci, ktorí prišli, dostali koláč.","en":"Everyone who came got cake.","pic":"🍰"}
+      ]
+    },
+    {
+      "id": "v4",
+      "stage": "grammar7",
+      "title": "Tu sa nefajčí · How things are done",
+      "intro": "Rules, customs and instructions, without saying who does them.",
+      "logic": "Verb + <i>sa</i>, no person: <i>Tu sa nefajčí</i>, \"there's no smoking here\". <i>Ako sa to robí?</i> \"how is it done?\". <i>Na Slovensku sa jedia halušky</i>, \"in Slovakia people eat halušky\". The verb agrees with the thing: <i>predáva sa dom, predávajú sa domy</i>.",
+      "fr": "The French <i>on</i> or reflexive passive: <i>ici on ne fume pas</i>, <i>ça se mange</i>, <i>ça se dit</i>.",
+      "items": [
+        {"id":"v4_nefajci","sk":"Tu sa nefajčí.","en":"No smoking here.","pic":"🚭"},
+        {"id":"v4_robi","sk":"Ako sa to robí?","en":"How is it done?","pic":"🛠️"},
+        {"id":"v4_povie","sk":"Ako sa to volá po slovensky?","en":"What is this called in Slovak?","pic":"🥄"},
+        {"id":"v4_pise","sk":"Píše sa to s ypsilonom.","en":"It's spelled with a y.","pic":"✍️"},
+        {"id":"v4_halusky","sk":"Na Slovensku sa jedia halušky.","en":"In Slovakia people eat halušky.","pic":"🥟"},
+        {"id":"v4_predava","sk":"Predáva sa dom.","en":"House for sale.","pic":"🏡","blank":"Predáva","choices":["Predáva","Predávajú"]},
+        {"id":"v4_hovori","sk":"Hovorí sa tomu bryndza.","en":"It's called bryndza.","pic":"🧀"},
+        {"id":"v4_neda","sk":"To sa nedá.","en":"It can't be done.","pic":"🚫"},
+        {"id":"v4_da","sk":"Dá sa tam ísť pešo?","en":"Can you get there on foot?","pic":"🚶"},
+        {"id":"v4_nesmie","sk":"Tu sa nesmie parkovať.","en":"No parking here.","pic":"🅿️"},
+        {"id":"v4_zvykom","sk":"Na Vianoce sa u nás je kapor.","en":"At Christmas we eat carp.","pic":"🐟"}
       ]
     },
     {
